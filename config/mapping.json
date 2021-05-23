@@ -1,0 +1,129 @@
+{
+  "components": {
+    "Button": {
+      "meta": {},
+      "appearances": {
+        "outline": {
+          "mapping": {},
+          "variantGroups": {
+            "status": {
+              "primary": {
+                "backgroundColor": "white",
+                "textColor": "#AFB8BF",
+                "borderColor": "#E1E6EA",
+                "state": {
+                  "active": {
+                    "backgroundColor": "#FAFAFA",
+                    "borderColor": "#E1E6EA",
+                    "textColor": "#AFB8BF"
+                  }
+                }
+              },
+              "control": {
+                "backgroundColor": "#fff",
+                "textColor": "#838C97",
+                "borderColor": "transparent"
+              }
+            }
+          }
+        }
+      }
+    },
+    "Text": {
+      "meta": {},
+      "appearances": {
+        "default": {
+          "mapping": {},
+          "variantGroups": {
+            "category": {
+              "h1": {
+                "color": "#000"
+              },
+              "h2": {
+                "color": "#000"
+              },
+              "h3": {
+                "color": "#000"
+              },
+              "s2": {
+                "color": "#838C97"
+              },
+              "p1": {
+                "color": "#000"
+              },
+              "label": {
+                "color": "#AFB8BF"
+              },
+              "c1": {
+                "color": "#AFB8BF"
+              }
+            }
+          }
+        }
+      }
+    },
+    "Input": {
+      "meta": {},
+      "appearances": {
+        "default": {
+          "mapping": {},
+          "variantGroups": {
+            "status": {
+              "basic": {
+                "backgroundColor": "#FFF",
+                "borderColor": "#E1E6EA"
+              }
+            }
+          }
+        }
+      }
+    },
+    "Select": {
+      "meta": {},
+      "appearances": {
+        "default": {
+          "mapping": {},
+          "variantGroups": {
+            "status": {
+              "basic": {
+                "backgroundColor": "#FFF",
+                "borderColor": "#E1E6EA"
+              }
+            }
+          }
+        }
+      }
+    },
+    "CheckBox": {
+      "meta": {},
+      "appearances": {
+        "default": {
+          "mapping": {},
+          "variantGroups": {
+            "status": {
+              "basic": {
+                "backgroundColor": "#FFF",
+                "borderColor": "#E1E6EA"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "strict": {
+    "text-heading-1-font-size": 22,
+    "text-heading-1-font-weight": "600",
+    "text-heading-3-font-size": 18,
+    "text-heading-3-font-weight": "500",
+    "text-subtitle-2-font-size": 18,
+    "text-subtitle-2-font-weight": "400",
+    "text-paragraph-1-font-size": 16,
+    "text-caption-1-font-size": 14,
+    "text-caption-1-font-weight": "500",
+    "text-caption-2-font-size": 14,
+    "text-caption-2-font-weight": "400",
+    "text-label-font-size": 14,
+    "text-label-font-weight": "700"
+  }
+}
