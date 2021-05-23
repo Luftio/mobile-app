@@ -37,7 +37,7 @@ const SettingsScreen: React.FC = () => {
         ref={refRBSheet}
         closeOnDragDown={true}
         openDuration={250}
-        height={275}
+        height={300}
         customStyles={{
           wrapper: {
             backgroundColor: "rgba(0, 0, 0, 0.3);",

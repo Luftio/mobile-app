@@ -78,7 +78,9 @@ const Achievement: React.FC<AchievementProps> = ({
                 style={{ color: iconColor, width: 28, height: 28 }}
               />
             </View>
-            <Text category="p2" style={{ fontSize: 14, fontWeight: "400" }}>
+            <Text
+              category="p2"
+              style={{ fontSize: 14, fontWeight: "400", textAlign: "center" }}>
               {name}
             </Text>
           </View>

@@ -32,7 +32,7 @@ const FeedbackSuccessScreen: React.FC = () => {
             <Image
               style={{
                 width: 310,
-                height: 302,
+                height: 320,
                 marginTop: 40,
                 marginBottom: 25,
               }}

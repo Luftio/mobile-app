@@ -46,7 +46,7 @@ const SignpostScreen: React.FC = () => {
           size="large"
           style={{ marginBottom: 10 }}
           onPress={() => navigation.navigate("SignIn")}>
-          {i18n.t("sign_in")}
+          Hello
         </Button>
         <Button
           size="large"
