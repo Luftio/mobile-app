@@ -8,6 +8,7 @@ import { RootStackParamList } from "./RootStackParams";
 import { Text, Button } from "@ui-kitten/components";
 
 import LayoutSafeArea from "../components/layouts/LayoutSafeArea";
+import Logo from "../components/svg/Logo";
 
 import i18n from "../i18n";
 
@@ -19,10 +20,7 @@ const SignpostScreen: React.FC = () => {
   return (
     <LayoutSafeArea>
       <View style={{ flex: 1, padding: 24 }}>
-        <Image
-          style={{ width: 163, height: 57 }}
-          source={require("../../assets/main-logo.png")}
-        />
+        <Logo />
         <View style={{ paddingTop: 40, paddingBottom: 40 }}>
           <Text
             category="h2"

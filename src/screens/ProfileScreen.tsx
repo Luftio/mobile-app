@@ -1,6 +1,10 @@
 import React from "react";
 import { View } from "react-native";
 
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "./RootStackParams";
+
 import { Text, Icon } from "@ui-kitten/components";
 
 import LayoutSafeArea from "../components/layouts/LayoutSafeArea";
@@ -8,7 +12,11 @@ import ProfileRow from "../components/modules/ProfileRow";
 
 import i18n from "../i18n";
 
+type ProfileScreenProp = StackNavigationProp<RootStackParamList, "Profile">;
+
 const ProfileScreen: React.FC = () => {
+  const navigation = useNavigation<ProfileScreenProp>();
+
   return (
     <>
       <LayoutSafeArea main>
@@ -33,14 +41,35 @@ const ProfileScreen: React.FC = () => {
               style={{ color: "#F36A66", width: 26, height: 26 }}
             />
           </View>
-          <ProfileRow iconName="user-check" text={i18n.t("profile_account")} />
-          <ProfileRow iconName="cpu" text={i18n.t("profile_devices")} />
-          <ProfileRow iconName="moon" text={i18n.t("profile_night_mode")} />
-          <ProfileRow iconName="settings" text={i18n.t("profile_settings")} />
-          <ProfileRow iconName="info" text={i18n.t("profile_info")} />
+          <ProfileRow
+            iconName="user-check"
+            text={i18n.t("profile_account")}
+            onPress={() => navigation.navigate("AccountEdit")}
+          />
+          <ProfileRow
+            iconName="cpu"
+            text={i18n.t("profile_devices")}
+            onPress={() => navigation.navigate("MyDevices")}
+          />
+          <ProfileRow
+            iconName="moon"
+            text={i18n.t("profile_night_mode")}
+            onPress={() => navigation.navigate("NightMode")}
+          />
+          <ProfileRow
+            iconName="settings"
+            text={i18n.t("profile_settings")}
+            onPress={() => navigation.navigate("Settings")}
+          />
+          <ProfileRow
+            iconName="info"
+            text={i18n.t("profile_info")}
+            onPress={() => navigation.navigate("Informations")}
+          />
           <ProfileRow
             iconName="alert-triangle"
             text={i18n.t("profile_problem")}
+            onPress={() => navigation.navigate("ReportProblem")}
           />
         </View>
       </LayoutSafeArea>

@@ -12,4 +12,10 @@ export type RootStackParamList = {
   FeedbackSuccess: undefined;
   Notifications: undefined;
   Profile: undefined;
+  Settings: undefined;
+  Informations: undefined;
+  ReportProblem: undefined;
+  MyDevices: undefined;
+  AccountEdit: undefined;
+  NightMode: undefined;
 };
