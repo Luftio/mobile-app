@@ -6,27 +6,26 @@ import { RootStackParamList } from "../screens/RootStackParams";
 
 import { TopNavigationAction, Icon } from "@ui-kitten/components";
 
-type renderBackActionProp = StackNavigationProp<RootStackParamList, "Signpost">;
+type navigateActionProp = StackNavigationProp<
+  RootStackParamList,
+  "MeasureDetail"
+>;
 
-const renderBackAction = () => {
-  const navigation = useNavigation<renderBackActionProp>();
-
-  if (!navigation.canGoBack()) {
-    return null;
-  }
+const navigateAction = () => {
+  const navigation = useNavigation<navigateActionProp>();
 
   return (
     <TopNavigationAction
       icon={(props) => (
         <Icon
           {...props}
-          name="chevron-left"
+          name="info"
           style={{ color: "#838C97", width: 24, height: 24 }}
         />
       )}
-      onPress={() => navigation.goBack()}
+      onPress={() => navigation.navigate("Education")}
     />
   );
 };
 
-export default renderBackAction;
+export default navigateAction;

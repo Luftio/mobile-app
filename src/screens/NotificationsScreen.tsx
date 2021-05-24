@@ -30,8 +30,8 @@ const NotificationsScreen: React.FC = () => {
               {i18n.t("today")}
             </Button>
             <Button
-              onPress={() => setActive("tommmorow")}
-              appearance={active === "tommmorow" ? "filled" : "outline"}
+              onPress={() => setActive("yesterday")}
+              appearance={active === "yesterday" ? "filled" : "outline"}
               status="control"
               size="large"
               style={{ marginRight: 20 }}>

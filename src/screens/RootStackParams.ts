@@ -19,4 +19,5 @@ export type RootStackParamList = {
   AccountEdit: undefined;
   NightMode: undefined;
   Education: undefined;
+  MeasureDetail: undefined;
 };

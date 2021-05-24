@@ -97,7 +97,7 @@ const CollapsibleCard: React.FC<CollapsibleCardProps> = ({
               },
             ],
           }}>
-          <Text style={{ padding: 15 }}>{content}</Text>
+          <Text style={{ padding: 15, paddingTop: 0 }}>{content}</Text>
         </AnimatedView>
       </AnimatedView>
     </View>

@@ -183,7 +183,7 @@ const HomeScreen: React.FC = () => {
               maxValue="328 ppm"
               procents="+3"
               isIncreased
-              onPress={() => navigation.navigate("Education")}
+              onPress={() => navigation.navigate("MeasureDetail")}
             />
             <MeasureCard
               name={i18n.t("temperature")}

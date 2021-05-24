@@ -19,6 +19,7 @@ import ReportProblemScreen from "../../src/screens/ReportProblemScreen";
 import MyDevicesScreen from "../../src/screens/MyDevicesScreen";
 import AccountEdit from "../../src/screens/AccountEditScreen";
 import NightModeScreen from "../../src/screens/NightModeScreen";
+import MeasureDetailScreen from "../../src/screens/MeasureDetailScreen";
 import EducationScreen from "../screens/EducationScreen";
 
 import { RootStackParamList } from "../../src/screens/RootStackParams";
@@ -42,6 +43,7 @@ const Profile = () => (
 const Home = () => (
   <Stack.Navigator headerMode="none" screenOptions={{ animationEnabled: true }}>
     <Stack.Screen name="Home" component={HomeScreen} />
+    <Stack.Screen name="MeasureDetail" component={MeasureDetailScreen} />
     <Stack.Screen name="Education" component={EducationScreen} />
   </Stack.Navigator>
 );

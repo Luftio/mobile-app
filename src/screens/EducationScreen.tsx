@@ -24,13 +24,13 @@ const EducationScreen: React.FC = () => {
           title={i18n.t("education_CO2_health_title")}
           content={i18n.t("education_CO2_health_content")}
           useBezier
-          contentHeight={160}
+          contentHeight={140}
         />
         <CollapsibleCard
           title={i18n.t("education_CO2_sources_title")}
           content={i18n.t("education_CO2_sources_content")}
           useBezier
-          contentHeight={180}
+          contentHeight={160}
         />
       </View>
     </LayoutSafeArea>
