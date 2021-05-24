@@ -19,6 +19,7 @@ import ReportProblemScreen from "../../src/screens/ReportProblemScreen";
 import MyDevicesScreen from "../../src/screens/MyDevicesScreen";
 import AccountEdit from "../../src/screens/AccountEditScreen";
 import NightModeScreen from "../../src/screens/NightModeScreen";
+import EducationScreen from "../screens/EducationScreen";
 
 import { RootStackParamList } from "../../src/screens/RootStackParams";
 
@@ -35,6 +36,13 @@ const Profile = () => (
     <Stack.Screen name="MyDevices" component={MyDevicesScreen} />
     <Stack.Screen name="AccountEdit" component={AccountEdit} />
     <Stack.Screen name="NightMode" component={NightModeScreen} />
+  </Stack.Navigator>
+);
+
+const Home = () => (
+  <Stack.Navigator headerMode="none" screenOptions={{ animationEnabled: true }}>
+    <Stack.Screen name="Home" component={HomeScreen} />
+    <Stack.Screen name="Education" component={EducationScreen} />
   </Stack.Navigator>
 );
 
@@ -67,7 +75,7 @@ const BottomTabBar = ({ navigation, state }: any) => (
 
 export const TabNavigator = () => (
   <Navigator tabBar={(props) => <BottomTabBar {...props} />}>
-    <Screen name="Home" component={HomeScreen} />
+    <Screen name="Home" component={Home} />
     <Screen name="Achievements" component={AchievementsScreen} />
     <Screen name="Feedback" component={FeedbackScreen} />
     <Screen name="Notifications" component={NotificationsScreen} />

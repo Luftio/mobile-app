@@ -18,4 +18,5 @@ export type RootStackParamList = {
   MyDevices: undefined;
   AccountEdit: undefined;
   NightMode: undefined;
+  Education: undefined;
 };

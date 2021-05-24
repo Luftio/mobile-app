@@ -8,11 +8,7 @@ import { TopNavigationAction, Icon } from "@ui-kitten/components";
 
 type renderBackActionProp = StackNavigationProp<RootStackParamList, "Signpost">;
 
-interface renderBackActionProps {
-  isProfile: boolean;
-}
-
-const renderBackAction: React.FC<renderBackActionProps> = ({ isProfile }) => {
+const renderBackAction: React.FC = () => {
   const navigation = useNavigation<renderBackActionProp>();
 
   if (!navigation.canGoBack()) {

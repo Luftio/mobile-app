@@ -53,7 +53,7 @@ const SettingsScreen: React.FC = () => {
           },
         }}>
         <View style={{ padding: 24 }}>
-          <View style={{ marginTop: 20, marginBottom: 30 }}>
+          <View style={{ marginBottom: 30 }}>
             <Text category="h3" style={{ marginBottom: 8 }}>
               {i18n.t("settings_delete_sheet_heading")}
             </Text>

@@ -1,6 +1,10 @@
 import React, { useState, useRef } from "react";
 import { View, ScrollView } from "react-native";
 
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "./RootStackParams";
+
 import { Text, Icon, Button } from "@ui-kitten/components";
 
 import LayoutSafeArea from "../components/layouts/LayoutSafeArea";
@@ -12,7 +16,11 @@ import Reanimated from "react-native-reanimated";
 
 import i18n from "../i18n";
 
+type HomeScreenProp = StackNavigationProp<RootStackParamList, "Home">;
+
 const HomeScreen: React.FC = () => {
+  const navigation = useNavigation<HomeScreenProp>();
+
   const arcAngle = useRef(new Reanimated.Value(Math.random() * 240));
   const [score, setScore] = useState<any>(0);
 
@@ -175,6 +183,7 @@ const HomeScreen: React.FC = () => {
               maxValue="328 ppm"
               procents="+3"
               isIncreased
+              onPress={() => navigation.navigate("Education")}
             />
             <MeasureCard
               name={i18n.t("temperature")}

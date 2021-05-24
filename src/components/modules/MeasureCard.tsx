@@ -11,6 +11,7 @@ interface MeasureCardProps {
   color: string;
   procents: string;
   isIncreased?: boolean;
+  onPress?: () => void;
 }
 
 const MeasureCard: React.FC<MeasureCardProps> = ({
@@ -21,9 +22,10 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
   color,
   procents,
   isIncreased,
+  onPress,
 }) => {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={onPress}>
       <View
         style={{
           backgroundColor: "#fff",
