@@ -127,24 +127,51 @@ const HomeScreen: React.FC = () => {
               <Button
                 onPress={() => setLamp("none")}
                 appearance={lamp === "none" ? "filled" : "outline"}
-                status="control"
+                status="basic"
                 size="large"
-                style={{ marginRight: 20 }}>
+                style={{
+                  marginRight: 20,
+                  shadowOffset: {
+                    width: 0,
+                    height: 2,
+                  },
+                  shadowOpacity: 0.04,
+                  shadowRadius: 1.0,
+                  elevation: 1,
+                }}>
                 {i18n.t("lights_off")}
               </Button>
               <Button
                 onPress={() => setLamp("color")}
                 appearance={lamp === "color" ? "filled" : "outline"}
-                status="control"
+                status="basic"
                 size="large"
-                style={{ marginRight: 20 }}>
+                style={{
+                  marginRight: 20,
+                  shadowOffset: {
+                    width: 0,
+                    height: 2,
+                  },
+                  shadowOpacity: 0.04,
+                  shadowRadius: 1.0,
+                  elevation: 1,
+                }}>
                 {i18n.t("lights_colors")}
               </Button>
               <Button
                 onPress={() => setLamp("lamp")}
                 appearance={lamp === "lamp" ? "filled" : "outline"}
-                status="control"
-                size="large">
+                status="basic"
+                size="large"
+                style={{
+                  shadowOffset: {
+                    width: 0,
+                    height: 2,
+                  },
+                  shadowOpacity: 0.04,
+                  shadowRadius: 1.0,
+                  elevation: 1,
+                }}>
                 {i18n.t("lights_lamp")}
               </Button>
             </View>

@@ -19,10 +19,36 @@
                   }
                 }
               },
-              "control": {
+              "basic": {
                 "backgroundColor": "#fff",
                 "textColor": "#838C97",
-                "borderColor": "transparent"
+                "borderColor": "transparent",
+                "state": {
+                  "active": {
+                    "backgroundColor": "#FBFBFB",
+                    "textColor": "#838C97",
+                    "borderColor": "transparent"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "filled": {
+          "mapping": {},
+          "variantGroups": {
+            "status": {
+              "basic": {
+                "backgroundColor": "#fff",
+                "textColor": "#031846",
+                "borderColor": "transparent",
+                "state": {
+                  "active": {
+                    "backgroundColor": "#fff",
+                    "textColor": "#031846",
+                    "borderColor": "transparent"
+                  }
+                }
               }
             }
           }

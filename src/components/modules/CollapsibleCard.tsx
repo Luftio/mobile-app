@@ -49,12 +49,12 @@ const CollapsibleCard: React.FC<CollapsibleCardProps> = ({
         borderRadius: 4,
         justifyContent: "center",
         marginBottom: 20,
-        shadowColor: "#666666",
+        shadowColor: "#000000",
         shadowOffset: {
           width: 0,
-          height: 1,
+          height: 2,
         },
-        shadowOpacity: 0.18,
+        shadowOpacity: 0.04,
         shadowRadius: 1.0,
 
         elevation: 1,
@@ -80,7 +80,7 @@ const CollapsibleCard: React.FC<CollapsibleCardProps> = ({
         style={[
           {
             height: animation.height,
-            opacity: animation.progress.interpolate({
+            opacity: animation.progress.to({
               range: [0, 85, 95, 100],
               output: [0, 0, 0.5, 1],
             }),
@@ -90,7 +90,7 @@ const CollapsibleCard: React.FC<CollapsibleCardProps> = ({
           style={{
             transform: [
               {
-                translateY: animation.progress.interpolate({
+                translateY: animation.progress.to({
                   range: [0, 85, 95, 100],
                   output: [7.5, 5, 2.5, 0],
                 }),

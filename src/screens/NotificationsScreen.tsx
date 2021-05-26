@@ -24,17 +24,35 @@ const NotificationsScreen: React.FC = () => {
             <Button
               onPress={() => setActive("today")}
               appearance={active === "today" ? "filled" : "outline"}
-              status="control"
+              status="basic"
               size="large"
-              style={{ marginRight: 20 }}>
+              style={{
+                marginRight: 20,
+                shadowOffset: {
+                  width: 0,
+                  height: 2,
+                },
+                shadowOpacity: 0.04,
+                shadowRadius: 1.0,
+                elevation: 1,
+              }}>
               {i18n.t("today")}
             </Button>
             <Button
               onPress={() => setActive("yesterday")}
               appearance={active === "yesterday" ? "filled" : "outline"}
-              status="control"
+              status="basic"
               size="large"
-              style={{ marginRight: 20 }}>
+              style={{
+                marginRight: 20,
+                shadowOffset: {
+                  width: 0,
+                  height: 2,
+                },
+                shadowOpacity: 0.04,
+                shadowRadius: 1.0,
+                elevation: 1,
+              }}>
               {i18n.t("yesterday")}
             </Button>
           </View>

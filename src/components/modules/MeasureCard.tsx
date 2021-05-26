@@ -32,6 +32,13 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
           marginBottom: 20,
           padding: 15,
           borderRadius: 4,
+          shadowOffset: {
+            width: 0,
+            height: 2,
+          },
+          shadowOpacity: 0.04,
+          shadowRadius: 1.0,
+          elevation: 1,
         }}>
         <View style={{ flexDirection: "row", marginBottom: 20 }}>
           <View

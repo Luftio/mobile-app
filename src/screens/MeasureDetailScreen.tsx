@@ -65,12 +65,12 @@ const MeasureDetailScreen: React.FC = () => {
             &nbsp;{i18n.t("level_good")}
           </Text>
         </Text>
-
         <View
           style={{
             flexDirection: "row",
             alignItems: "center",
             marginBottom: 35,
+            justifyContent: "space-between",
           }}>
           <View
             style={{
@@ -87,7 +87,7 @@ const MeasureDetailScreen: React.FC = () => {
                 marginRight: 5,
               }}
             />
-            <Text category="s2">1668</Text>
+            <Text category="s2">1668 ppm</Text>
           </View>
           <View
             style={{
@@ -104,13 +104,12 @@ const MeasureDetailScreen: React.FC = () => {
                 marginRight: 5,
               }}
             />
-            <Text category="s2">328</Text>
+            <Text category="s2">328 ppm</Text>
           </View>
           <View
             style={{
               flexDirection: "row",
               alignItems: "center",
-              marginRight: 25,
             }}>
             <Icon
               name="trending-up"
@@ -132,17 +131,35 @@ const MeasureDetailScreen: React.FC = () => {
           <Button
             onPress={() => setActive("today")}
             appearance={active === "today" ? "filled" : "outline"}
-            status="control"
+            status="basic"
             size="large"
-            style={{ marginRight: 20 }}>
+            style={{
+              marginRight: 20,
+              shadowOffset: {
+                width: 0,
+                height: 2,
+              },
+              shadowOpacity: 0.04,
+              shadowRadius: 1.0,
+              elevation: 1,
+            }}>
             {i18n.t("today")}
           </Button>
           <Button
             onPress={() => setActive("yesterday")}
             appearance={active === "yesterday" ? "filled" : "outline"}
-            status="control"
+            status="basic"
             size="large"
-            style={{ marginRight: 20 }}>
+            style={{
+              marginRight: 20,
+              shadowOffset: {
+                width: 0,
+                height: 2,
+              },
+              shadowOpacity: 0.04,
+              shadowRadius: 1.0,
+              elevation: 1,
+            }}>
             {i18n.t("yesterday")}
           </Button>
         </View>
