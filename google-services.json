@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "358517716635",
+    "project_id": "luftio",
+    "storage_bucket": "luftio.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:358517716635:android:59b33e9600f2b116a2383e",
+        "android_client_info": {
+          "package_name": "com.luftio.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "358517716635-68h596eveunnu0n5u96vtkqnlin9l0v9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDd_sy0U4OzTc4ASxTBAwMuxL7BgCqpPhM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "358517716635-68h596eveunnu0n5u96vtkqnlin9l0v9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

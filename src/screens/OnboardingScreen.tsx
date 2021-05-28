@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, Image } from "react-native";
 
 import AppIntroSlider from "react-native-app-intro-slider";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage from "@react-native-community/async-storage";
 
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -18,8 +18,6 @@ type signpostScreenProp = StackNavigationProp<RootStackParamList, "Onboarding">;
 
 const OnboardingScreen: React.FC = () => {
   const navigation = useNavigation<signpostScreenProp>();
-
-  const [done, setDone] = useState<boolean>(false);
 
   const data = [
     {
@@ -48,7 +46,7 @@ const OnboardingScreen: React.FC = () => {
         style={{ alignItems: "center", justifyContent: "center", flex: 0.8 }}>
         <Image
           source={item.image}
-          style={{ width: 200, height: 200, marginBottom: 40 }}
+          style={{ width: 230, height: 200, marginBottom: 40 }}
         />
         <View style={{ paddingLeft: 30, paddingRight: 30 }}>
           <Text
@@ -75,6 +73,7 @@ const OnboardingScreen: React.FC = () => {
   const viewedOnboarding = async () => {
     try {
       await AsyncStorage.setItem("@viewedOnboarding", "true");
+      navigation.replace("Signpost");
     } catch (err) {
       console.log("Error @setItem: ", err);
     }
@@ -95,7 +94,9 @@ const OnboardingScreen: React.FC = () => {
               bottom: 15,
               marginRight: 15,
             }}>
-            <Text onPress={viewedOnboarding} style={{ fontWeight: "500" }}>
+            <Text
+              onPress={() => viewedOnboarding()}
+              style={{ fontWeight: "500" }}>
               {i18n.t("skip")}
             </Text>
           </View>
@@ -113,7 +114,7 @@ const OnboardingScreen: React.FC = () => {
         renderDoneButton={() => (
           <Button
             size="large"
-            onPress={viewedOnboarding}
+            onPress={() => viewedOnboarding()}
             style={{ marginTop: 20 }}>
             {i18n.t("start")}
           </Button>

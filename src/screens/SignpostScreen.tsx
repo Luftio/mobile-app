@@ -11,6 +11,15 @@ import LayoutSafeArea from "../components/layouts/LayoutSafeArea";
 import Logo from "../components/svg/Logo";
 
 import i18n from "../i18n";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+const Clear = async () => {
+  try {
+    await AsyncStorage.removeItem("@viewedOnboarding");
+  } catch (err) {
+    console.log("Error");
+  }
+};
 
 type signpostScreenProp = StackNavigationProp<RootStackParamList, "Signpost">;
 
@@ -42,10 +51,7 @@ const SignpostScreen: React.FC = () => {
             source={require("../../assets/man-walking.png")}
           />
         </View>
-        <Button
-          size="large"
-          style={{ marginBottom: 10 }}
-          onPress={() => navigation.navigate("SignIn")}>
+        <Button size="large" style={{ marginBottom: 10 }} onPress={Clear}>
           {i18n.t("sign_in")}
         </Button>
         <Button

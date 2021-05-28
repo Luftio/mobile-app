@@ -4,7 +4,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { AppearanceProvider, useColorScheme } from "react-native-appearance";
 import "react-native-gesture-handler";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage from "@react-native-community/async-storage";
+import AppLoading from "expo-app-loading";
 
 import * as eva from "@eva-design/eva";
 import { ApplicationProvider, IconRegistry } from "@ui-kitten/components";
@@ -12,7 +13,7 @@ import { ApplicationProvider, IconRegistry } from "@ui-kitten/components";
 import FeatherIconsPack from "./src/ui/FeatherIconsPack";
 import { EvaIconsPack } from "@ui-kitten/eva-icons";
 
-import OnbaordingScreen from "./src/screens/OnboardingScreen";
+import OnboardingScreen from "./src/screens/OnboardingScreen";
 import SignpostScreen from "./src/screens/SignpostScreen";
 import SignInScreen from "./src/screens/SignInScreen";
 import SignUpScreen from "./src/screens/SignUpScreen";
@@ -29,14 +30,24 @@ import { RootStackParamList } from "./src/screens/RootStackParams";
 import { default as theme } from "./config/theme.json";
 import { default as mapping } from "./config/mapping.json";
 
+import * as Sentry from "sentry-expo";
+
+Sentry.init({
+  dsn: "https://e4e62e9009ce42a1aef84d6286896a36@o550006.ingest.sentry.io/5786541",
+  enableInExpoDevelopment: true,
+  debug: false,
+});
+
 const Stack = createStackNavigator<RootStackParamList>();
 
 const App: React.FC = () => {
   let colorScheme = useColorScheme();
+  let firstScreen: string;
 
   const [viewedOnboarding, setWiewedOnboarding] = useState<boolean>(false);
+  const [isReady, setIsReady] = useState<boolean>(false);
 
-  const checkOnboarding = async () => {
+  const loadApp = async () => {
     try {
       const value = await AsyncStorage.getItem("@viewedOnboarding");
 
@@ -49,8 +60,40 @@ const App: React.FC = () => {
   };
 
   useEffect(() => {
-    checkOnboarding();
+    loadApp();
   }, []);
+
+  if (!isReady) {
+    return (
+      <AppLoading
+        startAsync={loadApp}
+        onFinish={() => setIsReady(true)}
+        onError={console.error}
+      />
+    );
+  }
+
+  if (!viewedOnboarding) {
+    firstScreen = "Onboarding";
+  } else {
+    firstScreen = "Signpost";
+  }
+
+  const screens: {
+    name: keyof RootStackParamList;
+    component: React.ReactNode;
+  }[] = [
+    { name: "Signpost", component: SignpostScreen },
+    { name: "Onboarding", component: OnboardingScreen },
+    { name: "SignIn", component: SignInScreen },
+    { name: "SignUp", component: SignUpScreen },
+    { name: "RequestChange", component: RequestChangeScreen },
+    { name: "SetNewPassword", component: SetNewPasswordScreen },
+    { name: "VerifyEmail", component: VerifyEmailScreen },
+    { name: "SendInstructions", component: SendInstructionsScreen },
+    { name: "Home", component: TabNavigator },
+    { name: "FeedbackSuccess", component: FeedbackSuccessScreen },
+  ];
 
   return (
     <>
@@ -71,31 +114,15 @@ const App: React.FC = () => {
           <Stack.Navigator
             headerMode="none"
             screenOptions={{ animationEnabled: true }}>
-            {viewedOnboarding ? (
-              <Stack.Screen name="Signpost" component={SignpostScreen} />
-            ) : (
-              <Stack.Screen name="Onboarding" component={OnbaordingScreen} />
-            )}
-            <Stack.Screen name="SignIn" component={SignInScreen} />
-            <Stack.Screen name="SignUp" component={SignUpScreen} />
-            <Stack.Screen
-              name="RequestChange"
-              component={RequestChangeScreen}
-            />
-            <Stack.Screen
-              name="SetNewPassword"
-              component={SetNewPasswordScreen}
-            />
-            <Stack.Screen name="VerifyEmail" component={VerifyEmailScreen} />
-            <Stack.Screen
-              name="SendInstructions"
-              component={SendInstructionsScreen}
-            />
-            <Stack.Screen name="Home" component={TabNavigator} />
-            <Stack.Screen
-              name="FeedbackSuccess"
-              component={FeedbackSuccessScreen}
-            />
+            {screens
+              .sort((a, b) => {
+                if (a.name == firstScreen) return -1;
+                if (b.name == firstScreen) return 1;
+                return 0;
+              })
+              .map((it: any) => (
+                <Stack.Screen key={it.name} {...it} />
+              ))}
           </Stack.Navigator>
         </NavigationContainer>
       </ApplicationProvider>
