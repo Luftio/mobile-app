@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { View, Image } from "react-native";
 
 import AppIntroSlider from "react-native-app-intro-slider";
-import AsyncStorage from "@react-native-community/async-storage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";

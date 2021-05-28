@@ -10,7 +10,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ heading, subheading }) => {
   return (
-    <View style={{ paddingBottom: 60 }}>
+    <View style={{ paddingBottom: 50 }}>
       <Text category="h2" appearance="default" style={{ paddingBottom: 10 }}>
         {heading}
       </Text>
