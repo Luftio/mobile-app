@@ -1,20 +1,15 @@
 import React, { useState } from "react";
 import { View } from "react-native";
 
-import {
-  Icon,
-  Input,
-  Radio,
-  RadioGroup,
-  Text,
-  TopNavigation,
-} from "@ui-kitten/components";
+import { Icon, Input, Radio, RadioGroup, Text, TopNavigation } from "@ui-kitten/components";
 
 import renderBackAction from "../utils/renderBackAction";
 
 import LayoutSafeArea from "../components/layouts/LayoutSafeArea";
 
 import i18n from "../i18n";
+
+import { useQuery } from "../gqless";
 
 const NightModeScreen: React.FC = () => {
   const [startTime, setStartTime] = useState("23:00");
@@ -27,6 +22,9 @@ const NightModeScreen: React.FC = () => {
     return time.match(/^\d{1,2}:\d{2}$/);
   }
 
+  const query = useQuery();
+  const nightmode = query.nightmode;
+
   return (
     <LayoutSafeArea main>
       <TopNavigation
@@ -37,9 +35,7 @@ const NightModeScreen: React.FC = () => {
         style={{ backgroundColor: "#FAFAFA" }}
       />
       <View style={{ flex: 1, padding: 24 }}>
-        <RadioGroup
-          selectedIndex={selectedIndex}
-          onChange={(index) => setSelectedIndex(index)}>
+        <RadioGroup selectedIndex={selectedIndex} onChange={(index) => setSelectedIndex(index)}>
           <Radio>{i18n.t("night_mode_status_off")}</Radio>
           <Radio>{i18n.t("night_mode_status_no_lights")}</Radio>
           <Radio>{i18n.t("night_mode_status_low_lights")}</Radio>
@@ -54,12 +50,7 @@ const NightModeScreen: React.FC = () => {
             size="large"
             value={startTime}
             status={validateTime(startTime) ? "basic" : "danger"}
-            accessoryLeft={() => (
-              <Icon
-                style={{ color: "#E1E6EA", width: 22, height: 22 }}
-                name="sunset"
-              />
-            )}
+            accessoryLeft={() => <Icon style={{ color: "#E1E6EA", width: 22, height: 22 }} name="sunset" />}
             onChangeText={(text) => setStartTime(text)}
             style={{ flex: 1, marginRight: 10 }}
           />
@@ -72,12 +63,7 @@ const NightModeScreen: React.FC = () => {
             size="large"
             value={endTime}
             status={validateTime(endTime) ? "basic" : "danger"}
-            accessoryLeft={() => (
-              <Icon
-                style={{ color: "#E1E6EA", width: 22, height: 22 }}
-                name="sunrise"
-              />
-            )}
+            accessoryLeft={() => <Icon style={{ color: "#E1E6EA", width: 22, height: 22 }} name="sunrise" />}
             onChangeText={(text) => setEndTime(text)}
             style={{ flex: 1 }}
           />

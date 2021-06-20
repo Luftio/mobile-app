@@ -12,10 +12,15 @@ import ProfileRow from "../components/modules/ProfileRow";
 
 import i18n from "../i18n";
 
+import { useQuery } from "../gqless";
+
 type ProfileScreenProp = StackNavigationProp<RootStackParamList, "Profile">;
 
 const ProfileScreen: React.FC = () => {
   const navigation = useNavigation<ProfileScreenProp>();
+
+  const query = useQuery();
+  const user = query.user({ id: "1" });
 
   return (
     <>
@@ -30,10 +35,10 @@ const ProfileScreen: React.FC = () => {
             }}>
             <View>
               <Text category="h1" style={{ paddingBottom: 3 }}>
-                Aleš Zima
+                {user?.full_name}
               </Text>
               <Text category="p1" style={{ color: "#000", fontSize: 16 }}>
-                zima@gmail.com
+                {user?.email}
               </Text>
             </View>
             <Icon

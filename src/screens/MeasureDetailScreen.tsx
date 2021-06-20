@@ -1,39 +1,33 @@
 import React, { useState } from "react";
 import { View } from "react-native";
 
-import { useNavigation } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "./RootStackParams";
-
 import { Button, Icon, Text, TopNavigation } from "@ui-kitten/components";
 
 import { VictoryBar, VictoryChart, VictoryTheme } from "victory-native";
 
 import renderBackAction from "../utils/renderBackAction";
-import navigateAction from "../utils/renderEducationAction";
+import renderEducationAction from "../utils/renderEducationAction";
 
 import LayoutSafeArea from "../components/layouts/LayoutSafeArea";
 
 import i18n from "../i18n";
 
-type MeasureDetailScreenProp = StackNavigationProp<
-  RootStackParamList,
-  "MeasureDetail"
->;
+import { useQuery } from "../gqless";
 
 const MeasureDetailScreen: React.FC = () => {
-  const navigation = useNavigation<MeasureDetailScreenProp>();
-
   const [active, setActive] = useState<string>("today");
+
+  const query = useQuery();
+  const device = query.device({ id: "1" });
 
   return (
     <LayoutSafeArea main>
       <TopNavigation
-        title={() => <Text category="h4">CO2</Text>}
+        title={() => <Text category="h4">{device?.data.title}</Text>}
         alignment="center"
         //@ts-ignore
         accessoryLeft={renderBackAction}
-        accessoryRight={navigateAction}
+        accessoryRight={renderEducationAction}
         style={{ backgroundColor: "#FAFAFA" }}
       />
       <View style={{ flex: 1, padding: 24 }}>
@@ -44,14 +38,10 @@ const MeasureDetailScreen: React.FC = () => {
             alignItems: "flex-end",
             marginBottom: 25,
           }}>
-          <Text
-            category="h1"
-            style={{ fontSize: 50, fontWeight: "800", marginRight: 10 }}>
-            1037
+          <Text category="h1" style={{ fontSize: 50, fontWeight: "800", marginRight: 10 }}>
+            {device?.data.actual_value}
           </Text>
-          <Text style={{ fontSize: 22, fontWeight: "500", paddingBottom: 6 }}>
-            ppm
-          </Text>
+          <Text style={{ fontSize: 22, fontWeight: "500", paddingBottom: 6 }}>ppm</Text>
         </View>
         <Text style={{ marginBottom: 25, fontWeight: "500", fontSize: 18 }}>
           {i18n.t("CO2_detail_screen")}
@@ -62,7 +52,7 @@ const MeasureDetailScreen: React.FC = () => {
               fontSize: 18,
               color: "#23A454",
             }}>
-            &nbsp;{i18n.t("level_good")}
+            &nbsp;perfect
           </Text>
         </Text>
         <View
@@ -87,7 +77,7 @@ const MeasureDetailScreen: React.FC = () => {
                 marginRight: 5,
               }}
             />
-            <Text category="s2">1668 ppm</Text>
+            <Text category="s2">{device?.data.max_value}</Text>
           </View>
           <View
             style={{
@@ -104,7 +94,7 @@ const MeasureDetailScreen: React.FC = () => {
                 marginRight: 5,
               }}
             />
-            <Text category="s2">328 ppm</Text>
+            <Text category="s2">{device?.data.min_value}</Text>
           </View>
           <View
             style={{
@@ -120,7 +110,7 @@ const MeasureDetailScreen: React.FC = () => {
                 marginRight: 5,
               }}
             />
-            <Text category="s2">+3%</Text>
+            <Text category="s2">{device?.data.difference}</Text>
           </View>
         </View>
         <View
@@ -191,12 +181,7 @@ const MeasureDetailScreen: React.FC = () => {
               }}
               style={{
                 data: {
-                  fill: ({ datum }) =>
-                    datum.y < 1100
-                      ? "#23A454"
-                      : datum.y < 2000
-                      ? "#FFB951"
-                      : "#E55B5B",
+                  fill: ({ datum }) => (datum.y < 1100 ? "#23A454" : datum.y < 2000 ? "#FFB951" : "#E55B5B"),
                   width: 10,
                 },
               }}

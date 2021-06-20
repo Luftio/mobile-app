@@ -5,12 +5,18 @@ import LayoutSafeArea from "../components/layouts/LayoutSafeArea";
 import Notification from "../components/modules/Notification";
 import EmptyState from "../components/modules/EmptyState";
 
-import { Button } from "@ui-kitten/components";
+import { Button, Spinner } from "@ui-kitten/components";
 
 import i18n from "../i18n";
 
+import { useQuery } from "../gqless";
+
 const NotificationsScreen: React.FC = () => {
   const [active, setActive] = useState<string>("today");
+
+  const query = useQuery();
+  const notificationsToday = query.notificationsToday({ id: "1" });
+  const notificationsYesterday = query.notificationsYesterday({ id: "1" });
 
   return (
     <>
@@ -57,15 +63,27 @@ const NotificationsScreen: React.FC = () => {
             </Button>
           </View>
           {active === "today" ? (
-            <>
-              <Notification name="Stoupá hodnota CO2" time="Před 2 hodinami" />
-              <Notification
-                name="Teplota klesla na 19°C"
-                time="Před 6 hodinami"
-              />
-            </>
-          ) : (
+            query.$state.isLoading ? (
+              <View style={{ marginTop: 40, alignItems: "center" }}>
+                <Spinner size="large" />
+              </View>
+            ) : notificationsToday == null || notificationsToday.length == 0 ? (
+              <EmptyState />
+            ) : (
+              notificationsToday.map((notification) => (
+                <Notification key={notification.id} name={notification.title} time={notification.date} />
+              ))
+            )
+          ) : query.$state.isLoading ? (
+            <View style={{ marginTop: 40, alignItems: "center" }}>
+              <Spinner size="large" />
+            </View>
+          ) : notificationsYesterday == null || notificationsYesterday.length == 0 ? (
             <EmptyState />
+          ) : (
+            notificationsYesterday.map((notification) => (
+              <Notification key={notification.id} name={notification.title} time={notification.date} />
+            ))
           )}
         </View>
       </LayoutSafeArea>

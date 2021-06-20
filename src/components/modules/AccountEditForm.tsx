@@ -4,6 +4,8 @@ import { Text, Input } from "@ui-kitten/components";
 
 import EmailChangedCard from "./EmailChangedCard";
 
+import { useQuery } from "../../gqless";
+
 import i18n from "../../i18n";
 
 const AccountEditForm: React.FC = () => {
@@ -13,6 +15,9 @@ const AccountEditForm: React.FC = () => {
   const [password, setPassword] = useState<string>("");
   const [newPassword, setNewPassword] = useState<string>("");
   const [repeatNewPassword, setRepeatNewPassword] = useState<string>("");
+
+  const query = useQuery();
+  const user = query.user({ id: "1" });
 
   return (
     <>

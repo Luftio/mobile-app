@@ -1,7 +1,7 @@
 import React from "react";
 import { View } from "react-native";
 
-import { Text, TopNavigation } from "@ui-kitten/components";
+import { Text, TopNavigation, Spinner } from "@ui-kitten/components";
 import renderBackAction from "../utils/renderBackAction";
 
 import LayoutSafeArea from "../components/layouts/LayoutSafeArea";
@@ -9,7 +9,12 @@ import CollapsibleCard from "../components/modules/CollapsibleCard";
 
 import i18n from "../i18n";
 
+import { useQuery } from "../gqless";
+
 const EducationScreen: React.FC = () => {
+  const query = useQuery();
+  const educationCO2 = query.educationCO2({ id: "1" });
+
   return (
     <LayoutSafeArea main>
       <TopNavigation
@@ -20,18 +25,15 @@ const EducationScreen: React.FC = () => {
         style={{ backgroundColor: "#FAFAFA" }}
       />
       <View style={{ flex: 1, padding: 24 }}>
-        <CollapsibleCard
-          title={i18n.t("education_CO2_health_title")}
-          content={i18n.t("education_CO2_health_content")}
-          useBezier
-          contentHeight={140}
-        />
-        <CollapsibleCard
-          title={i18n.t("education_CO2_sources_title")}
-          content={i18n.t("education_CO2_sources_content")}
-          useBezier
-          contentHeight={160}
-        />
+        {query.$state.isLoading ? (
+          <View style={{ marginTop: 40, alignItems: "center" }}>
+            <Spinner size="large" />
+          </View>
+        ) : (
+          educationCO2?.map((card) => (
+            <CollapsibleCard title={card.title} content={card.content} useBezier contentHeight={140} />
+          ))
+        )}
       </View>
     </LayoutSafeArea>
   );

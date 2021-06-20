@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "./RootStackParams";
 
-import { Text, Icon, Button } from "@ui-kitten/components";
+import { Text, Icon, Button, Spinner } from "@ui-kitten/components";
 
 import LayoutSafeArea from "../components/layouts/LayoutSafeArea";
 import Slider from "../components/modules/Slider";
@@ -15,6 +15,8 @@ import { ReanimatedArcBase } from "@callstack/reanimated-arc";
 import Reanimated from "react-native-reanimated";
 
 import i18n from "../i18n";
+
+import { useQuery } from "../gqless";
 
 type HomeScreenProp = StackNavigationProp<RootStackParamList, "Home">;
 
@@ -36,6 +38,11 @@ const HomeScreen: React.FC = () => {
   } else {
     color = "#ED3A49";
   }
+
+  const query = useQuery();
+  const substancesCard = query.substancesCard({ id: "1" });
+  const brithness = query.brithness;
+  const score_total = query.score;
 
   return (
     <>
@@ -75,9 +82,7 @@ const HomeScreen: React.FC = () => {
                   style={{ position: "absolute" }}
                 />
                 <ReanimatedArcBase
-                  color={
-                    score > 70 ? "#23A454" : score > 40 ? "#FFB951" : "#E55B5B"
-                  }
+                  color={score > 70 ? "#23A454" : score > 40 ? "#FFB951" : "#E55B5B"}
                   diameter={200}
                   width={10}
                   arcSweepAngle={arcAngle.current}
@@ -108,13 +113,7 @@ const HomeScreen: React.FC = () => {
                     fontWeight: "600",
                     color: color,
                   }}>
-                  {i18n.t(
-                    score > 70
-                      ? "upper_level_good"
-                      : score > 40
-                      ? "upper_level_not_bad"
-                      : "upper_level_bad"
-                  )}
+                  {i18n.t(score > 70 ? "upper_level_good" : score > 40 ? "upper_level_not_bad" : "upper_level_bad")}
                 </Text>
               </View>
             </View>
@@ -202,42 +201,23 @@ const HomeScreen: React.FC = () => {
             <Text category="h3" style={{ marginBottom: 25 }}>
               {i18n.t("home_detail")}
             </Text>
-            <MeasureCard
-              name="CO2"
-              value={`1037 ppm / ${i18n.t("level_good")}`}
-              color="#23A454"
-              minValue="1668 ppm"
-              maxValue="328 ppm"
-              procents="+3"
-              isIncreased
-              onPress={() => navigation.navigate("MeasureDetail")}
-            />
-            <MeasureCard
-              name={i18n.t("temperature")}
-              value={`23.5°C / ${i18n.t("level_good")}`}
-              color="#FFB951"
-              minValue="27°C"
-              maxValue="19°C"
-              procents="+10"
-              isIncreased
-            />
-            <MeasureCard
-              name={i18n.t("humidity")}
-              value={`43% / ${i18n.t("level_bad")}`}
-              color="#ED3A49"
-              minValue="41%"
-              maxValue="67%"
-              procents="-17"
-            />
-            <MeasureCard
-              name={i18n.t("pressure")}
-              value={`975 hPa / ${i18n.t("level_good")}`}
-              color="#23A454"
-              minValue="990 hPa"
-              maxValue="976 hPa"
-              procents="+9"
-              isIncreased
-            />
+            {query.$state.isLoading ? (
+              <View style={{ marginTop: 40, alignItems: "center" }}>
+                <Spinner size="large" />
+              </View>
+            ) : (
+              substancesCard?.map((card) => (
+                <MeasureCard
+                  name={card.title}
+                  value={card.actual_value}
+                  color={card.color}
+                  minValue={card.min_value}
+                  maxValue={card.max_value}
+                  procents={card.difference}
+                  onPress={() => navigation.navigate("MeasureDetail")}
+                />
+              ))
+            )}
           </View>
         </ScrollView>
       </LayoutSafeArea>
