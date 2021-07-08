@@ -1,5 +1,5 @@
-import React, { useRef } from "react";
-import { View, TouchableOpacity } from "react-native";
+import React, { useState, useRef } from "react";
+import { View, TouchableOpacity, Share } from "react-native";
 
 import { Icon, Text, Button } from "@ui-kitten/components";
 
@@ -13,17 +13,12 @@ interface AchievementProps {
   iconName: string;
   color: string;
   isUnlock?: boolean;
-  onPress?: () => void;
 }
 
-const Achievement: React.FC<AchievementProps> = ({
-  name,
-  description,
-  iconName,
-  color,
-  isUnlock,
-  onPress,
-}) => {
+const Achievement: React.FC<AchievementProps> = ({ name, description, iconName, color, isUnlock }) => {
+  const [error, setError] = useState<null | string>(null);
+  const [result, setResult] = useState<null | string>(null);
+
   const refRBSheet = useRef<any>(null);
 
   let iconColor;
@@ -55,6 +50,33 @@ const Achievement: React.FC<AchievementProps> = ({
     borderColor = "#E1E6EA";
   }
 
+  const shareBadge = () => {
+    Share.share(
+      {
+        message: i18n.t("socials_msg"),
+        url: i18n.t("socials_url"),
+        title: "Luftio",
+      },
+      {
+        dialogTitle: i18n.t("socials_dialog_title"),
+      }
+    )
+      .then(showResult)
+      .catch((error) => setError("error: " + error.message));
+  };
+
+  const showResult = (result: any) => {
+    if (result.action === Share.sharedAction) {
+      if (result.activityType) {
+        setResult("shared with an activityType: " + result.activityType);
+      } else {
+        setResult("shared");
+      }
+    } else if (result.action === Share.dismissedAction) {
+      setResult("dismissed");
+    }
+  };
+
   return (
     <>
       <View style={{ width: "33%", marginBottom: 20 }}>
@@ -73,14 +95,9 @@ const Achievement: React.FC<AchievementProps> = ({
                 marginBottom: 8,
                 backgroundColor: backgroundColor,
               }}>
-              <Icon
-                name={isUnlock ? iconName : "lock"}
-                style={{ color: iconColor, width: 28, height: 28 }}
-              />
+              <Icon name={isUnlock ? iconName : "lock"} style={{ color: iconColor, width: 28, height: 28 }} />
             </View>
-            <Text
-              category="p2"
-              style={{ fontSize: 14, fontWeight: "400", textAlign: "center" }}>
+            <Text category="p2" style={{ fontSize: 14, fontWeight: "400", textAlign: "center" }}>
               {name}
             </Text>
           </View>
@@ -120,10 +137,7 @@ const Achievement: React.FC<AchievementProps> = ({
                 marginBottom: 8,
                 backgroundColor: backgroundColor,
               }}>
-              <Icon
-                name={isUnlock ? iconName : "lock"}
-                style={{ color: iconColor, width: 28, height: 28 }}
-              />
+              <Icon name={isUnlock ? iconName : "lock"} style={{ color: iconColor, width: 28, height: 28 }} />
             </View>
           </View>
           <View style={{ marginTop: 20, marginBottom: 30 }}>
@@ -135,12 +149,11 @@ const Achievement: React.FC<AchievementProps> = ({
             </Text>
           </View>
           {isUnlock ? (
-            <Button size="large">{i18n.t("achievements_share")}</Button>
+            <Button onPress={() => shareBadge()} size="large">
+              {i18n.t("achievements_share")}
+            </Button>
           ) : (
-            <Button
-              size="large"
-              appearance="outline"
-              onPress={() => refRBSheet.current.close()}>
+            <Button size="large" appearance="outline" onPress={() => refRBSheet.current.close()}>
               {i18n.t("achievements_close")}
             </Button>
           )}

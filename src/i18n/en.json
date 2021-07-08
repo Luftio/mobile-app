@@ -130,5 +130,8 @@
   "CO2_detail_screen": "CO2 is",
   "skip": "SKIP",
   "next": "NEXT",
-  "start": "START!"
+  "start": "START!",
+  "socials_msg": "I just unlocked a new badge. Join us and keep healthy air and be productive.",
+  "socials_url": "http://luftio.com",
+  "socials_dialog_title": "New badge from Luftio"
 }

@@ -130,5 +130,8 @@
   "CO2_detail_screen": "CO2 je",
   "skip": "PŘESKOČIT",
   "next": "DALŠÍ",
-  "start": "ZAČÍT!"
+  "start": "ZAČÍT!",
+  "socials_msg": "Právě jsem odemkl jsem nový odznak. Přidej se k nám a drž si zdravý vzduch a buď produktivní.",
+  "socials_url": "http://luftio.com",
+  "socials_dialog_title": "Nový odznak od Luftio"
 }
