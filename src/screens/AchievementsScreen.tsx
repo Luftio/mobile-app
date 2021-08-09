@@ -38,20 +38,23 @@ const AchievementsScreen: React.FC = () => {
                 color="#3F74F9"
                 description={i18n.t("achievements_air_beginner_subheading")}
                 isUnlock={true}
+                badgeUrl="https://luftio.knaufizolace.cz/luftio/odznak-zacatecnik/"
               />
               <Achievement
                 name={i18n.t("achievements_air_advanced_title")}
-                iconName=""
+                iconName="zap"
                 color="#3F74F9"
                 description={i18n.t("achievements_air_advanced_subheading")}
                 isUnlock={false}
+                badgeUrl="https://luftio.knaufizolace.cz/luftio/odznak-pokrocily/"
               />
               <Achievement
                 name={i18n.t("achievements_air_ventilator_title")}
-                iconName=""
+                iconName="star"
                 color="#3F74F9"
                 description={i18n.t("achievements_air_ventilator_subheading")}
                 isUnlock={false}
+                badgeUrl="https://luftio.knaufizolace.cz/luftio/odznak-master/"
               />
             </View>
             <Text category="h3">{i18n.t("achievements_feedback")}</Text>
@@ -67,15 +70,17 @@ const AchievementsScreen: React.FC = () => {
                 color="#FFDB63"
                 description={i18n.t("achievements_feedback_radio_subheading")}
                 isUnlock={true}
+                badgeUrl="https://luftio.knaufizolace.cz/luftio/odznak-radista"
               />
               <Achievement
                 name={i18n.t("achievements_feedback_informant_title")}
-                iconName="cofee"
+                iconName="tv"
                 color="#FFDB63"
                 description={i18n.t(
                   "achievements_feedback_informant_subheading"
                 )}
                 isUnlock={false}
+                badgeUrl="https://luftio.knaufizolace.cz/luftio/odznak-informator/"
               />
             </View>
             <Text category="h3">{i18n.t("achievements_special")}</Text>
@@ -87,10 +92,11 @@ const AchievementsScreen: React.FC = () => {
               }}>
               <Achievement
                 name={i18n.t("achievements_special_forest_title")}
-                iconName=""
+                iconName="map"
                 color="#F65656"
                 description={i18n.t("achievements_special_forest_subheading")}
-                isUnlock={false}
+                isUnlock={true}
+                badgeUrl="https://luftio.knaufizolace.cz/luftio/odznak-den-lesu/"
               />
               <Achievement
                 name={i18n.t("achievements_special_earth_title")}
@@ -98,6 +104,7 @@ const AchievementsScreen: React.FC = () => {
                 color="#F65656"
                 description={i18n.t("achievements_special_earth_subheading")}
                 isUnlock={true}
+                badgeUrl="https://luftio.knaufizolace.cz/luftio/odznak-den-zeme/"
               />
             </View>
           </View>
