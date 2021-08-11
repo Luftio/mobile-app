@@ -11,10 +11,7 @@ import LayoutSafeArea from "../components/layouts/LayoutSafeArea";
 
 import i18n from "../i18n";
 
-type FeedbackSuccessScreenProp = StackNavigationProp<
-  RootStackParamList,
-  "FeedbackSuccess"
->;
+type FeedbackSuccessScreenProp = StackNavigationProp<RootStackParamList, "FeedbackSuccess">;
 
 const FeedbackSuccessScreen: React.FC = () => {
   const navigation = useNavigation<FeedbackSuccessScreenProp>();
@@ -28,25 +25,21 @@ const FeedbackSuccessScreen: React.FC = () => {
             padding: 24,
             paddingTop: 40,
           }}>
-          <View style={{ alignItems: "center" }}>
+          <View style={{ alignItems: "center", flex: 1 }}>
             <Image
               style={{
-                width: 310,
-                height: 320,
-                marginTop: 40,
-                marginBottom: 25,
+                flex: 1,
+                marginTop: 20,
+                marginBottom: 20,
               }}
+              resizeMode="center"
               source={require("../../assets/man-success.png")}
             />
-            <Text
-              category="h1"
-              style={{ marginBottom: 20, textAlign: "center" }}>
+            <Text category="h1" style={{ marginBottom: 20, textAlign: "center" }}>
               {" "}
               {i18n.t("feedback_success_heading")}
             </Text>
-            <Text
-              category="p1"
-              style={{ marginBottom: 180, textAlign: "center" }}>
+            <Text category="p1" style={{ marginBottom: 40, textAlign: "center" }}>
               {i18n.t("feedback_success_subheading")}
             </Text>
           </View>

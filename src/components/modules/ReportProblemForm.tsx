@@ -1,14 +1,28 @@
 import React, { useState } from "react";
+import * as Sentry from "sentry-expo";
 
+import { Alert } from "react-native";
 import { Button, Input } from "@ui-kitten/components";
 
 import i18n from "../../i18n";
+import ThingsboardService from "../../services/ThingsboardService";
+import { useNavigation } from "@react-navigation/native";
 
 const ReportProblemForm: React.FC = () => {
   const [message, setMessage] = useState<string>("");
+  const navigation = useNavigation();
 
-  function Report() {
-    console.log(message);
+  async function report() {
+    Alert.alert("", i18n.t("feedback_success_heading"), [
+      {
+        text: "OK",
+        onPress: () => {
+          navigation.goBack();
+        },
+      },
+    ]);
+    const userData = await ThingsboardService.getInstance().getUserData();
+    Sentry.Browser.captureMessage("User report " + userData?.email + " - " + message);
   }
 
   return (
@@ -22,7 +36,7 @@ const ReportProblemForm: React.FC = () => {
         multiline={true}
         textStyle={{ minHeight: 150 }}
       />
-      <Button size="large" onPress={() => Report()}>
+      <Button size="large" onPress={() => report()}>
         {i18n.t("report_problem_button_text")}
       </Button>
     </>
