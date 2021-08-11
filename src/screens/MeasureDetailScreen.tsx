@@ -21,6 +21,7 @@ interface MeasureDetailScreenProps {
 const MeasureDetailScreen: React.FC<MeasureDetailScreenProps> = ({ route }) => {
   const [active, setActive] = useState<string>("today");
   const { data }: { data: DeviceData } = route.params;
+
   return (
     <LayoutSafeArea main>
       <TopNavigation
@@ -42,7 +43,7 @@ const MeasureDetailScreen: React.FC<MeasureDetailScreenProps> = ({ route }) => {
           <Text category="h1" style={{ fontSize: 50, fontWeight: "800", marginRight: 10 }}>
             {data.value}
           </Text>
-          <Text style={{ fontSize: 22, fontWeight: "500", paddingBottom: 6 }}>ppm</Text>
+          <Text style={{ fontSize: 22, fontWeight: "500", paddingBottom: 6 }}>{data.unit}</Text>
         </View>
         <Text style={{ marginBottom: 25, fontWeight: "500", fontSize: 18 }}>
           {i18n.t("CO2_detail_screen")}

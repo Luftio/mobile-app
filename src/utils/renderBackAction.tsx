@@ -6,7 +6,7 @@ import { RootStackParamList } from "../screens/RootStackParams";
 
 import { TopNavigationAction, Icon } from "@ui-kitten/components";
 
-type renderBackActionProp = StackNavigationProp<RootStackParamList, "Signpost">;
+type renderBackActionProp = StackNavigationProp<RootStackParamList, "SignIn">;
 
 const renderBackAction = () => {
   const navigation = useNavigation<renderBackActionProp>();
@@ -17,13 +17,7 @@ const renderBackAction = () => {
 
   return (
     <TopNavigationAction
-      icon={(props) => (
-        <Icon
-          {...props}
-          name="chevron-left"
-          style={{ color: "#838C97", width: 24, height: 24 }}
-        />
-      )}
+      icon={(props) => <Icon {...props} name="chevron-left" style={{ color: "#838C97", width: 24, height: 24 }} />}
       onPress={() => navigation.goBack()}
     />
   );

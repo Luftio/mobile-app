@@ -22,6 +22,7 @@ const serverQueryFetcher: QueryFetcher = async function (query: string, variable
   });
   if (currentlyFetching.includes(requestBody)) return { data: null };
   const id = currentlyFetching.push(requestBody);
+
   const response = await fetch(LUFTIO_GRAPHQL_ENDPOINT, {
     method: "POST",
     headers: {

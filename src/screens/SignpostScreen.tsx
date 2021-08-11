@@ -12,7 +12,7 @@ import Logo from "../components/svg/Logo";
 
 import i18n from "../i18n";
 
-type signpostScreenProp = StackNavigationProp<RootStackParamList, "Signpost">;
+type signpostScreenProp = StackNavigationProp<RootStackParamList, "SignIn">;
 
 const SignpostScreen: React.FC = () => {
   const navigation = useNavigation<signpostScreenProp>();

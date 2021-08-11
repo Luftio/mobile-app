@@ -91,7 +91,7 @@ const SignInForm: React.FC = () => {
                 style={{
                   textDecorationLine: "underline",
                 }}
-                onPress={() => navigation.replace("RequestChange")}>
+                onPress={() => navigation.navigate("RequestChange")}>
                 {i18n.t("forgot_password")}
               </Text>
             </View>

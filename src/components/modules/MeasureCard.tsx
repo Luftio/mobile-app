@@ -3,6 +3,9 @@ import { TouchableOpacity, View } from "react-native";
 
 import { Icon, Text } from "@ui-kitten/components";
 
+import { VictoryChart, VictoryLine, VictoryTheme } from "victory-native";
+import { DeviceDataValue } from "../../gqless";
+
 interface MeasureCardProps {
   name: string;
   value: string;
@@ -10,10 +13,22 @@ interface MeasureCardProps {
   maxValue: string;
   color: string;
   procents: number;
+  unit: string;
+  values: DeviceDataValue[];
   onPress?: () => void;
 }
 
-const MeasureCard: React.FC<MeasureCardProps> = ({ name, value, minValue, maxValue, color, procents, onPress }) => {
+const MeasureCard: React.FC<MeasureCardProps> = ({
+  name,
+  value,
+  minValue,
+  unit,
+  maxValue,
+  color,
+  procents,
+  onPress,
+  values,
+}) => {
   return (
     <TouchableOpacity onPress={onPress}>
       <View
@@ -38,10 +53,29 @@ const MeasureCard: React.FC<MeasureCardProps> = ({ name, value, minValue, maxVal
               borderRadius: 4,
               backgroundColor: color,
               marginRight: 15,
-            }}></View>
+            }}>
+            <VictoryLine
+              width={60}
+              height={60}
+              interpolation="natural"
+              padding={0}
+              domainPadding={5}
+              style={{ data: { stroke: "#fff", strokeWidth: 3, strokeLinecap: "round" } }}
+              animate={{
+                duration: 500,
+                onLoad: { duration: 1000 },
+              }}
+              data={values.slice(Math.max(0, values.length - 10))}
+              x={(it) => new Date(it.ts)}
+              y={(it) => Number(it.value)}
+            />
+          </View>
           <View>
             <Text style={{ fontWeight: "600", fontSize: 18, marginBottom: 10 }}>{name}</Text>
-            <Text style={{ color: color, fontWeight: "600", fontSize: 18 }}>{value}</Text>
+            <Text style={{ color: color, fontWeight: "600", fontSize: 18 }}>
+              {value}
+              {unit}
+            </Text>
           </View>
         </View>
         <View
@@ -60,7 +94,10 @@ const MeasureCard: React.FC<MeasureCardProps> = ({ name, value, minValue, maxVal
                 marginRight: 5,
               }}
             />
-            <Text category="s2">{minValue}</Text>
+            <Text category="s2">
+              {minValue}
+              {unit}
+            </Text>
           </View>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <Icon
@@ -72,7 +109,10 @@ const MeasureCard: React.FC<MeasureCardProps> = ({ name, value, minValue, maxVal
                 marginRight: 5,
               }}
             />
-            <Text category="s2">{maxValue}</Text>
+            <Text category="s2">
+              {maxValue}
+              {unit}
+            </Text>
           </View>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <Icon
@@ -84,7 +124,10 @@ const MeasureCard: React.FC<MeasureCardProps> = ({ name, value, minValue, maxVal
                 marginRight: 5,
               }}
             />
-            <Text category="s2">{procents}%</Text>
+            <Text category="s2">
+              {procents}
+              {unit}
+            </Text>
           </View>
         </View>
       </View>

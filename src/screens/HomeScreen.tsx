@@ -20,7 +20,7 @@ import i18n from "../i18n";
 import PushService from "../services/PushService";
 import LevelsService from "../services/LevelsService";
 
-import { useQuery } from "../gqless";
+import { DeviceData, useQuery } from "../gqless";
 
 type HomeScreenProp = StackNavigationProp<RootStackParamList, "Home">;
 
@@ -32,8 +32,8 @@ const HomeScreen: React.FC = () => {
   const [lamp, setLamp] = useState<string>("none");
 
   const query = useQuery();
-  const devicesData = query.device_data({ id: "d5a77fc0-c611-11eb-9b93-c7c640bc4881" });
-  const score = Math.round(devicesData?.data?.find((it) => it.type == "score")?.value || 0);
+  const devicesData = query?.device_data({ id: "d5a77fc0-c611-11eb-9b93-c7c640bc4881" });
+  const score = Math.round(devicesData?.data?.find((it: any) => it.type == "score")?.value || 0);
   useEffect(() => {
     arcSweepAngle.setValue(Math.round((score / 100) * 240));
   }, [score]);
@@ -56,6 +56,8 @@ const HomeScreen: React.FC = () => {
       if (responseListener.current) Notifications.removeNotificationSubscription(responseListener.current);
     };
   }, []);
+
+  console.log(devicesData.data);
 
   return (
     <>
@@ -104,7 +106,7 @@ const HomeScreen: React.FC = () => {
                     fontWeight: "600",
                     color: "#AFB8BF",
                   }}>
-                  {i18n.t("home_score")}
+                  {i18n.t("score")}
                 </Text>
                 <Text
                   category="h1"
@@ -214,11 +216,14 @@ const HomeScreen: React.FC = () => {
                 <Spinner size="large" />
               </View>
             ) : (
-              devicesData?.data?.map((card) => (
+              devicesData?.data?.map((card: DeviceData) => (
                 <MeasureCard
-                  name={card.type}
+                  key={card.type}
+                  name={i18n.t(card.type)}
+                  unit={card.unit}
                   value={card.value}
                   color={getColorValue(card.color)}
+                  values={card.values}
                   minValue={card.minValue}
                   maxValue={card.maxValue}
                   procents={card.change}

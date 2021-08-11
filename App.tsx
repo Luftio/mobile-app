@@ -80,7 +80,7 @@ const App: React.FC = () => {
   if (loggedIn) {
     firstScreen = "Home";
   } else if (viewedOnboarding) {
-    firstScreen = "Signpost";
+    firstScreen = "SignIn";
   } else {
     firstScreen = "Onboarding";
   }
@@ -89,8 +89,6 @@ const App: React.FC = () => {
     name: keyof RootStackParamList;
     component: React.ReactNode;
   }[] = [
-    { name: "Signpost", component: SignpostScreen },
-    { name: "Onboarding", component: OnboardingScreen },
     { name: "SignIn", component: SignInScreen },
     { name: "SignUp", component: SignUpScreen },
     { name: "RequestChange", component: RequestChangeScreen },
