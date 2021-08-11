@@ -22,21 +22,21 @@ const OnboardingScreen: React.FC = () => {
   const data = [
     {
       key: "one",
-      title: "Lorem ipsum dolor sit met",
-      text: "Duis pulvinar. Nam quis nulla. Etiam posuere lacus quis dolor. In sem justo, commodo ut.",
-      image: require("../../assets/onboarding-1.png"),
-    },
-    {
-      key: "two",
-      title: "Lorem ipsum dolor sit met",
-      text: "Duis pulvinar. Nam quis nulla. Etiam posuere lacus quis dolor. In sem justo, commodo ut.",
+      title: i18n.t("onboarding_1_title"),
+      text: i18n.t("onboarding_1_text"),
       image: require("../../assets/onboarding-2.png"),
     },
     {
-      key: "three",
-      title: "Lorem ipsum dolor sit met",
-      text: "Duis pulvinar. Nam quis nulla. Etiam posuere lacus quis dolor. In sem justo, commodo ut.",
+      key: "two",
+      title: i18n.t("onboarding_2_title"),
+      text: i18n.t("onboarding_2_text"),
       image: require("../../assets/onboarding-3.png"),
+    },
+    {
+      key: "three",
+      title: i18n.t("onboarding_3_title"),
+      text: i18n.t("onboarding_3_text"),
+      image: require("../../assets/onboarding-1.png"),
     },
   ];
 
@@ -80,8 +80,8 @@ const OnboardingScreen: React.FC = () => {
       <AppIntroSlider
         data={data}
         renderItem={renderItem}
-        dotStyle={{ backgroundColor: "#E4E4E4", marginBottom: 60 }}
-        activeDotStyle={{ backgroundColor: "#C4C4C4", marginBottom: 60 }}
+        dotStyle={{ backgroundColor: "#E4E4E4", marginBottom: 10 }}
+        activeDotStyle={{ backgroundColor: "#C4C4C4", marginBottom: 10 }}
         renderSkipButton={() => (
           <View
             style={{

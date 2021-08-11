@@ -16,7 +16,7 @@ const LoginScreen: React.FC = () => {
   return (
     <LayoutSafeArea>
       <KeyboardAwareScrollView>
-        <View style={{ flex: 1, padding: 24 }}>
+        <View style={{ flex: 1, padding: 24, paddingTop: 100 }}>
           <Header heading={i18n.t("sign_in_heading")} subheading={i18n.t("sign_in_subheading")} />
           <LoginForm />
         </View>

@@ -135,5 +135,11 @@
   "start": "START!",
   "socials_msg": "I just unlocked a new badge. Join us and keep healthy air and be productive.",
   "socials_url": "http://luftio.com",
-  "socials_dialog_title": "New badge from Luftio"
+  "socials_dialog_title": "New badge from Luftio",
+  "onboarding_1_title": "Analyze your air quality",
+  "onboarding_1_text": "Luftio measures CO2, VOC, temperature and humidity",
+  "onboarding_2_title": "Get achievements",
+  "onboarding_2_text": "Keep your air quality up and we'll reward you with a badge",
+  "onboarding_3_title": "Give feedback",
+  "onboarding_3_text": "Report how satisfied you are with the air quality"
 }
