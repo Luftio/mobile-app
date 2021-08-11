@@ -22,10 +22,7 @@ const SignpostScreen: React.FC = () => {
       <View style={{ flex: 1, padding: 24 }}>
         <Logo />
         <View style={{ paddingTop: 40, paddingBottom: 40 }}>
-          <Text
-            category="h2"
-            appearance="default"
-            style={{ paddingBottom: 15 }}>
+          <Text category="h2" appearance="default" style={{ paddingBottom: 15 }}>
             {i18n.t("signpost_heading")}
           </Text>
           <Text category="s2">{i18n.t("signpost_subheading")}</Text>
@@ -37,21 +34,12 @@ const SignpostScreen: React.FC = () => {
             alignItems: "center",
             justifyContent: "center",
           }}>
-          <Image
-            style={{ width: 310, height: 302 }}
-            source={require("../../assets/man-walking.png")}
-          />
+          <Image style={{ width: 310, height: 302 }} source={require("../../assets/man-walking.png")} />
         </View>
-        <Button
-          size="large"
-          style={{ marginBottom: 10 }}
-          onPress={() => navigation.navigate("SignIn")}>
+        <Button size="large" style={{ marginBottom: 10 }} onPress={() => navigation.navigate("SignIn")}>
           {i18n.t("sign_in")}
         </Button>
-        <Button
-          size="large"
-          appearance="outline"
-          onPress={() => navigation.navigate("SignUp")}>
+        <Button size="large" appearance="outline" onPress={() => navigation.navigate("SignUp")}>
           {i18n.t("sign_up")}
         </Button>
       </View>

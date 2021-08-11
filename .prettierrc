@@ -4,5 +4,6 @@
   "semi": true,
   "singleQuote": false,
   "bracketSpacing": true,
-  "jsxBracketSameLine": true
+  "jsxBracketSameLine": true,
+  "printWidth": 120
 }

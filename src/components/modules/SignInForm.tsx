@@ -5,9 +5,10 @@ import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../screens/RootStackParams";
 
-import { Text, Input, Icon, Button } from "@ui-kitten/components";
+import { Text, Input, Icon, Button, Spinner } from "@ui-kitten/components";
 
 import i18n from "../../i18n";
+import ThingsboardService from "../../services/ThingsboardService";
 
 type SignInFormProp = StackNavigationProp<RootStackParamList, "SignIn">;
 
@@ -16,17 +17,13 @@ const SignInForm: React.FC = () => {
 
   const [showPassword, setShowPassword] = useState<boolean>(true);
 
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [email, setEmail] = useState<string>("tomas@luftio.cz");
+  const [password, setPassword] = useState<string>("y3Ci8hZmEBLf36Ja");
   const [error, setError] = useState<null | string>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   function signIn() {
-    if (
-      !email ||
-      !/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
-        email
-      )
-    ) {
+    if (!email || !/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)) {
       setError("msg_invalid_email");
       return;
     }
@@ -35,7 +32,17 @@ const SignInForm: React.FC = () => {
       return;
     }
 
-    navigation.replace("Home");
+    setLoading(true);
+    ThingsboardService.getInstance()
+      .loginEmail(email, password)
+      .then(() => {
+        setLoading(false);
+        navigation.replace("Home");
+      })
+      .catch((error) => {
+        setLoading(false);
+        setError("msg_password_invalid");
+      });
   }
 
   return (
@@ -99,6 +106,7 @@ const SignInForm: React.FC = () => {
       <Button size="large" onPress={() => signIn()}>
         {i18n.t("sign_in")}
       </Button>
+      {loading && <Spinner size="large" style={{ marginTop: 20 }} />}
     </>
   );
 };

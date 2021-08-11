@@ -43,6 +43,7 @@
   "msg_pairing_code_required": "Pole párovací kód je povinné.",
   "msg_invalid_email": "E-mail je neplatný.",
   "msg_password_required": "Pole heslo je povinné.",
+  "msg_password_invalid": "Heslo je neplatné.",
   "msg_terms_required": "Pro pokračování musíte souhlasit s podmínkami služby",
   "msg_invalid_password": "Heslo musí obsahovat alespoň 12 znaků, malé a jedno velké písmeno",
   "msg_passwords_not_match": "Hesla se sobě nerovnají",

@@ -9,21 +9,11 @@ interface MeasureCardProps {
   minValue: string;
   maxValue: string;
   color: string;
-  procents: string;
-  isIncreased?: boolean;
+  procents: number;
   onPress?: () => void;
 }
 
-const MeasureCard: React.FC<MeasureCardProps> = ({
-  name,
-  value,
-  minValue,
-  maxValue,
-  color,
-  procents,
-  isIncreased,
-  onPress,
-}) => {
+const MeasureCard: React.FC<MeasureCardProps> = ({ name, value, minValue, maxValue, color, procents, onPress }) => {
   return (
     <TouchableOpacity onPress={onPress}>
       <View
@@ -50,12 +40,8 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
               marginRight: 15,
             }}></View>
           <View>
-            <Text style={{ fontWeight: "600", fontSize: 18, marginBottom: 10 }}>
-              {name}
-            </Text>
-            <Text style={{ color: color, fontWeight: "600", fontSize: 18 }}>
-              {value}
-            </Text>
+            <Text style={{ fontWeight: "600", fontSize: 18, marginBottom: 10 }}>{name}</Text>
+            <Text style={{ color: color, fontWeight: "600", fontSize: 18 }}>{value}</Text>
           </View>
         </View>
         <View
@@ -90,7 +76,7 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
           </View>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <Icon
-              name={isIncreased ? "trending-up" : "trending-down"}
+              name={procents > 0 ? "trending-up" : "trending-down"}
               style={{
                 color: "#838C97",
                 width: 16,

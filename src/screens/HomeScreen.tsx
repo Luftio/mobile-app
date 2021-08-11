@@ -1,11 +1,13 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { View, ScrollView } from "react-native";
+import * as Notifications from "expo-notifications";
+import { Subscription } from "@unimodules/core";
 
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "./RootStackParams";
 
-import { Text, Icon, Button } from "@ui-kitten/components";
+import { Text, Icon, Button, Spinner } from "@ui-kitten/components";
 
 import LayoutSafeArea from "../components/layouts/LayoutSafeArea";
 import Slider from "../components/modules/Slider";
@@ -15,27 +17,45 @@ import { ReanimatedArcBase } from "@callstack/reanimated-arc";
 import Reanimated from "react-native-reanimated";
 
 import i18n from "../i18n";
+import PushService from "../services/PushService";
+import LevelsService from "../services/LevelsService";
+
+import { useQuery } from "../gqless";
 
 type HomeScreenProp = StackNavigationProp<RootStackParamList, "Home">;
 
 const HomeScreen: React.FC = () => {
   const navigation = useNavigation<HomeScreenProp>();
 
-  const arcAngle = useRef(new Reanimated.Value(Math.random() * 240));
-  const [score, setScore] = useState<any>(0);
-
-  const [lampBrightness, setLampBrightness] = useState<number>(80);
+  const arcSweepAngle = Reanimated.useValue<number>(0);
+  const [lampBrightness, setLampBrightness] = useState<number>(255);
   const [lamp, setLamp] = useState<string>("none");
 
-  let color;
+  const query = useQuery();
+  const devicesData = query.device_data({ id: "d5a77fc0-c611-11eb-9b93-c7c640bc4881" });
+  const score = Math.round(devicesData?.data?.find((it) => it.type == "score")?.value || 0);
+  useEffect(() => {
+    arcSweepAngle.setValue(Math.round((score / 100) * 240));
+  }, [score]);
 
-  if (score > 70) {
-    color = "#23A454";
-  } else if (score > 40) {
-    color = "#FFB951";
-  } else {
-    color = "#ED3A49";
+  function getColorValue(color?: string) {
+    if (color == "green") return "#23A454";
+    if (color == "yellow") return "#FFB951";
+    if (color == "red") return "#ED3A49";
   }
+  let color = getColorValue(devicesData.color);
+
+  // Notification registration
+  const responseListener = useRef<Subscription>();
+  useEffect(() => {
+    PushService.registerForPushNotifications();
+    responseListener.current = Notifications.addNotificationResponseReceivedListener((response) => {
+      console.log(response);
+    });
+    return () => {
+      if (responseListener.current) Notifications.removeNotificationSubscription(responseListener.current);
+    };
+  }, []);
 
   return (
     <>
@@ -60,11 +80,6 @@ const HomeScreen: React.FC = () => {
                   width: 100,
                   height: 200,
                 }}>
-                <Reanimated.Code
-                  exec={Reanimated.call([arcAngle.current], ([value]) => {
-                    setScore(`${Math.round((value / 240) * 100)}`);
-                  })}
-                />
                 <ReanimatedArcBase
                   color="#E1E6EA"
                   diameter={200}
@@ -75,12 +90,10 @@ const HomeScreen: React.FC = () => {
                   style={{ position: "absolute" }}
                 />
                 <ReanimatedArcBase
-                  color={
-                    score > 70 ? "#23A454" : score > 40 ? "#FFB951" : "#E55B5B"
-                  }
+                  color={score > 70 ? "#23A454" : score > 40 ? "#FFB951" : "#E55B5B"}
                   diameter={200}
                   width={10}
-                  arcSweepAngle={arcAngle.current}
+                  arcSweepAngle={arcSweepAngle}
                   lineCap="round"
                   rotation={240}
                   style={{ position: "absolute" }}
@@ -108,13 +121,7 @@ const HomeScreen: React.FC = () => {
                     fontWeight: "600",
                     color: color,
                   }}>
-                  {i18n.t(
-                    score > 70
-                      ? "upper_level_good"
-                      : score > 40
-                      ? "upper_level_not_bad"
-                      : "upper_level_bad"
-                  )}
+                  {i18n.t(score > 70 ? "upper_level_good" : score > 40 ? "upper_level_not_bad" : "upper_level_bad")}
                 </Text>
               </View>
             </View>
@@ -202,42 +209,23 @@ const HomeScreen: React.FC = () => {
             <Text category="h3" style={{ marginBottom: 25 }}>
               {i18n.t("home_detail")}
             </Text>
-            <MeasureCard
-              name="CO2"
-              value={`1037 ppm / ${i18n.t("level_good")}`}
-              color="#23A454"
-              minValue="1668 ppm"
-              maxValue="328 ppm"
-              procents="+3"
-              isIncreased
-              onPress={() => navigation.navigate("MeasureDetail")}
-            />
-            <MeasureCard
-              name={i18n.t("temperature")}
-              value={`23.5°C / ${i18n.t("level_good")}`}
-              color="#FFB951"
-              minValue="27°C"
-              maxValue="19°C"
-              procents="+10"
-              isIncreased
-            />
-            <MeasureCard
-              name={i18n.t("humidity")}
-              value={`43% / ${i18n.t("level_bad")}`}
-              color="#ED3A49"
-              minValue="41%"
-              maxValue="67%"
-              procents="-17"
-            />
-            <MeasureCard
-              name={i18n.t("pressure")}
-              value={`975 hPa / ${i18n.t("level_good")}`}
-              color="#23A454"
-              minValue="990 hPa"
-              maxValue="976 hPa"
-              procents="+9"
-              isIncreased
-            />
+            {query.$state.isLoading ? (
+              <View style={{ marginTop: 40, alignItems: "center" }}>
+                <Spinner size="large" />
+              </View>
+            ) : (
+              devicesData?.data?.map((card) => (
+                <MeasureCard
+                  name={card.type}
+                  value={card.value}
+                  color={getColorValue(card.color)}
+                  minValue={card.minValue}
+                  maxValue={card.maxValue}
+                  procents={card.change}
+                  onPress={() => navigation.navigate("MeasureDetail", { data: card })}
+                />
+              ))
+            )}
           </View>
         </ScrollView>
       </LayoutSafeArea>
