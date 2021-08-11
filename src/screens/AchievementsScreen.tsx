@@ -10,6 +10,8 @@ import i18n from "../i18n";
 
 import { useQuery } from "../gqless";
 
+const BADGE_BASE_URL = "https://luftio.knaufizolace.cz/luftio/";
+
 const AchievementsScreen: React.FC = () => {
   const query = useQuery();
   const achievements = query.achievements;
@@ -49,7 +51,7 @@ const AchievementsScreen: React.FC = () => {
                     color="#3F74F9"
                     description={i18n.t("achievements_air_beginner_subheading")}
                     isUnlock={achievements?.some((it) => it.name == "achievements_air_beginner")}
-                    badgeUrl="https://luftio.knaufizolace.cz/luftio/odznak-zacatecnik/"
+                    badgeUrl={BADGE_BASE_URL + "odznak-zacatecnik/"}
                   />
                   <Achievement
                     name={i18n.t("achievements_air_advanced_title")}
@@ -57,7 +59,7 @@ const AchievementsScreen: React.FC = () => {
                     color="#3F74F9"
                     description={i18n.t("achievements_air_advanced_subheading")}
                     isUnlock={achievements?.some((it) => it.name == "achievements_air_advanced")}
-                    badgeUrl="https://luftio.knaufizolace.cz/luftio/odznak-pokrocily/"
+                    badgeUrl={BADGE_BASE_URL + "odznak-pokrocily/"}
                   />
                   <Achievement
                     name={i18n.t("achievements_air_ventilator_title")}
@@ -65,7 +67,7 @@ const AchievementsScreen: React.FC = () => {
                     color="#3F74F9"
                     description={i18n.t("achievements_air_ventilator_subheading")}
                     isUnlock={achievements?.some((it) => it.name == "achievements_air_ventilator")}
-                    badgeUrl="https://luftio.knaufizolace.cz/luftio/odznak-master/"
+                    badgeUrl={BADGE_BASE_URL + "odznak-master/"}
                   />
                 </View>
                 <Text category="h3">{i18n.t("achievements_feedback")}</Text>
@@ -81,7 +83,7 @@ const AchievementsScreen: React.FC = () => {
                     color="#FFDB63"
                     description={i18n.t("achievements_feedback_radio_subheading")}
                     isUnlock={achievements?.some((it) => it.name == "achievements_feedback_radio")}
-                    badgeUrl="https://luftio.knaufizolace.cz/luftio/odznak-radista"
+                    badgeUrl={BADGE_BASE_URL + "odznak-radista"}
                   />
                   <Achievement
                     name={i18n.t("achievements_feedback_informant_title")}
@@ -89,7 +91,7 @@ const AchievementsScreen: React.FC = () => {
                     color="#FFDB63"
                     description={i18n.t("achievements_feedback_informant_subheading")}
                     isUnlock={achievements?.some((it) => it.name == "achievements_feedback_informant")}
-                    badgeUrl="https://luftio.knaufizolace.cz/luftio/odznak-informator/"
+                    badgeUrl={BADGE_BASE_URL + "odznak-informator/"}
                   />
                 </View>
                 <Text category="h3">{i18n.t("achievements_special")}</Text>
@@ -105,7 +107,7 @@ const AchievementsScreen: React.FC = () => {
                     color="#F65656"
                     description={i18n.t("achievements_special_forest_subheading")}
                     isUnlock={achievements?.some((it) => it.name == "achievements_special_forest")}
-                    badgeUrl="https://luftio.knaufizolace.cz/luftio/odznak-den-lesu/"
+                    badgeUrl={BADGE_BASE_URL + "odznak-den-lesu/"}
                   />
                   <Achievement
                     name={i18n.t("achievements_special_earth_title")}
@@ -113,7 +115,7 @@ const AchievementsScreen: React.FC = () => {
                     color="#F65656"
                     description={i18n.t("achievements_special_earth_subheading")}
                     isUnlock={achievements?.some((it) => it.name == "achievements_special_earth")}
-                    badgeUrl="https://luftio.knaufizolace.cz/luftio/odznak-den-zeme/"
+                    badgeUrl={BADGE_BASE_URL + "odznak-den-zeme/"}
                   />
                 </View>
               </>

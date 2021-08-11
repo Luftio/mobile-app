@@ -2,11 +2,8 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import {
-  BottomNavigation,
-  BottomNavigationTab,
-  Icon,
-} from "@ui-kitten/components";
+import { BottomNavigation, BottomNavigationTab, Icon } from "@ui-kitten/components";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import HomeScreen from "../../src/screens/HomeScreen";
 import FeedbackScreen from "../../src/screens/FeedbackScreen";
@@ -48,32 +45,33 @@ const Home = () => (
   </Stack.Navigator>
 );
 
-const BottomTabBar = ({ navigation, state }: any) => (
-  <BottomNavigation
-    selectedIndex={state.index}
-    onSelect={(index) => navigation.navigate(state.routeNames[index])}>
-    <BottomNavigationTab
-      icon={(props) => <Icon {...props} name="home" />}
-      style={{ paddingBottom: 30, paddingTop: 8 }}
-    />
-    <BottomNavigationTab
-      icon={(props) => <Icon {...props} name="award" />}
-      style={{ paddingBottom: 30, paddingTop: 8 }}
-    />
-    <BottomNavigationTab
-      icon={(props) => <Icon {...props} name="plus-circle" />}
-      style={{ paddingBottom: 30, paddingTop: 8 }}
-    />
-    <BottomNavigationTab
-      icon={(props) => <Icon {...props} name="bell" />}
-      style={{ paddingBottom: 30, paddingTop: 8 }}
-    />
-    <BottomNavigationTab
-      icon={(props) => <Icon {...props} name="user" />}
-      style={{ paddingBottom: 30, paddingTop: 8 }}
-    />
-  </BottomNavigation>
-);
+const BottomTabBar = ({ navigation, state }: any) => {
+  const insets = useSafeAreaInsets();
+  return (
+    <BottomNavigation selectedIndex={state.index} onSelect={(index) => navigation.navigate(state.routeNames[index])}>
+      <BottomNavigationTab
+        icon={(props) => <Icon {...props} name="home" />}
+        style={{ paddingBottom: 8 + insets.bottom, paddingTop: 8 }}
+      />
+      <BottomNavigationTab
+        icon={(props) => <Icon {...props} name="award" />}
+        style={{ paddingBottom: 8 + insets.bottom, paddingTop: 8 }}
+      />
+      <BottomNavigationTab
+        icon={(props) => <Icon {...props} name="plus-circle" />}
+        style={{ paddingBottom: 8 + insets.bottom, paddingTop: 8 }}
+      />
+      <BottomNavigationTab
+        icon={(props) => <Icon {...props} name="bell" />}
+        style={{ paddingBottom: 8 + insets.bottom, paddingTop: 8 }}
+      />
+      <BottomNavigationTab
+        icon={(props) => <Icon {...props} name="user" />}
+        style={{ paddingBottom: 8 + insets.bottom, paddingTop: 8 }}
+      />
+    </BottomNavigation>
+  );
+};
 
 export const TabNavigator = () => (
   <Navigator tabBar={(props) => <BottomTabBar {...props} />}>
