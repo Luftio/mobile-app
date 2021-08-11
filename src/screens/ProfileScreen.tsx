@@ -1,26 +1,39 @@
-import React from "react";
-import { View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, TouchableOpacity } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "./RootStackParams";
 
-import { Text, Icon } from "@ui-kitten/components";
+import { Text, Icon, Button } from "@ui-kitten/components";
 
 import LayoutSafeArea from "../components/layouts/LayoutSafeArea";
 import ProfileRow from "../components/modules/ProfileRow";
 
 import i18n from "../i18n";
-
-import { useQuery } from "../gqless";
+import ThingsboardService from "../services/ThingsboardService";
 
 type ProfileScreenProp = StackNavigationProp<RootStackParamList, "Profile">;
 
 const ProfileScreen: React.FC = () => {
   const navigation = useNavigation<ProfileScreenProp>();
+  const [email, setEmail] = useState<string | null>();
+  const [fullName, setFullName] = useState<string | null>();
 
-  const query = useQuery();
-  const user = query.user({ id: "1" });
+  async function loadData() {
+    const userData = await ThingsboardService.getInstance().getUserData();
+    setFullName(userData?.fullName);
+    setEmail(userData?.email);
+  }
+
+  function logout() {
+    ThingsboardService.getInstance().logout();
+    navigation.navigate("Signpost");
+  }
+
+  useEffect(() => {
+    loadData();
+  }, []);
 
   return (
     <>
@@ -35,16 +48,15 @@ const ProfileScreen: React.FC = () => {
             }}>
             <View>
               <Text category="h1" style={{ paddingBottom: 3 }}>
-                {user?.full_name}
+                {fullName}
               </Text>
               <Text category="p1" style={{ color: "#000", fontSize: 16 }}>
-                {user?.email}
+                {email}
               </Text>
             </View>
-            <Icon
-              name="log-out"
-              style={{ color: "#F36A66", width: 26, height: 26 }}
-            />
+            <TouchableOpacity onPress={() => logout()}>
+              <Icon name="log-out" style={{ color: "#F36A66", width: 26, height: 26 }} />
+            </TouchableOpacity>
           </View>
           <ProfileRow
             iconName="user-check"
@@ -61,11 +73,11 @@ const ProfileScreen: React.FC = () => {
             text={i18n.t("profile_night_mode")}
             onPress={() => navigation.navigate("NightMode")}
           />
-          <ProfileRow
+          {/*<ProfileRow
             iconName="settings"
             text={i18n.t("profile_settings")}
             onPress={() => navigation.navigate("Settings")}
-          />
+          />*/}
           <ProfileRow
             iconName="info"
             text={i18n.t("profile_info")}

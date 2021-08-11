@@ -12,18 +12,19 @@ import LayoutSafeArea from "../components/layouts/LayoutSafeArea";
 
 import i18n from "../i18n";
 
-import { useQuery } from "../gqless";
+import { DeviceData } from "../gqless";
 
-const MeasureDetailScreen: React.FC = () => {
+interface MeasureDetailScreenProps {
+  route: any;
+}
+
+const MeasureDetailScreen: React.FC<MeasureDetailScreenProps> = ({ route }) => {
   const [active, setActive] = useState<string>("today");
-
-  const query = useQuery();
-  const device = query.device({ id: "1" });
-
+  const { data }: { data: DeviceData } = route.params;
   return (
     <LayoutSafeArea main>
       <TopNavigation
-        title={() => <Text category="h4">{device?.data.title}</Text>}
+        title={() => <Text category="h4">{data.type}</Text>}
         alignment="center"
         //@ts-ignore
         accessoryLeft={renderBackAction}
@@ -39,7 +40,7 @@ const MeasureDetailScreen: React.FC = () => {
             marginBottom: 25,
           }}>
           <Text category="h1" style={{ fontSize: 50, fontWeight: "800", marginRight: 10 }}>
-            {device?.data.actual_value}
+            {data.value}
           </Text>
           <Text style={{ fontSize: 22, fontWeight: "500", paddingBottom: 6 }}>ppm</Text>
         </View>
@@ -77,7 +78,7 @@ const MeasureDetailScreen: React.FC = () => {
                 marginRight: 5,
               }}
             />
-            <Text category="s2">{device?.data.max_value}</Text>
+            <Text category="s2">{data.maxValue}</Text>
           </View>
           <View
             style={{
@@ -94,7 +95,7 @@ const MeasureDetailScreen: React.FC = () => {
                 marginRight: 5,
               }}
             />
-            <Text category="s2">{device?.data.min_value}</Text>
+            <Text category="s2">{data.minValue}</Text>
           </View>
           <View
             style={{
@@ -110,7 +111,7 @@ const MeasureDetailScreen: React.FC = () => {
                 marginRight: 5,
               }}
             />
-            <Text category="s2">{device?.data.difference}</Text>
+            <Text category="s2">{data.change}</Text>
           </View>
         </View>
         <View

@@ -1,8 +1,7 @@
 import { createReactClient } from "@gqless/react";
-import { mockServer, MockList } from "@graphql-tools/mock";
-
-//@ts-ignore
 import { createClient, QueryFetcher } from "gqless";
+
+import { LUFTIO_GRAPHQL_ENDPOINT } from "@env";
 
 import {
   generatedSchema,
@@ -12,47 +11,35 @@ import {
   SchemaObjectTypesNames,
 } from "./schema.generated";
 
-//@ts-ignore
-import schema from "../graphql/schema.graphql";
+import ThingsboardService from "../services/ThingsboardService";
 
-const mocks = {
-  RootQuery: () => ({
-    substancesCard: () => new MockList([4, 4]),
-    badgesFromGoodAir: () => new MockList([3, 3]),
-    badgesFromFeedback: () => new MockList([2, 2]),
-    badgesSpecial: () => new MockList([2, 2]),
-    notificationsToday: () => new MockList([1, 10]),
-    notificationsYesterday: () => new MockList([1, 10]),
-    educationCO2: () => new MockList([4, 4]),
-    educationTemperature: () => new MockList([4, 4]),
-    educationHumidity: () => new MockList([4, 4]),
-    educationPressure: () => new MockList([4, 4]),
-    manageDevices: () => new MockList([3, 3]),
-  }),
-};
+const currentlyFetching: string[] = [];
 
-const queryFetcher: QueryFetcher = async function (query: string, variables: Record<string, any> | undefined) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(mockServer(schema, mocks).query(query, variables));
-    }, 500);
+const serverQueryFetcher: QueryFetcher = async function (query: string, variables: Record<string, any> | undefined) {
+  const requestBody = JSON.stringify({
+    query,
+    variables,
   });
-  // Modify "./src/graphql/schema.graphql" if needed
-  /*const response = await fetch("./src/graphql/schema.graphql", {
+  if (currentlyFetching.includes(requestBody)) return { data: null };
+  const id = currentlyFetching.push(requestBody);
+  const response = await fetch(LUFTIO_GRAPHQL_ENDPOINT, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      ...(await ThingsboardService.getInstance().getAuthHeader()),
     },
-    body: JSON.stringify({
-      query,
-      variables,
-    }),
+    body: requestBody,
     mode: "cors",
   });
 
   const json = await response.json();
 
-  return json;*/
+  currentlyFetching.splice(id);
+  return json;
+};
+
+const queryFetcher: QueryFetcher = function (query: string, variables: Record<string, any> | undefined) {
+  return serverQueryFetcher(query, variables);
 };
 
 export const client = createClient<GeneratedSchema, SchemaObjectTypesNames, SchemaObjectTypes>({

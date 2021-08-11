@@ -36,7 +36,7 @@ const SignpostScreen: React.FC = () => {
           }}>
           <Image style={{ width: 310, height: 302 }} source={require("../../assets/man-walking.png")} />
         </View>
-        <Button size="large" style={{ marginBottom: 10 }} onPress={() => navigation.navigate("Home")}>
+        <Button size="large" style={{ marginBottom: 10 }} onPress={() => navigation.navigate("SignIn")}>
           {i18n.t("sign_in")}
         </Button>
         <Button size="large" appearance="outline" onPress={() => navigation.navigate("SignUp")}>

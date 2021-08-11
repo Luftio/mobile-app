@@ -1,5 +1,7 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { View, ScrollView } from "react-native";
+import * as Notifications from "expo-notifications";
+import { Subscription } from "@unimodules/core";
 
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -15,6 +17,8 @@ import { ReanimatedArcBase } from "@callstack/reanimated-arc";
 import Reanimated from "react-native-reanimated";
 
 import i18n from "../i18n";
+import PushService from "../services/PushService";
+import LevelsService from "../services/LevelsService";
 
 import { useQuery } from "../gqless";
 
@@ -23,26 +27,35 @@ type HomeScreenProp = StackNavigationProp<RootStackParamList, "Home">;
 const HomeScreen: React.FC = () => {
   const navigation = useNavigation<HomeScreenProp>();
 
-  const arcAngle = useRef(new Reanimated.Value(Math.random() * 240));
-  const [score, setScore] = useState<any>(0);
-
-  const [lampBrightness, setLampBrightness] = useState<number>(80);
+  const arcSweepAngle = Reanimated.useValue<number>(0);
+  const [lampBrightness, setLampBrightness] = useState<number>(255);
   const [lamp, setLamp] = useState<string>("none");
 
-  let color;
-
-  if (score > 70) {
-    color = "#23A454";
-  } else if (score > 40) {
-    color = "#FFB951";
-  } else {
-    color = "#ED3A49";
-  }
-
   const query = useQuery();
-  const substancesCard = query.substancesCard({ id: "1" });
-  const brithness = query.brithness;
-  const score_total = query.score;
+  const devicesData = query.device_data({ id: "d5a77fc0-c611-11eb-9b93-c7c640bc4881" });
+  const score = Math.round(devicesData?.data?.find((it) => it.type == "score")?.value || 0);
+  useEffect(() => {
+    arcSweepAngle.setValue(Math.round((score / 100) * 240));
+  }, [score]);
+
+  function getColorValue(color?: string) {
+    if (color == "green") return "#23A454";
+    if (color == "yellow") return "#FFB951";
+    if (color == "red") return "#ED3A49";
+  }
+  let color = getColorValue(devicesData.color);
+
+  // Notification registration
+  const responseListener = useRef<Subscription>();
+  useEffect(() => {
+    PushService.registerForPushNotifications();
+    responseListener.current = Notifications.addNotificationResponseReceivedListener((response) => {
+      console.log(response);
+    });
+    return () => {
+      if (responseListener.current) Notifications.removeNotificationSubscription(responseListener.current);
+    };
+  }, []);
 
   return (
     <>
@@ -67,11 +80,6 @@ const HomeScreen: React.FC = () => {
                   width: 100,
                   height: 200,
                 }}>
-                <Reanimated.Code
-                  exec={Reanimated.call([arcAngle.current], ([value]) => {
-                    setScore(`${Math.round((value / 240) * 100)}`);
-                  })}
-                />
                 <ReanimatedArcBase
                   color="#E1E6EA"
                   diameter={200}
@@ -85,7 +93,7 @@ const HomeScreen: React.FC = () => {
                   color={score > 70 ? "#23A454" : score > 40 ? "#FFB951" : "#E55B5B"}
                   diameter={200}
                   width={10}
-                  arcSweepAngle={arcAngle.current}
+                  arcSweepAngle={arcSweepAngle}
                   lineCap="round"
                   rotation={240}
                   style={{ position: "absolute" }}
@@ -206,15 +214,15 @@ const HomeScreen: React.FC = () => {
                 <Spinner size="large" />
               </View>
             ) : (
-              substancesCard?.map((card) => (
+              devicesData?.data?.map((card) => (
                 <MeasureCard
-                  name={card.title}
-                  value={card.actual_value}
-                  color={card.color}
-                  minValue={card.min_value}
-                  maxValue={card.max_value}
-                  procents={card.difference}
-                  onPress={() => navigation.navigate("MeasureDetail")}
+                  name={card.type}
+                  value={card.value}
+                  color={getColorValue(card.color)}
+                  minValue={card.minValue}
+                  maxValue={card.maxValue}
+                  procents={card.change}
+                  onPress={() => navigation.navigate("MeasureDetail", { data: card })}
                 />
               ))
             )}

@@ -23,6 +23,7 @@ import VerifyEmailScreen from "./src/screens/VerifyEmailScreen";
 import SendInstructionsScreen from "./src/screens/SendInstructionsScreen";
 import FeedbackSuccessScreen from "./src/screens/FeedbackSuccessScreen";
 
+import ThingsboardService from "./src/services/ThingsboardService";
 import { TabNavigator } from "./src/utils/TabNavigator";
 
 import { RootStackParamList } from "./src/screens/RootStackParams";
@@ -44,15 +45,24 @@ const App: React.FC = () => {
   let colorScheme = useColorScheme();
   let firstScreen: string;
 
-  const [viewedOnboarding, setWiewedOnboarding] = useState<boolean>(false);
+  const [viewedOnboarding, setViewedOnboarding] = useState<boolean>(false);
+  const [loggedIn, setLoggedIn] = useState<boolean>(false);
   const [isReady, setIsReady] = useState<boolean>(false);
 
   const loadApp = async () => {
+    // Check login
+    try {
+      const _loggedIn = await ThingsboardService.getInstance().isLoggedIn();
+      setLoggedIn(_loggedIn);
+    } catch (error) {
+      console.log(error);
+      setLoggedIn(false);
+      return;
+    }
     try {
       const value = await AsyncStorage.getItem("@viewedOnboarding");
-
       if (value !== null) {
-        setWiewedOnboarding(true);
+        setViewedOnboarding(true);
       }
     } catch (err) {
       console.log("Error @checkOnboarding: ", err);
@@ -64,19 +74,15 @@ const App: React.FC = () => {
   }, []);
 
   if (!isReady) {
-    return (
-      <AppLoading
-        startAsync={loadApp}
-        onFinish={() => setIsReady(true)}
-        onError={console.error}
-      />
-    );
+    return <AppLoading startAsync={loadApp} onFinish={() => setIsReady(true)} onError={console.error} />;
   }
 
-  if (!viewedOnboarding) {
-    firstScreen = "Onboarding";
-  } else {
+  if (loggedIn) {
+    firstScreen = "Home";
+  } else if (viewedOnboarding) {
     firstScreen = "Signpost";
+  } else {
+    firstScreen = "Onboarding";
   }
 
   const screens: {
@@ -98,10 +104,7 @@ const App: React.FC = () => {
   return (
     <>
       <StatusBar style="dark" />
-      <IconRegistry
-        icons={[FeatherIconsPack, EvaIconsPack]}
-        defaultIcons="feather"
-      />
+      <IconRegistry icons={[FeatherIconsPack, EvaIconsPack]} defaultIcons="feather" />
       <ApplicationProvider
         {...eva}
         theme={{
@@ -111,9 +114,7 @@ const App: React.FC = () => {
         //@ts-ignore
         customMapping={mapping}>
         <NavigationContainer>
-          <Stack.Navigator
-            headerMode="none"
-            screenOptions={{ animationEnabled: true }}>
+          <Stack.Navigator headerMode="none" screenOptions={{ animationEnabled: true }}>
             {screens
               .sort((a, b) => {
                 if (a.name == firstScreen) return -1;

@@ -12,9 +12,7 @@ import { useQuery } from "../gqless";
 
 const AchievementsScreen: React.FC = () => {
   const query = useQuery();
-  const badgesFromGoodAir = query.badgesFromGoodAir({ id: "1" });
-  const badgesFromFeedback = query.badgesFromFeedback({ id: "1" });
-  const badgesSpecial = query.badgesSpecial({ id: "1" });
+  const achievements = query.achievements;
 
   return (
     <LayoutSafeArea main ignoreBottom>
@@ -45,16 +43,30 @@ const AchievementsScreen: React.FC = () => {
                     marginBottom: 25,
                     flexDirection: "row",
                   }}>
-                  {badgesFromGoodAir?.map((badge) => (
-                    <Achievement
-                      key={badge.id}
-                      name={badge.title}
-                      iconName={badge.icon}
-                      color={badge.color}
-                      description={badge.description}
-                      isUnlock={badge.isUnlock}
-                    />
-                  ))}
+                  <Achievement
+                    name={i18n.t("achievements_air_beginner_title")}
+                    iconName="cloud"
+                    color="#3F74F9"
+                    description={i18n.t("achievements_air_beginner_subheading")}
+                    isUnlock={achievements?.some((it) => it.name == "achievements_air_beginner")}
+                    badgeUrl="https://luftio.knaufizolace.cz/luftio/odznak-zacatecnik/"
+                  />
+                  <Achievement
+                    name={i18n.t("achievements_air_advanced_title")}
+                    iconName="zap"
+                    color="#3F74F9"
+                    description={i18n.t("achievements_air_advanced_subheading")}
+                    isUnlock={achievements?.some((it) => it.name == "achievements_air_advanced")}
+                    badgeUrl="https://luftio.knaufizolace.cz/luftio/odznak-pokrocily/"
+                  />
+                  <Achievement
+                    name={i18n.t("achievements_air_ventilator_title")}
+                    iconName="star"
+                    color="#3F74F9"
+                    description={i18n.t("achievements_air_ventilator_subheading")}
+                    isUnlock={achievements?.some((it) => it.name == "achievements_air_ventilator")}
+                    badgeUrl="https://luftio.knaufizolace.cz/luftio/odznak-master/"
+                  />
                 </View>
                 <Text category="h3">{i18n.t("achievements_feedback")}</Text>
                 <View
@@ -63,16 +75,22 @@ const AchievementsScreen: React.FC = () => {
                     marginBottom: 25,
                     flexDirection: "row",
                   }}>
-                  {badgesFromFeedback?.map((badge) => (
-                    <Achievement
-                      key={badge.id}
-                      name={badge.title}
-                      iconName={badge.icon}
-                      color={badge.color}
-                      description={badge.description}
-                      isUnlock={badge.isUnlock}
-                    />
-                  ))}
+                  <Achievement
+                    name={i18n.t("achievements_feedback_radio_title")}
+                    iconName="thumbs-up"
+                    color="#FFDB63"
+                    description={i18n.t("achievements_feedback_radio_subheading")}
+                    isUnlock={achievements?.some((it) => it.name == "achievements_feedback_radio")}
+                    badgeUrl="https://luftio.knaufizolace.cz/luftio/odznak-radista"
+                  />
+                  <Achievement
+                    name={i18n.t("achievements_feedback_informant_title")}
+                    iconName="tv"
+                    color="#FFDB63"
+                    description={i18n.t("achievements_feedback_informant_subheading")}
+                    isUnlock={achievements?.some((it) => it.name == "achievements_feedback_informant")}
+                    badgeUrl="https://luftio.knaufizolace.cz/luftio/odznak-informator/"
+                  />
                 </View>
                 <Text category="h3">{i18n.t("achievements_special")}</Text>
                 <View
@@ -81,16 +99,22 @@ const AchievementsScreen: React.FC = () => {
                     marginBottom: 25,
                     flexDirection: "row",
                   }}>
-                  {badgesSpecial?.map((badge) => (
-                    <Achievement
-                      key={badge.id}
-                      name={badge.title}
-                      iconName={badge.icon}
-                      color={badge.color}
-                      description={badge.description}
-                      isUnlock={badge.isUnlock}
-                    />
-                  ))}
+                  <Achievement
+                    name={i18n.t("achievements_special_forest_title")}
+                    iconName="map"
+                    color="#F65656"
+                    description={i18n.t("achievements_special_forest_subheading")}
+                    isUnlock={achievements?.some((it) => it.name == "achievements_special_forest")}
+                    badgeUrl="https://luftio.knaufizolace.cz/luftio/odznak-den-lesu/"
+                  />
+                  <Achievement
+                    name={i18n.t("achievements_special_earth_title")}
+                    iconName="heart"
+                    color="#F65656"
+                    description={i18n.t("achievements_special_earth_subheading")}
+                    isUnlock={achievements?.some((it) => it.name == "achievements_special_earth")}
+                    badgeUrl="https://luftio.knaufizolace.cz/luftio/odznak-den-zeme/"
+                  />
                 </View>
               </>
             )}
