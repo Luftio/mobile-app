@@ -9,14 +9,13 @@ import { Button, Spinner } from "@ui-kitten/components";
 
 import i18n from "../i18n";
 
-import { useQuery } from "../gqless";
+import { EventFromMeasure, useQuery } from "../gqless";
 
 const NotificationsScreen: React.FC = () => {
   const [active, setActive] = useState<string>("today");
 
   const query = useQuery();
-  const notificationsToday = query.notificationsToday({ id: "1" });
-  const notificationsYesterday = query.notificationsYesterday({ id: "1" });
+  const notifications: EventFromMeasure[] = []; // TODO
 
   return (
     <>
@@ -62,26 +61,14 @@ const NotificationsScreen: React.FC = () => {
               {i18n.t("yesterday")}
             </Button>
           </View>
-          {active === "today" ? (
-            query.$state.isLoading ? (
-              <View style={{ marginTop: 40, alignItems: "center" }}>
-                <Spinner size="large" />
-              </View>
-            ) : notificationsToday == null || notificationsToday.length == 0 ? (
-              <EmptyState />
-            ) : (
-              notificationsToday.map((notification) => (
-                <Notification key={notification.id} name={notification.title} time={notification.date} />
-              ))
-            )
-          ) : query.$state.isLoading ? (
+          {query.$state.isLoading ? (
             <View style={{ marginTop: 40, alignItems: "center" }}>
               <Spinner size="large" />
             </View>
-          ) : notificationsYesterday == null || notificationsYesterday.length == 0 ? (
+          ) : notifications == null || notifications.length == 0 ? (
             <EmptyState />
           ) : (
-            notificationsYesterday.map((notification) => (
+            notifications?.map((notification) => (
               <Notification key={notification.id} name={notification.title} time={notification.date} />
             ))
           )}

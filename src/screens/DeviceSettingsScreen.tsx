@@ -11,11 +11,12 @@ import i18n from "../i18n";
 
 import { useQuery } from "../gqless";
 
-const NightModeScreen: React.FC = () => {
+const DeviceSettingsScreen: React.FC = ({ route }) => {
   const [startTime, setStartTime] = useState("23:00");
   const [endTime, setEndTime] = useState("7:00");
 
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const { device } = route.params;
 
   function validateTime(time: any) {
     if (time == null) return true;
@@ -28,13 +29,14 @@ const NightModeScreen: React.FC = () => {
   return (
     <LayoutSafeArea main>
       <TopNavigation
-        title={() => <Text category="h4">{i18n.t("profile_night_mode")}</Text>}
+        title={() => <Text category="h4">{device.title}</Text>}
         alignment="center"
         //@ts-ignore
         accessoryLeft={renderBackAction}
         style={{ backgroundColor: "#FAFAFA" }}
       />
       <View style={{ flex: 1, padding: 24 }}>
+        <Text category="h4">{i18n.t("profile_night_mode")}</Text>
         <RadioGroup selectedIndex={selectedIndex} onChange={(index) => setSelectedIndex(index)}>
           <Radio>{i18n.t("night_mode_status_off")}</Radio>
           <Radio>{i18n.t("night_mode_status_no_lights")}</Radio>
@@ -73,4 +75,4 @@ const NightModeScreen: React.FC = () => {
   );
 };
 
-export default NightModeScreen;
+export default DeviceSettingsScreen;

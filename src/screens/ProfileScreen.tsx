@@ -68,11 +68,6 @@ const ProfileScreen: React.FC = () => {
             text={i18n.t("profile_devices")}
             onPress={() => navigation.navigate("MyDevices")}
           />
-          <ProfileRow
-            iconName="moon"
-            text={i18n.t("profile_night_mode")}
-            onPress={() => navigation.navigate("NightMode")}
-          />
           {/*<ProfileRow
             iconName="settings"
             text={i18n.t("profile_settings")}

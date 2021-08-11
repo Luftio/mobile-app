@@ -42,12 +42,8 @@ const OnboardingScreen: React.FC = () => {
 
   const renderItem = ({ item }: any) => {
     return (
-      <View
-        style={{ alignItems: "center", justifyContent: "center", flex: 0.8 }}>
-        <Image
-          source={item.image}
-          style={{ width: 230, height: 200, marginBottom: 40 }}
-        />
+      <View style={{ alignItems: "center", justifyContent: "center", flex: 0.8 }}>
+        <Image source={item.image} style={{ width: 230, height: 200, marginBottom: 40 }} />
         <View style={{ paddingLeft: 30, paddingRight: 30 }}>
           <Text
             style={{
@@ -73,7 +69,7 @@ const OnboardingScreen: React.FC = () => {
   const viewedOnboarding = async () => {
     try {
       await AsyncStorage.setItem("@viewedOnboarding", "true");
-      navigation.replace("Signpost");
+      navigation.replace("SignIn");
     } catch (err) {
       console.log("Error @setItem: ", err);
     }
@@ -94,9 +90,7 @@ const OnboardingScreen: React.FC = () => {
               bottom: 15,
               marginRight: 15,
             }}>
-            <Text
-              onPress={() => viewedOnboarding()}
-              style={{ fontWeight: "500" }}>
+            <Text onPress={() => viewedOnboarding()} style={{ fontWeight: "500" }}>
               {i18n.t("skip")}
             </Text>
           </View>
@@ -112,10 +106,7 @@ const OnboardingScreen: React.FC = () => {
           </View>
         )}
         renderDoneButton={() => (
-          <Button
-            size="large"
-            onPress={() => viewedOnboarding()}
-            style={{ marginTop: 20 }}>
+          <Button size="large" onPress={() => viewedOnboarding()} style={{ marginTop: 20 }}>
             {i18n.t("start")}
           </Button>
         )}

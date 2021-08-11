@@ -1,5 +1,5 @@
 import React from "react";
-import { View } from "react-native";
+import { View, TouchableOpacity } from "react-native";
 
 import { Text, TopNavigation, Spinner } from "@ui-kitten/components";
 import renderBackAction from "../utils/renderBackAction";
@@ -10,10 +10,13 @@ import DeviceCard from "../components/modules/DeviceCard";
 import i18n from "../i18n";
 
 import { useQuery } from "../gqless";
+import { useNavigation } from "@react-navigation/native";
 
 const MyDevicesScreen: React.FC = () => {
+  const navigation = useNavigation();
+
   const query = useQuery();
-  const manageDevices = query.manageDevices({ id: "1" });
+  const manageDevices = query.devices;
 
   return (
     <LayoutSafeArea main>
@@ -30,7 +33,11 @@ const MyDevicesScreen: React.FC = () => {
             <Spinner size="large" />
           </View>
         ) : (
-          manageDevices?.map((device) => <DeviceCard key={device.id} name={device.title} code={device.label} />)
+          manageDevices?.map((device) => (
+            <TouchableOpacity onPress={() => navigation.navigate("DeviceSettings", { device })}>
+              <DeviceCard key={device.id} name={device.title} code={device.label} />
+            </TouchableOpacity>
+          ))
         )}
       </View>
     </LayoutSafeArea>

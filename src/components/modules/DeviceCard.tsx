@@ -1,7 +1,7 @@
 import React from "react";
 import { View } from "react-native";
 
-import { Text } from "@ui-kitten/components";
+import { Text, Icon } from "@ui-kitten/components";
 
 interface DeviceCardProps {
   name: string;
@@ -23,9 +23,14 @@ const DeviceCard: React.FC<DeviceCardProps> = ({ name, code }) => {
         shadowOpacity: 0.04,
         shadowRadius: 1.0,
         elevation: 1,
+        flexDirection: "row",
+        alignItems: "center",
       }}>
-      <Text style={{ marginBottom: 5, fontWeight: "500" }}>{name}</Text>
-      <Text>{code}</Text>
+      <View style={{ flexDirection: "column", flex: 1 }}>
+        <Text style={{ marginBottom: 5, fontWeight: "500" }}>{name}</Text>
+        <Text>{code}</Text>
+      </View>
+      <Icon name="chevron-right" style={{ color: "#838C97", width: 24, height: 24 }} />
     </View>
   );
 };

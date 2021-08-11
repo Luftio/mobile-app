@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Text, Input } from "@ui-kitten/components";
 
@@ -17,7 +17,11 @@ const AccountEditForm: React.FC = () => {
   const [repeatNewPassword, setRepeatNewPassword] = useState<string>("");
 
   const query = useQuery();
-  const user = query.user({ id: "1" });
+  useEffect(() => {
+    setFirstName(query.account.first_name);
+    setLastName(query.account.last_name);
+    setEmail(query.account.email);
+  }, [query.account.first_name, query.account.last_name, query.account.email]);
 
   return (
     <>
