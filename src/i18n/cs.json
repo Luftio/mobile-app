@@ -135,5 +135,11 @@
   "start": "ZAČÍT!",
   "socials_msg": "Právě jsem odemkl jsem nový odznak. Přidej se k nám a drž si zdravý vzduch a buď produktivní.",
   "socials_url": "http://luftio.com",
-  "socials_dialog_title": "Nový odznak od Luftio"
+  "socials_dialog_title": "Nový odznak od Luftio",
+  "time_6h": "6h",
+  "time_day": "Dnes",
+  "time_yesterday": "Včera",
+  "time_week": "Poslední týden",
+  "time_month": "Poslední měsíc",
+  "custom": "Vlastní"
 }

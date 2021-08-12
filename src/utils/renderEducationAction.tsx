@@ -6,23 +6,18 @@ import { RootStackParamList } from "../screens/RootStackParams";
 
 import { TopNavigationAction, Icon } from "@ui-kitten/components";
 
-type navigateActionProp = StackNavigationProp<
-  RootStackParamList,
-  "MeasureDetail"
->;
+type navigateActionProp = StackNavigationProp<RootStackParamList, "MeasureDetail">;
+
+interface navigateAction {
+  onPress: () => void;
+}
 
 const navigateAction = () => {
   const navigation = useNavigation<navigateActionProp>();
 
   return (
     <TopNavigationAction
-      icon={(props) => (
-        <Icon
-          {...props}
-          name="info"
-          style={{ color: "#838C97", width: 24, height: 24 }}
-        />
-      )}
+      icon={(props) => <Icon {...props} name="info" style={{ color: "#838C97", width: 24, height: 24 }} />}
       onPress={() => navigation.navigate("Education")}
     />
   );

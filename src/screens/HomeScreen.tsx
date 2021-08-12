@@ -57,8 +57,6 @@ const HomeScreen: React.FC = () => {
     };
   }, []);
 
-  console.log(devicesData.data);
-
   return (
     <>
       <LayoutSafeArea main ignoreBottom>
@@ -216,20 +214,22 @@ const HomeScreen: React.FC = () => {
                 <Spinner size="large" />
               </View>
             ) : (
-              devicesData?.data?.map((card: DeviceData) => (
-                <MeasureCard
-                  key={card.type}
-                  name={i18n.t(card.type)}
-                  unit={card.unit}
-                  value={card.value}
-                  color={getColorValue(card.color)}
-                  values={card.values}
-                  minValue={card.minValue}
-                  maxValue={card.maxValue}
-                  procents={card.change}
-                  onPress={() => navigation.navigate("MeasureDetail", { data: card })}
-                />
-              ))
+              devicesData?.data
+                ?.slice(1)
+                .map((card: DeviceData) => (
+                  <MeasureCard
+                    key={card.type}
+                    name={i18n.t(card.type)}
+                    unit={card.unit}
+                    value={card.value}
+                    color={getColorValue(card.color)}
+                    values={card.values}
+                    minValue={card.minValue}
+                    maxValue={card.maxValue}
+                    procents={card.change}
+                    onPress={() => navigation.navigate("MeasureDetail", { data: card })}
+                  />
+                ))
             )}
           </View>
         </ScrollView>

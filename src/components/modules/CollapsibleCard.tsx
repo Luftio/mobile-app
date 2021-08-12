@@ -9,20 +9,11 @@ import BezierEasing from "bezier-easing";
 interface CollapsibleCardProps {
   title: string;
   content: string;
-  contentHeight?: number;
   useBezier: boolean;
 }
 
-const defaultProps = {
-  contentHeight: 300,
-};
-
-const CollapsibleCard: React.FC<CollapsibleCardProps> = ({
-  title,
-  content,
-  contentHeight,
-  useBezier,
-}) => {
+const CollapsibleCard: React.FC<CollapsibleCardProps> = ({ title, content, useBezier }) => {
+  const [contentHeight, setContentHeight] = useState<number>(0);
   const [isCollapsed, setCollapsed] = useState<boolean>(true);
 
   const animationConfig = {
@@ -38,6 +29,10 @@ const CollapsibleCard: React.FC<CollapsibleCardProps> = ({
       easing: (t: number) => BezierEasing(0.25, 0, 0, 1)(t),
     };
   }
+
+  const onLayout = (e: any) => {
+    if (contentHeight == 0) setContentHeight(e.nativeEvent.layout.height + 15);
+  };
 
   const animation = useSpring<any>(animationConfig);
   const AnimatedView = animated<any>(View);
@@ -70,10 +65,7 @@ const CollapsibleCard: React.FC<CollapsibleCardProps> = ({
         }}>
         <Text style={{ fontWeight: "500" }}>{title}</Text>
         <AnimatedView style={{ transform: [{ rotate: animation.rotation }] }}>
-          <Icon
-            name="chevron-down"
-            style={{ width: 24, height: 24, color: "#000000" }}
-          />
+          <Icon name="chevron-down" style={{ width: 24, height: 24, color: "#000000" }} />
         </AnimatedView>
       </TouchableOpacity>
       <AnimatedView
@@ -97,13 +89,13 @@ const CollapsibleCard: React.FC<CollapsibleCardProps> = ({
               },
             ],
           }}>
-          <Text style={{ padding: 15, paddingTop: 0 }}>{content}</Text>
+          <Text style={{ padding: 15, paddingTop: 0 }} onLayout={onLayout}>
+            {content}
+          </Text>
         </AnimatedView>
       </AnimatedView>
     </View>
   );
 };
-
-CollapsibleCard.defaultProps = defaultProps;
 
 export default CollapsibleCard;

@@ -13,8 +13,33 @@ import { useQuery } from "../gqless";
 
 const EducationScreen: React.FC = () => {
   const query = useQuery();
-  const educationCO2 = query.educationCO2({ id: "1" });
+  const CO2 = [
+    {
+      title: "Lorem ipsum",
+      content: "...",
+    },
+  ];
 
+  const humidity = [
+    {
+      title: "Lorem ipsum",
+      content: "...",
+    },
+  ];
+
+  const temperature = [
+    {
+      title: "Lorem ipsum",
+      content: "...",
+    },
+  ];
+
+  const pressure = [
+    {
+      title: "Lorem ipsum",
+      content: "...",
+    },
+  ];
   return (
     <LayoutSafeArea main>
       <TopNavigation
@@ -30,9 +55,7 @@ const EducationScreen: React.FC = () => {
             <Spinner size="large" />
           </View>
         ) : (
-          educationCO2?.map((card) => (
-            <CollapsibleCard title={card.title} content={card.content} useBezier contentHeight={140} />
-          ))
+          CO2?.map((card) => <CollapsibleCard title={card.title} content={card.content} useBezier />)
         )}
       </View>
     </LayoutSafeArea>
