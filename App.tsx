@@ -89,6 +89,7 @@ const App: React.FC = () => {
     name: keyof RootStackParamList;
     component: React.ReactNode;
   }[] = [
+    { name: "Onboarding", component: OnboardingScreen },
     { name: "SignIn", component: SignInScreen },
     { name: "SignUp", component: SignUpScreen },
     { name: "RequestChange", component: RequestChangeScreen },

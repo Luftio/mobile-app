@@ -136,10 +136,19 @@
   "socials_msg": "Právě jsem odemkl jsem nový odznak. Přidej se k nám a drž si zdravý vzduch a buď produktivní.",
   "socials_url": "http://luftio.com",
   "socials_dialog_title": "Nový odznak od Luftio",
+<<<<<<< HEAD
   "time_6h": "6h",
   "time_day": "Dnes",
   "time_yesterday": "Včera",
   "time_week": "Poslední týden",
   "time_month": "Poslední měsíc",
   "custom": "Vlastní"
+=======
+  "onboarding_1_title": "Analyzujte kvalitu vzduchu",
+  "onboarding_1_text": "Luftio měří CO2, VOC, teplotu a vlhkost vzduchu",
+  "onboarding_2_title": "Získejte odznaky",
+  "onboarding_2_text": "Udržujte dobrou kvalitu vzduchu a odměníme vás odznakem",
+  "onboarding_3_title": "Dejte feedback",
+  "onboarding_3_text": "Napište zaměstnavateli o spokojenosti s kvalitou vzduchu a doporučte zlepšení"
+>>>>>>> b421cff356e183678de7ea033e7a241601ae789b
 }

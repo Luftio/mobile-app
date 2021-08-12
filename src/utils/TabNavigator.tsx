@@ -15,7 +15,7 @@ import InformationScreen from "../../src/screens/InformationsScreen";
 import ReportProblemScreen from "../../src/screens/ReportProblemScreen";
 import MyDevicesScreen from "../../src/screens/MyDevicesScreen";
 import AccountEdit from "../../src/screens/AccountEditScreen";
-import NightModeScreen from "../../src/screens/NightModeScreen";
+import DeviceSettingsScreen from "../screens/DeviceSettingsScreen";
 import MeasureDetailScreen from "../../src/screens/MeasureDetailScreen";
 import EducationScreen from "../screens/EducationScreen";
 
@@ -33,7 +33,7 @@ const Profile = () => (
     <Stack.Screen name="ReportProblem" component={ReportProblemScreen} />
     <Stack.Screen name="MyDevices" component={MyDevicesScreen} />
     <Stack.Screen name="AccountEdit" component={AccountEdit} />
-    <Stack.Screen name="NightMode" component={NightModeScreen} />
+    <Stack.Screen name="DeviceSettings" component={DeviceSettingsScreen} />
   </Stack.Navigator>
 );
 
