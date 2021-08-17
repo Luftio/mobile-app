@@ -56,6 +56,9 @@ const SignInForm: React.FC = () => {
           )}
           size="large"
           placeholder={i18n.t("email_input_placeholder")}
+          autoCompleteType="email"
+          textContentType="emailAddress"
+          keyboardType="email-address"
           value={email}
           onChangeText={(text) => setEmail(text)}
           style={{ marginBottom: 15 }}
