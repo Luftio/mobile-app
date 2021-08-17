@@ -16,7 +16,7 @@ export const registerForPushNotifications = async () => {
     }
     const token = (await Notifications.getExpoPushTokenAsync()).data;
     console.log(token);
-    ThingsboardService.updateToken(token);
+    ThingsboardService.getInstance().updateToken(token);
   }
 
   if (Platform.OS === "android") {

@@ -13,7 +13,7 @@ import LayoutSafeArea from "../components/layouts/LayoutSafeArea";
 import Slider from "../components/modules/Slider";
 import MeasureCard from "../components/modules/MeasureCard";
 
-import { ReanimatedArcBase } from "@callstack/reanimated-arc";
+import { ReanimatedArcBase } from "@intractive/reanimated-arc";
 import Reanimated from "react-native-reanimated";
 
 import i18n from "../i18n";
@@ -185,7 +185,7 @@ const HomeScreen: React.FC = () => {
                   },
                   shadowOpacity: 0.04,
                   shadowRadius: 1.0,
-                  elevation: 1,
+                  elevation: 8,
                 }}>
                 {i18n.t("lights_off")}
               </Button>
@@ -204,7 +204,7 @@ const HomeScreen: React.FC = () => {
                   },
                   shadowOpacity: 0.04,
                   shadowRadius: 1.0,
-                  elevation: 1,
+                  elevation: 8,
                 }}>
                 {i18n.t("lights_colors")}
               </Button>
@@ -222,7 +222,7 @@ const HomeScreen: React.FC = () => {
                   },
                   shadowOpacity: 0.04,
                   shadowRadius: 1.0,
-                  elevation: 1,
+                  elevation: 8,
                 }}>
                 {i18n.t("lights_lamp")}
               </Button>

@@ -5,30 +5,33 @@ import { setContext } from "@apollo/client/link/context";
 import { LUFTIO_GRAPHQL_ENDPOINT } from "@env";
 import ThingsboardService from "../services/ThingsboardService";
 
-const errorLink = onError(({ graphQLErrors }) => {
-  if (!graphQLErrors) return;
-  for (const err of graphQLErrors) {
-    console.log(err);
-    if (err?.extensions?.code === "invalid-jwt") {
-      console.error("Invalid JWT");
-      ThingsboardService.getInstance().logout();
+const errorLink = onError(({ graphQLErrors, networkError }) => {
+  if (networkError) console.log(networkError);
+  if (graphQLErrors) {
+    for (const err of graphQLErrors) {
+      console.error(err);
+      if (err?.extensions?.code === "invalid-jwt") {
+        console.error("Invalid JWT");
+        ThingsboardService.getInstance().logout();
+      }
     }
   }
 });
 
 const authLink = setContext(async (_, { headers }) => {
+  const authHeaders = await ThingsboardService.getInstance().getAuthHeader();
   return {
     headers: {
       ...headers,
-      ...(await ThingsboardService.getInstance().getAuthHeader()),
+      ...authHeaders,
     },
   };
 });
 
 export const client = new ApolloClient({
   link: from([
-    authLink,
     errorLink,
+    authLink,
     new HttpLink({
       uri: LUFTIO_GRAPHQL_ENDPOINT,
     }),
