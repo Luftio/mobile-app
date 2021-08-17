@@ -5,6 +5,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import IAuthService from "./IAuthService";
 
 const THINGSBOARD_SERVER = "https://app.luftio.com/tb/";
+const APP_BACKEND_SERVER = "https://app.luftio.com/backend/";
 
 export default class ThingsboardService implements IAuthService {
   async getUserData() {
@@ -38,6 +39,19 @@ export default class ThingsboardService implements IAuthService {
   async getAuthHeader() {
     const token = await AsyncStorage.getItem("token");
     return { "X-Authorization": "Bearer " + token };
+  }
+
+  async updateToken(token: string) {
+    const response = await axios.post(
+      APP_BACKEND_SERVER + "push/updateToken",
+      {
+        token,
+      },
+      {
+        headers: await this.getAuthHeader(),
+      }
+    );
+    return response;
   }
 
   // Singleton
