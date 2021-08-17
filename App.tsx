@@ -7,6 +7,8 @@ import "react-native-gesture-handler";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import AppLoading from "expo-app-loading";
 
+import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
+
 import * as eva from "@eva-design/eva";
 import { ApplicationProvider, IconRegistry } from "@ui-kitten/components";
 
@@ -30,6 +32,7 @@ import { RootStackParamList } from "./src/screens/RootStackParams";
 
 import { default as theme } from "./config/theme.json";
 import { default as mapping } from "./config/mapping.json";
+import { client } from "./src/config/ApolloClient";
 
 import * as Sentry from "sentry-expo";
 
@@ -112,19 +115,21 @@ const App: React.FC = () => {
         }}
         //@ts-ignore
         customMapping={mapping}>
-        <NavigationContainer>
-          <Stack.Navigator headerMode="none" screenOptions={{ animationEnabled: true }}>
-            {screens
-              .sort((a, b) => {
-                if (a.name == firstScreen) return -1;
-                if (b.name == firstScreen) return 1;
-                return 0;
-              })
-              .map((it: any) => (
-                <Stack.Screen key={it.name} {...it} />
-              ))}
-          </Stack.Navigator>
-        </NavigationContainer>
+        <ApolloProvider client={client}>
+          <NavigationContainer>
+            <Stack.Navigator headerMode="none" screenOptions={{ animationEnabled: true }}>
+              {screens
+                .sort((a, b) => {
+                  if (a.name == firstScreen) return -1;
+                  if (b.name == firstScreen) return 1;
+                  return 0;
+                })
+                .map((it: any) => (
+                  <Stack.Screen key={it.name} {...it} />
+                ))}
+            </Stack.Navigator>
+          </NavigationContainer>
+        </ApolloProvider>
       </ApplicationProvider>
     </>
   );

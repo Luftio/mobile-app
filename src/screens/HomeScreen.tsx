@@ -7,7 +7,7 @@ import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "./RootStackParams";
 
-import { Text, Icon, Button, Spinner } from "@ui-kitten/components";
+import { Text, Icon, Button, Spinner, useTheme } from "@ui-kitten/components";
 
 import LayoutSafeArea from "../components/layouts/LayoutSafeArea";
 import Slider from "../components/modules/Slider";
@@ -20,30 +20,67 @@ import i18n from "../i18n";
 import PushService from "../services/PushService";
 import LevelsService from "../services/LevelsService";
 
-import { DeviceData, useQuery } from "../gqless";
+import {
+  DeviceData,
+  SetBrightnessInput,
+  useGetBrightnessQuery,
+  useGetDeviceDataQuery,
+  useSetBrightnessMutation,
+} from "../graphql";
 
 type HomeScreenProp = StackNavigationProp<RootStackParamList, "Home">;
 
 const HomeScreen: React.FC = () => {
   const navigation = useNavigation<HomeScreenProp>();
+  const selectedDeviceId = "c1523d50-c614-11eb-9b93-c7c640bc4881";
 
   const arcSweepAngle = Reanimated.useValue<number>(0);
-  const [lampBrightness, setLampBrightness] = useState<number>(255);
-  const [lamp, setLamp] = useState<string>("none");
+  const tmpLampBrightness = useRef(255);
+  const [lampBrightness, setLampBrightness] = useState<number>();
+  const [lamp, setLamp] = useState<string>();
 
-  const query = useQuery();
-  const devicesData = query?.device_data({ id: "d5a77fc0-c611-11eb-9b93-c7c640bc4881" });
-  const score = Math.round(devicesData?.data?.find((it: any) => it.type == "score")?.value || 0);
+  const { data: devicesData, loading: devicesLoading } = useGetDeviceDataQuery({ variables: { id: selectedDeviceId } });
+  const { data: brightnessData } = useGetBrightnessQuery({ variables: { id: selectedDeviceId } });
+  const [setBrightness] = useSetBrightnessMutation();
+
+  const score = Math.round(devicesData?.device_data?.data?.find((it: any) => it.type == "score")?.value || 0);
   useEffect(() => {
     arcSweepAngle.setValue(Math.round((score / 100) * 240));
   }, [score]);
+  useEffect(() => {
+    console.log("loaded brightness");
+    if (brightnessData?.brightness.brightness) {
+      setLampBrightness(brightnessData?.brightness.brightness);
+    }
+    if (brightnessData?.brightness.light) {
+      setLamp(brightnessData?.brightness.light);
+    }
+  }, [brightnessData?.brightness.brightness, brightnessData?.brightness.light]);
+  useEffect(() => {
+    if (
+      brightnessData?.brightness &&
+      lamp !== undefined &&
+      lampBrightness !== undefined &&
+      (lamp !== brightnessData?.brightness.light || lampBrightness !== brightnessData?.brightness.brightness)
+    ) {
+      console.log("Updated brightness");
+      setBrightness({ variables: { input: { id: selectedDeviceId, light: lamp, brightness: lampBrightness } } }).then(
+        (result) => {
+          console.log("Saved brightness ");
+          console.log(result.data?.setBrightness.brightness);
+          console.log(result.data?.setBrightness.light);
+          console.log("  ");
+        }
+      );
+    }
+  }, [lamp, lampBrightness]);
 
   function getColorValue(color?: string) {
     if (color == "green") return "#23A454";
     if (color == "yellow") return "#FFB951";
     if (color == "red") return "#ED3A49";
   }
-  let color = getColorValue(devicesData.color);
+  let color = getColorValue(devicesData?.device_data.color);
 
   // Notification registration
   const responseListener = useRef<Subscription>();
@@ -56,6 +93,8 @@ const HomeScreen: React.FC = () => {
       if (responseListener.current) Notifications.removeNotificationSubscription(responseListener.current);
     };
   }, []);
+
+  const theme = useTheme();
 
   return (
     <>
@@ -132,11 +171,13 @@ const HomeScreen: React.FC = () => {
                 justifyContent: "space-between",
               }}>
               <Button
-                onPress={() => setLamp("none")}
-                appearance={lamp === "none" ? "filled" : "outline"}
+                onPress={() => setLamp("off")}
+                appearance={lamp === "off" ? "filled" : "outline"}
                 status="basic"
                 size="large"
                 style={{
+                  borderBottomWidth: lamp === "off" ? 3 : 0,
+                  borderBottomColor: theme["color-primary-500"],
                   marginRight: 20,
                   shadowOffset: {
                     width: 0,
@@ -154,6 +195,8 @@ const HomeScreen: React.FC = () => {
                 status="basic"
                 size="large"
                 style={{
+                  borderBottomWidth: lamp === "color" ? 3 : 0,
+                  borderBottomColor: theme["color-primary-500"],
                   marginRight: 20,
                   shadowOffset: {
                     width: 0,
@@ -171,6 +214,8 @@ const HomeScreen: React.FC = () => {
                 status="basic"
                 size="large"
                 style={{
+                  borderBottomWidth: lamp === "lamp" ? 3 : 0,
+                  borderBottomColor: theme["color-primary-500"],
                   shadowOffset: {
                     width: 0,
                     height: 2,
@@ -203,18 +248,21 @@ const HomeScreen: React.FC = () => {
                 maximumValue={255}
                 step={1}
                 value={lampBrightness}
-                onValueChange={(value: any) => setLampBrightness(value)}
+                onValueChange={(value: any) => (tmpLampBrightness.current = value)}
+                onSlidingComplete={() => {
+                  setLampBrightness(Math.floor(tmpLampBrightness.current));
+                }}
               />
             </View>
             <Text category="h3" style={{ marginBottom: 25 }}>
               {i18n.t("home_detail")}
             </Text>
-            {query.$state.isLoading ? (
+            {devicesLoading ? (
               <View style={{ marginTop: 40, alignItems: "center" }}>
                 <Spinner size="large" />
               </View>
             ) : (
-              devicesData?.data
+              devicesData?.device_data?.data
                 ?.slice(1)
                 .map((card: DeviceData) => (
                   <MeasureCard

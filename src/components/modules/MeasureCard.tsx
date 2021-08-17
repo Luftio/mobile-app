@@ -3,15 +3,15 @@ import { TouchableOpacity, View } from "react-native";
 
 import { Icon, Text } from "@ui-kitten/components";
 
-import { VictoryLine } from "victory-native";
-import { DeviceDataValue } from "../../gqless";
+import { VictoryChart, VictoryLine, VictoryTheme } from "victory-native";
+import { DeviceDataValue } from "../../graphql";
 
 interface MeasureCardProps {
   name: string;
-  value: string;
-  minValue: string;
-  maxValue: string;
-  color: string;
+  value: number;
+  minValue: number;
+  maxValue: number;
+  color?: string;
   procents: number;
   unit: string;
   values: DeviceDataValue[];

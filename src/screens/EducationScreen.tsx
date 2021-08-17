@@ -9,37 +9,9 @@ import CollapsibleCard from "../components/modules/CollapsibleCard";
 
 import i18n from "../i18n";
 
-import { useQuery } from "../gqless";
-
 const EducationScreen: React.FC = () => {
-  const query = useQuery();
-  const CO2 = [
-    {
-      title: "Lorem ipsum",
-      content: "...",
-    },
-  ];
+  const content = [{ title: "Lorem ipsum", content: "..." }];
 
-  const humidity = [
-    {
-      title: "Lorem ipsum",
-      content: "...",
-    },
-  ];
-
-  const temperature = [
-    {
-      title: "Lorem ipsum",
-      content: "...",
-    },
-  ];
-
-  const pressure = [
-    {
-      title: "Lorem ipsum",
-      content: "...",
-    },
-  ];
   return (
     <LayoutSafeArea main>
       <TopNavigation
@@ -50,12 +22,12 @@ const EducationScreen: React.FC = () => {
         style={{ backgroundColor: "#FAFAFA" }}
       />
       <View style={{ flex: 1, padding: 24 }}>
-        {query.$state.isLoading ? (
+        {false ? (
           <View style={{ marginTop: 40, alignItems: "center" }}>
             <Spinner size="large" />
           </View>
         ) : (
-          CO2?.map((card) => <CollapsibleCard title={card.title} content={card.content} useBezier />)
+          content?.map((card, i) => <CollapsibleCard key={i} title={card.title} content={card.content} useBezier />)
         )}
       </View>
     </LayoutSafeArea>

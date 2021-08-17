@@ -3,6 +3,10 @@ import { View } from "react-native";
 
 import { Button, Icon, Text, TopNavigation, Modal, Calendar, Card } from "@ui-kitten/components";
 
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "./RootStackParams";
+
 import { VictoryChart, VictoryTheme, VictoryLine, VictoryAxis } from "victory-native";
 
 import { ScrollView } from "react-native-gesture-handler";
@@ -14,8 +18,9 @@ import LayoutSafeArea from "../components/layouts/LayoutSafeArea";
 
 import i18n from "../i18n";
 
-import { DeviceData } from "../gqless";
-import { useNavigation } from "@react-navigation/core";
+import { DeviceData } from "../graphql";
+
+type HomeScreenProp = StackNavigationProp<RootStackParamList, "MeasureDetail">;
 
 interface MeasureDetailScreenProps {
   route: any;
