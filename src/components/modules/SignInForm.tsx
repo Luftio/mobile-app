@@ -17,8 +17,8 @@ const SignInForm: React.FC = () => {
 
   const [showPassword, setShowPassword] = useState<boolean>(true);
 
-  const [email, setEmail] = useState<string>("tomas@luftio.cz");
-  const [password, setPassword] = useState<string>("y3Ci8hZmEBLf36Ja");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<null | string>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
