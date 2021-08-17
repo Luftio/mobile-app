@@ -8,13 +8,14 @@ import { VictoryChart, VictoryTheme, VictoryLine, VictoryAxis } from "victory-na
 import { ScrollView } from "react-native-gesture-handler";
 
 import renderBackAction from "../utils/renderBackAction";
-import renderEducationAction from "../utils/renderEducationAction";
+import renderCustomAction from "../utils/renderCustomAction";
 
 import LayoutSafeArea from "../components/layouts/LayoutSafeArea";
 
 import i18n from "../i18n";
 
 import { DeviceData } from "../gqless";
+import { useNavigation } from "@react-navigation/core";
 
 interface MeasureDetailScreenProps {
   route: any;
@@ -22,6 +23,7 @@ interface MeasureDetailScreenProps {
 
 const MeasureDetailScreen: React.FC<MeasureDetailScreenProps> = ({ route }) => {
   const { data }: { data: DeviceData } = route.params;
+  const navigation = useNavigation();
 
   const [chartScale, setChartScale] = useState<string>("6h");
   const [customOpen, setCustomOpen] = useState<boolean>(false);
@@ -49,7 +51,7 @@ const MeasureDetailScreen: React.FC<MeasureDetailScreenProps> = ({ route }) => {
         alignment="center"
         //@ts-ignore
         accessoryLeft={renderBackAction}
-        accessoryRight={renderEducationAction}
+        accessoryRight={renderCustomAction("info", () => navigation.navigate("Education", { data }))}
         style={{ backgroundColor: "#FAFAFA" }}
       />
       <View style={{ flex: 1, padding: 24 }}>
