@@ -14,7 +14,7 @@ import LayoutSafeArea from "../components/layouts/LayoutSafeArea";
 
 import i18n from "../i18n";
 
-import { DeviceData } from "../gqless";
+import { DeviceData } from "../graphql";
 
 interface MeasureDetailScreenProps {
   route: any;
@@ -49,7 +49,7 @@ const MeasureDetailScreen: React.FC<MeasureDetailScreenProps> = ({ route }) => {
         alignment="center"
         //@ts-ignore
         accessoryLeft={renderBackAction}
-        accessoryRight={renderEducationAction}
+        accessoryRight={renderEducationAction({ type: data.type })}
         style={{ backgroundColor: "#FAFAFA" }}
       />
       <View style={{ flex: 1, padding: 24 }}>

@@ -11,10 +11,10 @@ type navigateActionProp = StackNavigationProp<RootStackParamList, "MeasureDetail
 const navigateAction = (data: any) => {
   const navigation = useNavigation<navigateActionProp>();
 
-  return (
+  return () => (
     <TopNavigationAction
       icon={(props) => <Icon {...props} name="info" style={{ color: "#838C97", width: 24, height: 24 }} />}
-      onPress={() => navigation.navigate("Education", { data: data }}
+      onPress={() => navigation.navigate("Education", { data: data })}
     />
   );
 };

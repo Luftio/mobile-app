@@ -28,7 +28,7 @@ const ProfileScreen: React.FC = () => {
 
   function logout() {
     ThingsboardService.getInstance().logout();
-    navigation.navigate("Signpost");
+    navigation.navigate("SignIn");
   }
 
   useEffect(() => {

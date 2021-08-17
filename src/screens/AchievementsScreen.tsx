@@ -8,13 +8,13 @@ import Achievement from "../components/modules/Achievement";
 
 import i18n from "../i18n";
 
-import { useQuery } from "../gqless";
+import { useGetAchievementsQuery } from "../graphql";
 
 const BADGE_BASE_URL = "https://luftio.knaufizolace.cz/luftio/";
 
 const AchievementsScreen: React.FC = () => {
-  const query = useQuery();
-  const achievements = query.achievements;
+  const query = useGetAchievementsQuery();
+  const achievements = query.data?.achievements;
 
   return (
     <LayoutSafeArea main ignoreBottom>
@@ -32,7 +32,7 @@ const AchievementsScreen: React.FC = () => {
             </Text>
           </View>
           <View style={{ marginTop: 40 }}>
-            {query.$state.isLoading ? (
+            {query.loading ? (
               <View style={{ marginTop: 40, alignItems: "center" }}>
                 <Spinner size="large" />
               </View>

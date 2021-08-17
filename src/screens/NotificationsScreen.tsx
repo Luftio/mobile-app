@@ -9,12 +9,11 @@ import { Button, Spinner } from "@ui-kitten/components";
 
 import i18n from "../i18n";
 
-import { EventFromMeasure, useQuery } from "../gqless";
+import { EventFromMeasure } from "../graphql";
 
 const NotificationsScreen: React.FC = () => {
   const [active, setActive] = useState<string>("today");
 
-  const query = useQuery();
   const notifications: EventFromMeasure[] = []; // TODO
 
   return (
@@ -61,7 +60,7 @@ const NotificationsScreen: React.FC = () => {
               {i18n.t("yesterday")}
             </Button>
           </View>
-          {query.$state.isLoading ? (
+          {false ? (
             <View style={{ marginTop: 40, alignItems: "center" }}>
               <Spinner size="large" />
             </View>

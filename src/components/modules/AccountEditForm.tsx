@@ -4,24 +4,24 @@ import { Text, Input } from "@ui-kitten/components";
 
 import EmailChangedCard from "./EmailChangedCard";
 
-import { useQuery } from "../../gqless";
+import { useGetAccountQuery } from "../../graphql";
 
 import i18n from "../../i18n";
 
 const AccountEditForm: React.FC = () => {
-  const [firstName, setFirstName] = useState<string>("Aleš");
-  const [lastName, setLastName] = useState<string>("Zima");
-  const [email, setEmail] = useState<string>("zima@gmail.com");
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [newPassword, setNewPassword] = useState<string>("");
   const [repeatNewPassword, setRepeatNewPassword] = useState<string>("");
 
-  const query = useQuery();
+  const query = useGetAccountQuery();
   useEffect(() => {
-    setFirstName(query.account.first_name);
-    setLastName(query.account.last_name);
-    setEmail(query.account.email);
-  }, [query.account.first_name, query.account.last_name, query.account.email]);
+    setFirstName(query.data?.account.first_name || "");
+    setLastName(query.data?.account.last_name || "");
+    setEmail(query.data?.account.email || "");
+  }, [query.data?.account.first_name, query.data?.account.last_name, query.data?.account.email]);
 
   return (
     <>
