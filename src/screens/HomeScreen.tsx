@@ -7,7 +7,7 @@ import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "./RootStackParams";
 
-import { Text, Icon, Button, Spinner, useTheme } from "@ui-kitten/components";
+import { Text, Icon, Button, Spinner, useTheme, Select, SelectItem, IndexPath } from "@ui-kitten/components";
 
 import LayoutSafeArea from "../components/layouts/LayoutSafeArea";
 import Slider from "../components/modules/Slider";
@@ -96,20 +96,54 @@ const HomeScreen: React.FC = () => {
 
   const theme = useTheme();
 
+  const devices = ["Luftio 1", "Luftio 2"];
+
+  const [selectedIndex, setSelectedIndex] = useState<IndexPath>(new IndexPath(0));
+
+  const renderOption = (title: string) => <SelectItem key={title} title={title} />;
+
+  const displayValue = devices[selectedIndex.row];
+
   return (
     <>
       <LayoutSafeArea main ignoreBottom>
         <ScrollView>
           <View style={{ flex: 1, padding: 24, paddingTop: 40 }}>
-            <View style={{ alignItems: "center" }}>
-              <Text
-                category="h1"
-                style={{
-                  textAlign: "center",
-                }}>
-                {i18n.t("home_heading")}
-              </Text>
-            </View>
+            {devices.length > 1 ? (
+              <>
+                <View style={{ alignItems: "center", flexDirection: "row", marginBottom: 20 }}>
+                  <Text
+                    category="h1"
+                    style={{
+                      textAlign: "center",
+                    }}>
+                    Vyberte zařízení:
+                  </Text>
+                </View>
+                <Select
+                  style={{ paddingBottom: 5 }}
+                  placeholder="Zvolte zařízení"
+                  size="large"
+                  value={displayValue}
+                  selectedIndex={selectedIndex}
+                  onSelect={(index: any) => setSelectedIndex(index)}>
+                  {devices.map(renderOption)}
+                </Select>
+              </>
+            ) : (
+              <>
+                <View style={{ alignItems: "center", marginBottom: 20 }}>
+                  <Text
+                    category="h1"
+                    style={{
+                      textAlign: "center",
+                    }}>
+                    Jak to dnes vypadá
+                  </Text>
+                </View>
+              </>
+            )}
+
             <View style={{ alignItems: "center", paddingTop: 40 }}>
               <View
                 style={{

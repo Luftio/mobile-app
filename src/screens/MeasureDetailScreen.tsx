@@ -49,6 +49,8 @@ const MeasureDetailScreen: React.FC<MeasureDetailScreenProps> = ({ route }) => {
     return {};
   };
 
+  console.log(data.type);
+
   return (
     <LayoutSafeArea main>
       <TopNavigation
@@ -56,7 +58,7 @@ const MeasureDetailScreen: React.FC<MeasureDetailScreenProps> = ({ route }) => {
         alignment="center"
         //@ts-ignore
         accessoryLeft={renderBackAction}
-        accessoryRight={renderCustomAction("info", () => navigation.navigate("Education", { data }))}
+        accessoryRight={renderCustomAction("info", () => navigation.navigate("Education", { data: data }))}
         style={{ backgroundColor: "#FAFAFA" }}
       />
       <View style={{ flex: 1, padding: 24 }}>

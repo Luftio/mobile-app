@@ -53,7 +53,8 @@ const CollapsibleCard: React.FC<CollapsibleCardProps> = ({ title, content, useBe
         shadowRadius: 1.0,
 
         elevation: 1,
-      }}>
+      }}
+      onLayout={onLayout}>
       <TouchableOpacity
         activeOpacity={1}
         onPress={() => setCollapsed((c: any) => !c)}
@@ -89,9 +90,7 @@ const CollapsibleCard: React.FC<CollapsibleCardProps> = ({ title, content, useBe
               },
             ],
           }}>
-          <Text style={{ padding: 15, paddingTop: 0 }} onLayout={onLayout}>
-            {content}
-          </Text>
+          <Text style={{ padding: 15, paddingTop: 0 }}>{content}</Text>
         </AnimatedView>
       </AnimatedView>
     </View>

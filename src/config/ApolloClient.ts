@@ -2,6 +2,7 @@ import { ApolloClient, InMemoryCache, HttpLink, from } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
 import { setContext } from "@apollo/client/link/context";
 
+//@ts-ignore
 import { LUFTIO_GRAPHQL_ENDPOINT } from "@env";
 import ThingsboardService from "../services/ThingsboardService";
 
