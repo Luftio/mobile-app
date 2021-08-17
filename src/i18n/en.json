@@ -98,7 +98,7 @@
   "pressure": "Pressure",
   "CO2": "CO2",
   "level_good": "perfect",
-  "level_not_bad": "dobré",
+  "level_not_bad": "good",
   "level_bad": "bad",
   "upper_level_good": "Perfect",
   "upper_level_not_bad": "Good",
@@ -178,5 +178,10 @@
   "voc_eduaction_card_text_2": "The source of volatile organic compounds are building materials, furniture, carpets, but also air fresheners, cleaning agents and can even be released, for example, from printed matter or electronics.",
   "voc_eduaction_card_title_3": "Influence of VOC on health",
   "voc_eduaction_card_text_3": "Volatile organic compounds (VOCs) are substances that have a negative effect on human health. Some volatile substances have allergic, others toxic effects or respiratory problems.",
-  "profile_night_mode_desc": "Automatically change the light at night"
+  "profile_night_mode_desc": "Automatically change the light at night",
+  "no_data": "No data",
+  "no_data_desc": "Check if your Luftio is powered on and connected to WiFi",
+  "retry": "Retry",
+  "error": "Error",
+  "error_network_desc": "An error occured. Make sure you're connected to mobile data or WiFi."
 }

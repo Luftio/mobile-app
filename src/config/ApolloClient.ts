@@ -7,12 +7,15 @@ import { LUFTIO_GRAPHQL_ENDPOINT } from "@env";
 import ThingsboardService from "../services/ThingsboardService";
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
-  if (networkError) console.log(networkError);
+  if (networkError) {
+    console.log(LUFTIO_GRAPHQL_ENDPOINT);
+    console.log(networkError);
+  }
   if (graphQLErrors) {
     for (const err of graphQLErrors) {
-      console.error(err);
+      console.log(err);
       if (err?.extensions?.code === "invalid-jwt") {
-        console.error("Invalid JWT");
+        console.log("Invalid JWT");
         ThingsboardService.getInstance().logout();
       }
     }

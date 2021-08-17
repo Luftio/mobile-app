@@ -178,5 +178,7 @@
   "voc_eduaction_card_text_2": "Zdrojem organických těkavých látek jsou stavební materiály, nábytek, koberce, ale i osvěžovače vzduchu, úklidové prostředky a mohou se dokonce uvolňovat například z tiskovin či elektroniky.",
   "voc_eduaction_card_title_3": "Vliv VOC na zdraví",
   "voc_eduaction_card_text_3": "Organické těkavé látky (VOC) jsou látky, které mají negativní vliv na zdraví člověka. Některé těkavé látky mají alergický, jiné toxický účinek či respirační potíže.",
-  "profile_night_mode_desc": "Automaticky přepne světlo během noci"
+  "profile_night_mode_desc": "Automaticky přepne světlo během noci",
+  "no_data": "Žádná data",
+  "no_data_desc": "Zkontrolujte zda je Luftio zapnuté a připojené k WiFi"
 }

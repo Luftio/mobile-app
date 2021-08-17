@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { View, ScrollView } from "react-native";
+import { View, ScrollView, Alert } from "react-native";
 import * as Notifications from "expo-notifications";
 import { Subscription } from "@unimodules/core";
 
@@ -18,34 +18,87 @@ import Reanimated from "react-native-reanimated";
 
 import i18n from "../i18n";
 import PushService from "../services/PushService";
-import LevelsService from "../services/LevelsService";
 
 import {
+  Device,
   DeviceData,
   SetBrightnessInput,
-  useGetBrightnessQuery,
-  useGetDeviceDataQuery,
+  useGetBrightnessLazyQuery,
+  useGetDeviceDataLazyQuery,
+  useGetDevicesQuery,
   useSetBrightnessMutation,
 } from "../graphql";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type HomeScreenProp = StackNavigationProp<RootStackParamList, "Home">;
 
 const HomeScreen: React.FC = () => {
+  const theme = useTheme();
   const navigation = useNavigation<HomeScreenProp>();
-  const selectedDeviceId = "c1523d50-c614-11eb-9b93-c7c640bc4881";
 
   const arcSweepAngle = Reanimated.useValue<number>(0);
   const tmpLampBrightness = useRef(255);
   const [lampBrightness, setLampBrightness] = useState<number>();
   const [lamp, setLamp] = useState<string>();
+  const [selectedDeviceId, setSelectedDeviceId] = useState<string>();
 
-  const { data: devicesData, loading: devicesLoading } = useGetDeviceDataQuery({
-    variables: {
-      id: selectedDeviceId,
+  const {
+    data: devices,
+    loading: devicesLoading,
+    refetch: devicesRefetch,
+  } = useGetDevicesQuery({
+    notifyOnNetworkStatusChange: true,
+    onError: (error) => {
+      Alert.alert(i18n.t("error"), i18n.t("error_network_desc"), [
+        {
+          text: i18n.t("retry"),
+          onPress: () => {
+            devicesRefetch();
+          },
+        },
+      ]);
     },
   });
-  const { data: brightnessData } = useGetBrightnessQuery({ variables: { id: selectedDeviceId } });
+  const [getDeviceData, { data: devicesData, loading: devicesDataLoading }] = useGetDeviceDataLazyQuery();
+  const [getBrightness, { data: brightnessData }] = useGetBrightnessLazyQuery();
   const [setBrightness] = useSetBrightnessMutation();
+
+  // Notification registration
+  const responseListener = useRef<Subscription>();
+  useEffect(() => {
+    PushService.registerForPushNotifications();
+    responseListener.current = Notifications.addNotificationResponseReceivedListener((response) => {
+      console.log(response);
+    });
+    return () => {
+      if (responseListener.current) Notifications.removeNotificationSubscription(responseListener.current);
+    };
+  }, []);
+
+  const selectedDeviceIndex = devices?.devices.findIndex((it) => it.id === selectedDeviceId);
+  const selectedDeviceValue = devices?.devices.find((it) => it.id === selectedDeviceId)?.title;
+  const loadDevice = async () => {
+    if (devices?.devices && devices?.devices.length > 0) {
+      if (selectedDeviceIndex == -1) {
+        // Load ID saved in storage, if it exists
+        const savedId = await AsyncStorage.getItem("selectedDeviceId");
+        if (savedId !== null && devices?.devices.some((it) => it.id == savedId)) {
+          setSelectedDeviceId(savedId);
+        } else {
+          // Load first device by default
+          setSelectedDeviceId(devices?.devices[0].id);
+        }
+      } else if (selectedDeviceId !== undefined) {
+        // Refetch data for selected device
+        AsyncStorage.setItem("selectedDeviceId", selectedDeviceId);
+        getDeviceData({ variables: { id: selectedDeviceId } });
+        getBrightness({ variables: { id: selectedDeviceId } });
+      }
+    }
+  };
+  useEffect(() => {
+    loadDevice();
+  }, [devices?.devices, selectedDeviceId]);
 
   const score = Math.round(devicesData?.device_data?.data?.find((it: any) => it.type == "score")?.value || 0);
   useEffect(() => {
@@ -64,83 +117,53 @@ const HomeScreen: React.FC = () => {
       brightnessData?.brightness &&
       lamp !== undefined &&
       lampBrightness !== undefined &&
+      selectedDeviceId !== undefined &&
       (lamp !== brightnessData?.brightness.light || lampBrightness !== brightnessData?.brightness.brightness)
     ) {
       setBrightness({ variables: { input: { id: selectedDeviceId, light: lamp, brightness: lampBrightness } } }).then(
         (result) => {
-          console.log("Saved brightness ");
-          console.log(result.data?.setBrightness.brightness);
-          console.log(result.data?.setBrightness.light);
-          console.log("  ");
+          console.log("Saved brightness ", result.data?.setBrightness.brightness, result.data?.setBrightness.light);
         }
       );
     }
   }, [lamp, lampBrightness]);
-
   function getColorValue(color?: string) {
     if (color == "green") return "#23A454";
     if (color == "yellow") return "#FFB951";
     if (color == "red") return "#ED3A49";
   }
-  let color = getColorValue(devicesData?.device_data.color);
-
-  // Notification registration
-  const responseListener = useRef<Subscription>();
-  useEffect(() => {
-    PushService.registerForPushNotifications();
-    responseListener.current = Notifications.addNotificationResponseReceivedListener((response) => {
-      console.log(response);
-    });
-    return () => {
-      if (responseListener.current) Notifications.removeNotificationSubscription(responseListener.current);
-    };
-  }, []);
-
-  const theme = useTheme();
-
-  const devices = ["Luftio 1", "Luftio 2"];
-
-  const [selectedIndex, setSelectedIndex] = useState<IndexPath>(new IndexPath(0));
-
-  const renderOption = (title: string) => <SelectItem key={title} title={title} />;
-
-  const displayValue = devices[selectedIndex.row];
+  let color = getColorValue(devicesData?.device_data?.data ? devicesData?.device_data.color : "");
 
   return (
     <>
       <LayoutSafeArea main ignoreBottom>
         <ScrollView>
-          <View style={{ flex: 1, padding: 24, paddingTop: 40 }}>
-            {devices.length > 1 ? (
-              <>
-                <View style={{ alignItems: "center", flexDirection: "row", marginBottom: 20 }}>
-                  <Text
-                    category="h1"
-                    style={{
-                      textAlign: "center",
-                    }}>
-                    Vyberte zařízení:
-                  </Text>
-                </View>
-                <Select
-                  style={{ paddingBottom: 5 }}
-                  placeholder="Zvolte zařízení"
-                  size="large"
-                  value={displayValue}
-                  selectedIndex={selectedIndex}
-                  onSelect={(index: any) => setSelectedIndex(index)}>
-                  {devices.map(renderOption)}
-                </Select>
-              </>
+          <View style={{ flex: 1, padding: 24, paddingTop: 20 }}>
+            {devices?.devices === undefined ? (
+              <View />
+            ) : devices?.devices.length > 1 ? (
+              <Select
+                size="large"
+                status="control"
+                value={() => <Text category="h1">{selectedDeviceValue}</Text>}
+                accessoryRight={() => <Icon name="chevron-down" style={{ color: "#000", width: 28, height: 28 }} />}
+                selectedIndex={new IndexPath(selectedDeviceIndex || -1)}
+                onSelect={(index: any) => {
+                  setSelectedDeviceId(devices?.devices[index.row].id);
+                }}>
+                {devices?.devices.map((device) => (
+                  <SelectItem key={device.id} title={device.title} />
+                ))}
+              </Select>
             ) : (
               <>
-                <View style={{ alignItems: "center", marginBottom: 20 }}>
+                <View style={{ alignItems: "center", marginTop: 20, marginBottom: 10 }}>
                   <Text
                     category="h1"
                     style={{
                       textAlign: "center",
                     }}>
-                    Jak to dnes vypadá
+                    {i18n.t("home_heading")}
                   </Text>
                 </View>
               </>
@@ -196,7 +219,15 @@ const HomeScreen: React.FC = () => {
                     fontWeight: "600",
                     color: color,
                   }}>
-                  {i18n.t(score > 70 ? "upper_level_good" : score > 40 ? "upper_level_not_bad" : "upper_level_bad")}
+                  {i18n.t(
+                    score > 70
+                      ? "upper_level_good"
+                      : score > 40
+                      ? "upper_level_not_bad"
+                      : devicesData?.device_data?.data
+                      ? "upper_level_bad"
+                      : "no_data"
+                  )}
                 </Text>
               </View>
             </View>
@@ -290,17 +321,26 @@ const HomeScreen: React.FC = () => {
                 }}
               />
             </View>
-            <Text category="h3" style={{ marginBottom: 25 }}>
-              {i18n.t("home_detail")}
-            </Text>
-            {devicesLoading ? (
+            {devicesData?.device_data === undefined && (devicesLoading || devicesDataLoading) ? (
               <View style={{ marginTop: 40, alignItems: "center" }}>
                 <Spinner size="large" />
               </View>
+            ) : !devicesData?.device_data?.data || devicesData?.device_data?.data?.length <= 0 ? (
+              <View style={{ justifyContent: "space-evenly", alignItems: "center", marginLeft: 20, marginRight: 20 }}>
+                <Text category="h1" style={{ textAlign: "center" }}>
+                  {i18n.t("no_data")}
+                </Text>
+                <Text category="s2" style={{ textAlign: "center", marginTop: 20, marginBottom: 20 }}>
+                  {i18n.t("no_data_desc")}
+                </Text>
+                <Button onPress={() => loadDevice()}>Retry</Button>
+              </View>
             ) : (
-              devicesData?.device_data?.data
-                ?.slice(1)
-                .map((card: DeviceData) => (
+              <>
+                <Text category="h3" style={{ marginBottom: 25 }}>
+                  {i18n.t("home_detail")}
+                </Text>
+                {devicesData?.device_data?.data?.slice(1).map((card: DeviceData) => (
                   <MeasureCard
                     key={card.type}
                     name={i18n.t(card.type)}
@@ -313,7 +353,8 @@ const HomeScreen: React.FC = () => {
                     procents={card.change}
                     onPress={() => navigation.navigate("MeasureDetail", { data: card, deviceId: selectedDeviceId })}
                   />
-                ))
+                ))}
+              </>
             )}
           </View>
         </ScrollView>

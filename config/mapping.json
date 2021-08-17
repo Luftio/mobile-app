@@ -117,6 +117,16 @@
               "basic": {
                 "backgroundColor": "#FFF",
                 "borderColor": "#E1E6EA"
+              },
+              "control": {
+                "backgroundColor": "transparent",
+                "borderColor": "transparent",
+                "state": {
+                  "active": {
+                    "backgroundColor": "#E1E6EA",
+                    "borderColor": "transparent"
+                  }
+                }
               }
             }
           }
