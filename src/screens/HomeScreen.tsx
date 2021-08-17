@@ -39,7 +39,11 @@ const HomeScreen: React.FC = () => {
   const [lampBrightness, setLampBrightness] = useState<number>();
   const [lamp, setLamp] = useState<string>();
 
-  const { data: devicesData, loading: devicesLoading } = useGetDeviceDataQuery({ variables: { id: selectedDeviceId } });
+  const { data: devicesData, loading: devicesLoading } = useGetDeviceDataQuery({
+    variables: {
+      id: selectedDeviceId,
+    },
+  });
   const { data: brightnessData } = useGetBrightnessQuery({ variables: { id: selectedDeviceId } });
   const [setBrightness] = useSetBrightnessMutation();
 
@@ -48,7 +52,6 @@ const HomeScreen: React.FC = () => {
     arcSweepAngle.setValue(Math.round((score / 100) * 240));
   }, [score]);
   useEffect(() => {
-    console.log("loaded brightness");
     if (brightnessData?.brightness.brightness) {
       setLampBrightness(brightnessData?.brightness.brightness);
     }
@@ -63,7 +66,6 @@ const HomeScreen: React.FC = () => {
       lampBrightness !== undefined &&
       (lamp !== brightnessData?.brightness.light || lampBrightness !== brightnessData?.brightness.brightness)
     ) {
-      console.log("Updated brightness");
       setBrightness({ variables: { input: { id: selectedDeviceId, light: lamp, brightness: lampBrightness } } }).then(
         (result) => {
           console.log("Saved brightness ");
@@ -309,7 +311,7 @@ const HomeScreen: React.FC = () => {
                     minValue={card.minValue}
                     maxValue={card.maxValue}
                     procents={card.change}
-                    onPress={() => navigation.navigate("MeasureDetail", { data: card })}
+                    onPress={() => navigation.navigate("MeasureDetail", { data: card, deviceId: selectedDeviceId })}
                   />
                 ))
             )}

@@ -178,7 +178,17 @@ export type QueryDeviceAttributesArgs = {
 
 
 export type QueryDevice_DataArgs = {
+  endTs?: Maybe<Scalars['String']>;
   id: Scalars['String'];
+  interval?: Maybe<Scalars['Int']>;
+  startTs?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryDevices_DataArgs = {
+  endTs?: Maybe<Scalars['String']>;
+  interval?: Maybe<Scalars['Int']>;
+  startTs?: Maybe<Scalars['String']>;
 };
 
 
@@ -241,6 +251,9 @@ export type GetDevicesQuery = { __typename?: 'Query', devices: Array<{ __typenam
 
 export type GetDeviceDataQueryVariables = Exact<{
   id: Scalars['String'];
+  startTs?: Maybe<Scalars['String']>;
+  endTs?: Maybe<Scalars['String']>;
+  interval?: Maybe<Scalars['Int']>;
 }>;
 
 
@@ -384,8 +397,8 @@ export type GetDevicesQueryHookResult = ReturnType<typeof useGetDevicesQuery>;
 export type GetDevicesLazyQueryHookResult = ReturnType<typeof useGetDevicesLazyQuery>;
 export type GetDevicesQueryResult = Apollo.QueryResult<GetDevicesQuery, GetDevicesQueryVariables>;
 export const GetDeviceDataDocument = gql`
-    query GetDeviceData($id: String!) {
-  device_data(id: $id) {
+    query GetDeviceData($id: String!, $startTs: String, $endTs: String, $interval: Int) {
+  device_data(id: $id, startTs: $startTs, endTs: $endTs, interval: $interval) {
     id
     title
     label
@@ -420,6 +433,9 @@ export const GetDeviceDataDocument = gql`
  * const { data, loading, error } = useGetDeviceDataQuery({
  *   variables: {
  *      id: // value for 'id'
+ *      startTs: // value for 'startTs'
+ *      endTs: // value for 'endTs'
+ *      interval: // value for 'interval'
  *   },
  * });
  */

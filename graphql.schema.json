@@ -1298,6 +1298,18 @@
             "description": null,
             "args": [
               {
+                "name": "endTs",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
                 "name": "id",
                 "description": null,
                 "type": {
@@ -1308,6 +1320,30 @@
                     "name": "String",
                     "ofType": null
                   }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "interval",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": "600000",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "startTs",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
                 },
                 "defaultValue": null,
                 "isDeprecated": false,
@@ -1353,7 +1389,44 @@
           {
             "name": "devices_data",
             "description": null,
-            "args": [],
+            "args": [
+              {
+                "name": "endTs",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "interval",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": "600000",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "startTs",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
             "type": {
               "kind": "NON_NULL",
               "name": null,

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { View } from "react-native";
 
 import { Button, Icon, Text, TopNavigation, Modal, Calendar, Card } from "@ui-kitten/components";
@@ -18,7 +18,7 @@ import LayoutSafeArea from "../components/layouts/LayoutSafeArea";
 
 import i18n from "../i18n";
 
-import { DeviceData } from "../graphql";
+import { DeviceData, useGetDeviceDataLazyQuery, useGetDeviceDataQuery } from "../graphql";
 
 type HomeScreenProp = StackNavigationProp<RootStackParamList, "MeasureDetail">;
 
@@ -27,12 +27,13 @@ interface MeasureDetailScreenProps {
 }
 
 const MeasureDetailScreen: React.FC<MeasureDetailScreenProps> = ({ route }) => {
-  const { data }: { data: DeviceData } = route.params;
+  const { data: originalData }: { data: DeviceData } = route.params;
   const navigation = useNavigation();
 
-  const [chartScale, setChartScale] = useState<string>("6h");
+  const [chartScale, setChartScale] = useState<string>("day");
   const [customOpen, setCustomOpen] = useState<boolean>(false);
-  const [customRange, setCustomRange] = useState<any>(null);
+  const [customRange, setCustomRange] = useState<Date>(new Date());
+  const cachedData = useRef(originalData);
 
   const getChartProps = (type: string | undefined) => {
     if (type === "score") {
@@ -49,7 +50,30 @@ const MeasureDetailScreen: React.FC<MeasureDetailScreenProps> = ({ route }) => {
     return {};
   };
 
-  console.log(data.type);
+  const [devicesDataQuery, { data: devicesDataQueryData }] = useGetDeviceDataLazyQuery({ fetchPolicy: "no-cache" });
+  const data =
+    devicesDataQueryData?.device_data?.data?.find((it) => it.type == originalData.type) || cachedData.current;
+  useEffect(() => {
+    if (devicesDataQueryData == null && chartScale == "day") return;
+    const timeScales = {
+      "6h": [+new Date() - 6 * 3600000, +new Date(), 600000, 6],
+      day: [+new Date() - 24 * 3600000, +new Date(), 900000, 8],
+      yesterday: [+new Date() - 48 * 3600000, +(+new Date() - 24 * 3600000), 900000, 6],
+      week: [+new Date() - 7 * 24 * 3600000, +new Date(), 2 * 3600000, 7],
+      month: [+new Date() - 30 * 24 * 3600000, +new Date(), 24 * 3600000, 10],
+      custom: [+new Date(+customRange), +new Date(+customRange) + 24 * 3600000, 1800000, 8],
+    };
+    const timing = timeScales[chartScale];
+    cachedData.current = data;
+    devicesDataQuery({
+      variables: {
+        id: route.params.deviceId,
+        startTs: new Date(timing[0]).toISOString(),
+        endTs: new Date(timing[1]).toISOString(),
+        interval: timing[2],
+      },
+    });
+  }, [chartScale, customRange]);
 
   return (
     <LayoutSafeArea main>
