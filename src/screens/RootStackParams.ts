@@ -17,7 +17,7 @@ export type RootStackParamList = {
   ReportProblem: undefined;
   MyDevices: undefined;
   AccountEdit: undefined;
-  NightMode: undefined;
+  DeviceSettings: undefined;
   Education: undefined;
   MeasureDetail: undefined;
 };

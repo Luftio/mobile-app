@@ -44,6 +44,7 @@
       "color": "#031846"
     },
     "description": "Luftio mobile app for Business customers.",
-    "userInterfaceStyle": "light"
+    "userInterfaceStyle": "light",
+    "scheme": "luftioapp"
   }
 }

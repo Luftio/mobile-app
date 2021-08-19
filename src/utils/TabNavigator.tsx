@@ -26,7 +26,7 @@ const { Navigator, Screen } = createBottomTabNavigator<RootStackParamList>();
 const Stack = createStackNavigator<RootStackParamList>();
 
 const Profile = () => (
-  <Stack.Navigator headerMode="none" screenOptions={{ animationEnabled: true }}>
+  <Stack.Navigator screenOptions={{ headerShown: false, animationEnabled: true }}>
     <Stack.Screen name="Profile" component={ProfileScreen} />
     <Stack.Screen name="Settings" component={SettingsScreen} />
     <Stack.Screen name="Informations" component={InformationScreen} />
@@ -38,10 +38,10 @@ const Profile = () => (
 );
 
 const Home = () => (
-  <Stack.Navigator headerMode="none" screenOptions={{ animationEnabled: true }}>
-    <Stack.Screen name="Home" component={HomeScreen} />
-    <Stack.Screen name="MeasureDetail" component={MeasureDetailScreen} />
-    <Stack.Screen name="Education" component={EducationScreen} />
+  <Stack.Navigator screenOptions={{ headerShown: false, animationEnabled: true }}>
+    <Stack.Screen name="Home" options={{ headerShown: false }} component={HomeScreen} />
+    <Stack.Screen name="MeasureDetail" options={{ headerShown: false }} component={MeasureDetailScreen} />
+    <Stack.Screen name="Education" options={{ headerShown: false }} component={EducationScreen} />
   </Stack.Navigator>
 );
 
@@ -57,10 +57,10 @@ const BottomTabBar = ({ navigation, state }: any) => {
         icon={(props) => <Icon {...props} name="award" />}
         style={{ paddingBottom: 8 + insets.bottom, paddingTop: 8 }}
       />
-      <BottomNavigationTab
+      {/*<BottomNavigationTab
         icon={(props) => <Icon {...props} name="plus-circle" />}
         style={{ paddingBottom: 8 + insets.bottom, paddingTop: 8 }}
-      />
+      />*/}
       <BottomNavigationTab
         icon={(props) => <Icon {...props} name="bell" />}
         style={{ paddingBottom: 8 + insets.bottom, paddingTop: 8 }}
@@ -74,10 +74,10 @@ const BottomTabBar = ({ navigation, state }: any) => {
 };
 
 export const TabNavigator = () => (
-  <Navigator tabBar={(props) => <BottomTabBar {...props} />}>
+  <Navigator screenOptions={{ headerShown: false }} tabBar={(props) => <BottomTabBar {...props} />}>
     <Screen name="Home" component={Home} />
     <Screen name="Achievements" component={AchievementsScreen} />
-    <Screen name="Feedback" component={FeedbackScreen} />
+    {/*<Screen name="Feedback" component={FeedbackScreen} />*/}
     <Screen name="Notifications" component={NotificationsScreen} />
     <Screen name="Profile" component={Profile} />
   </Navigator>

@@ -9,10 +9,7 @@ import { Text, Input, Icon, Button } from "@ui-kitten/components";
 
 import i18n from "../../i18n";
 
-type SetNewPasswordFormProp = StackNavigationProp<
-  RootStackParamList,
-  "SetNewPassword"
->;
+type SetNewPasswordFormProp = StackNavigationProp<RootStackParamList, "SetNewPassword">;
 
 const SetNewPasswordForm: React.FC = () => {
   const navigation = useNavigation<SetNewPasswordFormProp>();
@@ -33,6 +30,7 @@ const SetNewPasswordForm: React.FC = () => {
       setError("msg_passwords_not_match");
       return;
     }
+
     navigation.replace("SignIn");
   }
 

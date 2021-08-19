@@ -2,9 +2,11 @@ import { ApolloClient, InMemoryCache, HttpLink, from } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
 import { setContext } from "@apollo/client/link/context";
 
-//@ts-ignore
-import { LUFTIO_GRAPHQL_ENDPOINT } from "@env";
 import ThingsboardService from "../services/ThingsboardService";
+import { GlobalLogout } from "../utils/GlobalLogout";
+
+const LUFTIO_GRAPHQL_ENDPOINT = "https://app.luftio.com/backend/graphql";
+//const LUFTIO_GRAPHQL_ENDPOINT = "http://localhost:3000/graphql";
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (networkError) {
@@ -17,6 +19,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
       if (err?.extensions?.code === "invalid-jwt") {
         console.log("Invalid JWT");
         ThingsboardService.getInstance().logout();
+        GlobalLogout.dispatch();
       }
     }
   }

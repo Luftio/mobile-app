@@ -180,5 +180,8 @@
   "voc_eduaction_card_text_3": "Organické těkavé látky (VOC) jsou látky, které mají negativní vliv na zdraví člověka. Některé těkavé látky mají alergický, jiné toxický účinek či respirační potíže.",
   "profile_night_mode_desc": "Automaticky přepne světlo během noci",
   "no_data": "Žádná data",
-  "no_data_desc": "Zkontrolujte zda je Luftio zapnuté a připojené k WiFi"
+  "no_data_desc": "Zkontrolujte zda je Luftio zapnuté a připojené k WiFi",
+  "save": "Uložit",
+  "done": "Hotovo",
+  "password_change_complete": "Změna hesla byla úspěšně dokončena."
 }

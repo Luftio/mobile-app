@@ -8,11 +8,9 @@ import { RootStackParamList } from "../../screens/RootStackParams";
 import { Text, Input, Button } from "@ui-kitten/components";
 
 import i18n from "../../i18n";
+import ThingsboardService from "../../services/ThingsboardService";
 
-type RequestChangeFormProp = StackNavigationProp<
-  RootStackParamList,
-  "RequestChange"
->;
+type RequestChangeFormProp = StackNavigationProp<RootStackParamList, "RequestChange">;
 
 const RequestChangeForm: React.FC = () => {
   const navigation = useNavigation<RequestChangeFormProp>();
@@ -21,18 +19,19 @@ const RequestChangeForm: React.FC = () => {
   const [error, setError] = useState<null | string>(null);
 
   function requestChange() {
-    if (
-      !email ||
-      !/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
-        email
-      )
-    ) {
+    if (!email || !/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)) {
       setError("msg_invalid_email");
       return;
     }
 
-    console.log(email);
-    navigation.replace("SendInstructions");
+    ThingsboardService.getInstance()
+      .forgetPasswordRequest(email)
+      .then(() => {
+        navigation.replace("SendInstructions");
+      })
+      .catch((error) => {
+        setError("msg_invalid_email");
+      });
   }
 
   return (
@@ -47,6 +46,9 @@ const RequestChangeForm: React.FC = () => {
           size="large"
           placeholder={i18n.t("email_input_placeholder")}
           value={email}
+          autoCompleteType="email"
+          textContentType="emailAddress"
+          keyboardType="email-address"
           onChangeText={(text) => setEmail(text)}
         />
         {error != null && (

@@ -29,6 +29,7 @@ import {
   useSetBrightnessMutation,
 } from "../graphql";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import ThingsboardService from "../services/ThingsboardService";
 
 type HomeScreenProp = StackNavigationProp<RootStackParamList, "Home">;
 
@@ -53,7 +54,9 @@ const HomeScreen: React.FC = () => {
         {
           text: i18n.t("retry"),
           onPress: () => {
-            devicesRefetch();
+            if (ThingsboardService.getInstance().isLoggedIn()) {
+              devicesRefetch();
+            }
           },
         },
       ]);
@@ -333,7 +336,7 @@ const HomeScreen: React.FC = () => {
                 <Text category="s2" style={{ textAlign: "center", marginTop: 20, marginBottom: 20 }}>
                   {i18n.t("no_data_desc")}
                 </Text>
-                <Button onPress={() => loadDevice()}>Retry</Button>
+                <Button onPress={() => loadDevice()}>{i18n.t("retry")}</Button>
               </View>
             ) : (
               <>

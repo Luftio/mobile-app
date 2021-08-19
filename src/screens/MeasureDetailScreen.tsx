@@ -78,7 +78,7 @@ const MeasureDetailScreen: React.FC<MeasureDetailScreenProps> = ({ route }) => {
   return (
     <LayoutSafeArea main>
       <TopNavigation
-        title={() => <Text category="h4">{data.type}</Text>}
+        title={() => <Text category="h4">{i18n.t(data.type)}</Text>}
         alignment="center"
         //@ts-ignore
         accessoryLeft={renderBackAction}

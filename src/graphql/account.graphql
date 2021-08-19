@@ -6,3 +6,7 @@ query GetAccount {
     email
   }
 }
+
+mutation ChangePassword($currentPassword: String!, $newPassword: String!) {
+  changePassword(currentPassword: $currentPassword, newPassword: $newPassword)
+}

@@ -109,10 +109,17 @@ export type Feedback = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  changePassword: Scalars['Boolean'];
   renameDevice: Device;
   saveDeviceAttributes: DeviceAttributes;
   setBrightness: Brightness;
   updateToken: Scalars['Boolean'];
+};
+
+
+export type MutationChangePasswordArgs = {
+  currentPassword: Scalars['String'];
+  newPassword: Scalars['String'];
 };
 
 
@@ -239,6 +246,14 @@ export type GetAccountQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetAccountQuery = { __typename?: 'Query', account: { __typename?: 'Account', id: string, first_name: string, last_name: string, email: string } };
 
+export type ChangePasswordMutationVariables = Exact<{
+  currentPassword: Scalars['String'];
+  newPassword: Scalars['String'];
+}>;
+
+
+export type ChangePasswordMutation = { __typename?: 'Mutation', changePassword: boolean };
+
 export type GetAchievementsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -288,6 +303,13 @@ export type SaveDeviceAttributesMutationVariables = Exact<{
 
 export type SaveDeviceAttributesMutation = { __typename?: 'Mutation', saveDeviceAttributes: { __typename?: 'DeviceAttributes', id: string, attributes: string } };
 
+export type UpdateTokenMutationVariables = Exact<{
+  token: Scalars['String'];
+}>;
+
+
+export type UpdateTokenMutation = { __typename?: 'Mutation', updateToken: boolean };
+
 
 export const GetAccountDocument = gql`
     query GetAccount {
@@ -326,6 +348,38 @@ export function useGetAccountLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
 export type GetAccountQueryHookResult = ReturnType<typeof useGetAccountQuery>;
 export type GetAccountLazyQueryHookResult = ReturnType<typeof useGetAccountLazyQuery>;
 export type GetAccountQueryResult = Apollo.QueryResult<GetAccountQuery, GetAccountQueryVariables>;
+export const ChangePasswordDocument = gql`
+    mutation ChangePassword($currentPassword: String!, $newPassword: String!) {
+  changePassword(currentPassword: $currentPassword, newPassword: $newPassword)
+}
+    `;
+export type ChangePasswordMutationFn = Apollo.MutationFunction<ChangePasswordMutation, ChangePasswordMutationVariables>;
+
+/**
+ * __useChangePasswordMutation__
+ *
+ * To run a mutation, you first call `useChangePasswordMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useChangePasswordMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [changePasswordMutation, { data, loading, error }] = useChangePasswordMutation({
+ *   variables: {
+ *      currentPassword: // value for 'currentPassword'
+ *      newPassword: // value for 'newPassword'
+ *   },
+ * });
+ */
+export function useChangePasswordMutation(baseOptions?: Apollo.MutationHookOptions<ChangePasswordMutation, ChangePasswordMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<ChangePasswordMutation, ChangePasswordMutationVariables>(ChangePasswordDocument, options);
+      }
+export type ChangePasswordMutationHookResult = ReturnType<typeof useChangePasswordMutation>;
+export type ChangePasswordMutationResult = Apollo.MutationResult<ChangePasswordMutation>;
+export type ChangePasswordMutationOptions = Apollo.BaseMutationOptions<ChangePasswordMutation, ChangePasswordMutationVariables>;
 export const GetAchievementsDocument = gql`
     query GetAchievements {
   achievements {
@@ -593,3 +647,34 @@ export function useSaveDeviceAttributesMutation(baseOptions?: Apollo.MutationHoo
 export type SaveDeviceAttributesMutationHookResult = ReturnType<typeof useSaveDeviceAttributesMutation>;
 export type SaveDeviceAttributesMutationResult = Apollo.MutationResult<SaveDeviceAttributesMutation>;
 export type SaveDeviceAttributesMutationOptions = Apollo.BaseMutationOptions<SaveDeviceAttributesMutation, SaveDeviceAttributesMutationVariables>;
+export const UpdateTokenDocument = gql`
+    mutation UpdateToken($token: String!) {
+  updateToken(token: $token)
+}
+    `;
+export type UpdateTokenMutationFn = Apollo.MutationFunction<UpdateTokenMutation, UpdateTokenMutationVariables>;
+
+/**
+ * __useUpdateTokenMutation__
+ *
+ * To run a mutation, you first call `useUpdateTokenMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateTokenMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateTokenMutation, { data, loading, error }] = useUpdateTokenMutation({
+ *   variables: {
+ *      token: // value for 'token'
+ *   },
+ * });
+ */
+export function useUpdateTokenMutation(baseOptions?: Apollo.MutationHookOptions<UpdateTokenMutation, UpdateTokenMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateTokenMutation, UpdateTokenMutationVariables>(UpdateTokenDocument, options);
+      }
+export type UpdateTokenMutationHookResult = ReturnType<typeof useUpdateTokenMutation>;
+export type UpdateTokenMutationResult = Apollo.MutationResult<UpdateTokenMutation>;
+export type UpdateTokenMutationOptions = Apollo.BaseMutationOptions<UpdateTokenMutation, UpdateTokenMutationVariables>;

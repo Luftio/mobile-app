@@ -2,6 +2,8 @@ import { Platform } from "react-native";
 import Constants from "expo-constants";
 import * as Notifications from "expo-notifications";
 import ThingsboardService from "./ThingsboardService";
+import { client } from "../config/ApolloClient";
+import { UpdateTokenDocument, UpdateTokenMutation, UpdateTokenMutationVariables } from "../graphql";
 
 export const registerForPushNotifications = async () => {
   if (Constants.isDevice && Platform.OS !== "web") {
@@ -16,7 +18,10 @@ export const registerForPushNotifications = async () => {
     }
     const token = (await Notifications.getExpoPushTokenAsync()).data;
     console.log(token);
-    ThingsboardService.getInstance().updateToken(token);
+    client.mutate<UpdateTokenMutation, UpdateTokenMutationVariables>({
+      mutation: UpdateTokenDocument,
+      variables: { token },
+    });
   }
 
   if (Platform.OS === "android") {

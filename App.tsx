@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, useNavigationContainerRef } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { AppearanceProvider, useColorScheme } from "react-native-appearance";
 import "react-native-gesture-handler";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import AppLoading from "expo-app-loading";
+import * as Linking from "expo-linking";
 
 import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
 
@@ -33,6 +34,7 @@ import { RootStackParamList } from "./src/screens/RootStackParams";
 import { default as theme } from "./config/theme.json";
 import { default as mapping } from "./config/mapping.json";
 import { client } from "./src/config/ApolloClient";
+import { GlobalLogout } from "./src/utils/GlobalLogout";
 
 import * as Sentry from "sentry-expo";
 
@@ -48,11 +50,56 @@ const App: React.FC = () => {
   let colorScheme = useColorScheme();
   let firstScreen: string;
 
+  const navigationRef = useNavigationContainerRef();
+
   const [viewedOnboarding, setViewedOnboarding] = useState<boolean>(false);
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
   const [isReady, setIsReady] = useState<boolean>(false);
 
+  const handleUrl = ({ url }: { url: string }) => {
+    const parsed = Linking.parse(url);
+    const pathParts = parsed.path?.split("/");
+    if (pathParts && pathParts[pathParts?.length - 2] === "loginWithToken") {
+      const token = pathParts[pathParts?.length - 1];
+      console.log("Logging in with token ", token);
+      AsyncStorage.setItem("token", token);
+      if (navigationRef.isReady()) {
+        navigationRef.resetRoot({
+          index: 0,
+          routes: [{ name: "Home" }],
+        });
+      }
+    }
+  };
+
+  useEffect(() => {
+    Linking.addEventListener("url", handleUrl);
+    return () => {
+      Linking.removeEventListener("url", handleUrl);
+    };
+  });
+
+  const handleLogout = () => {
+    if (navigationRef.isReady()) {
+      navigationRef.resetRoot({
+        index: 0,
+        routes: [{ name: "SignIn" }],
+      });
+    }
+  };
+  useEffect(() => {
+    GlobalLogout.addListener(handleLogout);
+    return () => {
+      GlobalLogout.removeListener(handleLogout);
+    };
+  });
+
   const loadApp = async () => {
+    const url = await Linking.getInitialURL();
+    if (url) {
+      handleUrl({ url });
+    }
+
     // Check login
     try {
       const _loggedIn = await ThingsboardService.getInstance().isLoggedIn();
@@ -71,10 +118,6 @@ const App: React.FC = () => {
       console.log("Error @checkOnboarding: ", err);
     }
   };
-
-  useEffect(() => {
-    loadApp();
-  }, []);
 
   if (!isReady) {
     return <AppLoading startAsync={loadApp} onFinish={() => setIsReady(true)} onError={console.error} />;
@@ -116,8 +159,8 @@ const App: React.FC = () => {
         //@ts-ignore
         customMapping={mapping}>
         <ApolloProvider client={client}>
-          <NavigationContainer>
-            <Stack.Navigator headerMode="none" screenOptions={{ animationEnabled: true }}>
+          <NavigationContainer ref={navigationRef}>
+            <Stack.Navigator screenOptions={{ headerShown: false, animationEnabled: true }}>
               {screens
                 .sort((a, b) => {
                   if (a.name == firstScreen) return -1;
@@ -125,7 +168,7 @@ const App: React.FC = () => {
                   return 0;
                 })
                 .map((it: any) => (
-                  <Stack.Screen key={it.name} {...it} />
+                  <Stack.Screen key={it.name} options={{ headerShown: false }} {...it} />
                 ))}
             </Stack.Navigator>
           </NavigationContainer>

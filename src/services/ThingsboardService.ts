@@ -32,6 +32,31 @@ export default class ThingsboardService implements IAuthService {
     AsyncStorage.setItem("token", response.data.token);
   }
 
+  async acceptInvite(token: string, firstName: string, lastName: string, password: string) {
+    const response = await axios.post(APP_BACKEND_SERVER + "account/acceptInvite", {
+      token,
+      firstName,
+      lastName,
+      password,
+    });
+    AsyncStorage.setItem("token", response.data.token);
+  }
+
+  async forgetPasswordRequest(email: string) {
+    const response = await axios.post(THINGSBOARD_SERVER + "api/noauth/resetPasswordByEmail", {
+      email,
+    });
+    return response;
+  }
+
+  async forgetPasswordReset(resetToken: string, password: string) {
+    const response = await axios.post(THINGSBOARD_SERVER + "api/noauth/resetPassword", {
+      resetToken,
+      password,
+    });
+    AsyncStorage.setItem("token", response.data.token);
+  }
+
   async logout() {
     AsyncStorage.removeItem("token");
   }
@@ -39,19 +64,6 @@ export default class ThingsboardService implements IAuthService {
   async getAuthHeader() {
     const token = await AsyncStorage.getItem("token");
     return { "X-Authorization": "Bearer " + token };
-  }
-
-  async updateToken(token: string) {
-    const response = await axios.post(
-      APP_BACKEND_SERVER + "push/updateToken",
-      {
-        token,
-      },
-      {
-        headers: await this.getAuthHeader(),
-      }
-    );
-    return response;
   }
 
   // Singleton

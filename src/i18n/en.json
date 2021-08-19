@@ -183,5 +183,8 @@
   "no_data_desc": "Check if your Luftio is powered on and connected to WiFi",
   "retry": "Retry",
   "error": "Error",
-  "error_network_desc": "An error occured. Make sure you're connected to mobile data or WiFi."
+  "error_network_desc": "An error occured. Make sure you're connected to mobile data or WiFi.",
+  "save": "Save",
+  "done": "Done",
+  "password_change_complete": "Pasword change was completed successfuly."
 }
