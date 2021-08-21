@@ -3,11 +3,11 @@ import { TouchableOpacity, View } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../../screens/RootStackParams";
+import { RootStackParamList } from "../../../screens/RootStackParams";
 
 import { Text, Input, Icon, Button } from "@ui-kitten/components";
 
-import i18n from "../../i18n";
+import i18n from "../../../i18n";
 
 type SetNewPasswordFormProp = StackNavigationProp<RootStackParamList, "SetNewPassword">;
 

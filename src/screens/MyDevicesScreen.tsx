@@ -5,7 +5,8 @@ import { Text, TopNavigation, Spinner } from "@ui-kitten/components";
 import renderBackAction from "../utils/renderBackAction";
 
 import LayoutSafeArea from "../components/layouts/LayoutSafeArea";
-import DeviceCard from "../components/modules/DeviceCard";
+import DeviceCard from "../components/modules/cards/DeviceCard";
+import EmptyState from "../components/modules/EmptyState";
 
 import i18n from "../i18n";
 
@@ -32,6 +33,8 @@ const MyDevicesScreen: React.FC = () => {
             <View style={{ marginTop: 40, alignItems: "center" }}>
               <Spinner size="large" />
             </View>
+          ) : query.data?.devices == null || query.data?.devices.length == 0 ? (
+            <EmptyState text={i18n.t("my_devices_screen_empty_state")} />
           ) : (
             query.data?.devices?.map((device) => (
               <TouchableOpacity

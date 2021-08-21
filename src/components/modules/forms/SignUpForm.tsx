@@ -3,11 +3,11 @@ import { View, TouchableOpacity, Linking } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../../screens/RootStackParams";
+import { RootStackParamList } from "../../../screens/RootStackParams";
 
 import { Text, Input, Icon, Button, CheckBox } from "@ui-kitten/components";
 
-import i18n from "../../i18n";
+import i18n from "../../../i18n";
 
 type SignUpFormProp = StackNavigationProp<RootStackParamList, "SignIn">;
 
@@ -34,12 +34,7 @@ const SignUpForm: React.FC = () => {
       setError("msg_surname_required");
       return;
     }
-    if (
-      !email ||
-      !/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
-        email
-      )
-    ) {
+    if (!email || !/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)) {
       setError("msg_invalid_email");
       return;
     }
@@ -135,10 +130,7 @@ const SignUpForm: React.FC = () => {
           onChangeText={(text) => setPairingCode(text)}
           style={{ marginBottom: 15 }}
         />
-        <CheckBox
-          checked={agreed}
-          onChange={(nextChecked) => setAgreed(nextChecked)}
-          style={{ marginBottom: 16 }}>
+        <CheckBox checked={agreed} onChange={(nextChecked) => setAgreed(nextChecked)} style={{ marginBottom: 16 }}>
           {() => (
             <Text category="c1" style={{ marginLeft: 15 }}>
               {i18n.t("agree_with")}&nbsp;

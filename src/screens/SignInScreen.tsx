@@ -4,7 +4,7 @@ import { View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import LayoutSafeArea from "../components/layouts/LayoutSafeArea";
 import Header from "../components/modules/Header";
-import SignInForm from "../components/modules/SignInForm";
+import SignInForm from "../components/modules/forms/SignInForm";
 
 import i18n from "../i18n";
 

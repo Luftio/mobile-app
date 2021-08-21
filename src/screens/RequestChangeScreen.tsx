@@ -8,7 +8,7 @@ import renderBackAction from "../utils/renderBackAction";
 
 import LayoutSafeArea from "../components/layouts/LayoutSafeArea";
 import Header from "../components/modules/Header";
-import RequestChangeForm from "../components/modules/RequestChangeForm";
+import RequestChangeForm from "../components/modules/forms/RequestChangeForm";
 
 import i18n from "../i18n";
 
@@ -22,10 +22,7 @@ const RequestChangeScreen: React.FC = () => {
       />
       <KeyboardAwareScrollView>
         <View style={{ flex: 1, padding: 24 }}>
-          <Header
-            heading={i18n.t("request_change_heading")}
-            subheading={i18n.t("request_change_subheading")}
-          />
+          <Header heading={i18n.t("request_change_heading")} subheading={i18n.t("request_change_subheading")} />
           <RequestChangeForm />
         </View>
       </KeyboardAwareScrollView>

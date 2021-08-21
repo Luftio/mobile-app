@@ -5,17 +5,16 @@ import { Text } from "@ui-kitten/components";
 
 import i18n from "../../i18n";
 
-const EmptyState = () => {
+interface EmptyStateProps {
+  text: string;
+}
+
+const EmptyState: React.FC<EmptyStateProps> = ({ text }) => {
   return (
     <View style={{ alignItems: "center", marginTop: 40 }}>
-      <Image
-        source={require("../../../assets/empty-state.png")}
-        style={{ width: 298, height: 250 }}
-      />
-      <Text
-        category="p1"
-        style={{ color: "#838C97", transform: [{ translateY: -55 }] }}>
-        {i18n.t("notifications_screen_empty_state")}
+      <Image source={require("../../../assets/empty-state.png")} style={{ width: 298, height: 250 }} />
+      <Text category="p1" style={{ color: "#838C97", transform: [{ translateY: -55 }], textAlign: "center" }}>
+        {text}
       </Text>
     </View>
   );

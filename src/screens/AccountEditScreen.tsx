@@ -7,7 +7,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import renderBackAction from "../utils/renderBackAction";
 
 import LayoutSafeArea from "../components/layouts/LayoutSafeArea";
-import AccountEditForm from "../components/modules/AccountEditForm";
+import AccountEditForm from "../components/modules/forms/AccountEditForm";
 
 import i18n from "../i18n";
 

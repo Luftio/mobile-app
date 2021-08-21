@@ -11,7 +11,7 @@ import { Text, Icon, Button, Spinner, useTheme, Select, SelectItem, IndexPath } 
 
 import LayoutSafeArea from "../components/layouts/LayoutSafeArea";
 import Slider from "../components/modules/Slider";
-import MeasureCard from "../components/modules/MeasureCard";
+import MeasureCard from "../components/modules/cards/MeasureCard";
 
 import { ReanimatedArcBase } from "@intractive/reanimated-arc";
 import Reanimated from "react-native-reanimated";

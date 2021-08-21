@@ -10,7 +10,7 @@ import i18n from "../i18n";
 
 import { useGetAchievementsQuery } from "../graphql";
 
-const BADGE_BASE_URL = "https://luftio.knaufizolace.cz/luftio/";
+const BADGE_BASE_URL = "https://luftio.cz/";
 
 const AchievementsScreen: React.FC = () => {
   const query = useGetAchievementsQuery();

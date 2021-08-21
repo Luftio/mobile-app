@@ -2,7 +2,7 @@ import React from "react";
 import { withStyles } from "@ui-kitten/components";
 import Slider from "../../../lib/Slider";
 
-const BaseSlider = (props: any) => {
+const BaseSlider: React.FC = (props: any) => {
   const { eva, style, ...restProps } = props;
 
   return (

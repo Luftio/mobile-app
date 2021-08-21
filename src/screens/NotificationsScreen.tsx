@@ -65,7 +65,7 @@ const NotificationsScreen: React.FC = () => {
               <Spinner size="large" />
             </View>
           ) : notifications == null || notifications.length == 0 ? (
-            <EmptyState />
+            <EmptyState text={i18n.t("notifications_screen_empty_state")} />
           ) : (
             notifications?.map((notification) => (
               <Notification key={notification.id} name={notification.title} time={notification.date} />

@@ -7,7 +7,7 @@ import renderBackAction from "../utils/renderBackAction";
 import { DeviceData } from "../graphql";
 
 import LayoutSafeArea from "../components/layouts/LayoutSafeArea";
-import CollapsibleCard from "../components/modules/CollapsibleCard";
+import CollapsibleCard from "../components/modules/cards/CollapsibleCard";
 
 import i18n from "../i18n";
 

@@ -4,7 +4,7 @@ import { TouchableOpacity, View } from "react-native";
 import { Icon, Text } from "@ui-kitten/components";
 
 import { VictoryChart, VictoryLine, VictoryTheme } from "victory-native";
-import { DeviceDataValue } from "../../graphql";
+import { DeviceDataValue } from "../../../graphql";
 
 interface MeasureCardProps {
   name: string;

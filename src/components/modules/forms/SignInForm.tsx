@@ -3,12 +3,12 @@ import { View, TouchableOpacity } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../../screens/RootStackParams";
+import { RootStackParamList } from "../../../screens/RootStackParams";
 
 import { Text, Input, Icon, Button, Spinner } from "@ui-kitten/components";
 
-import i18n from "../../i18n";
-import ThingsboardService from "../../services/ThingsboardService";
+import i18n from "../../../i18n";
+import ThingsboardService from "../../../services/ThingsboardService";
 
 type SignInFormProp = StackNavigationProp<RootStackParamList, "SignIn">;
 

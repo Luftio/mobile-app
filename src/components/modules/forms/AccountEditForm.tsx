@@ -4,11 +4,11 @@ import { Alert } from "react-native";
 
 import { Text, Input, Button, Spinner } from "@ui-kitten/components";
 
-import EmailChangedCard from "./EmailChangedCard";
+import EmailChangedCard from "../cards/EmailChangedCard";
 
-import { useGetAccountQuery, useChangePasswordMutation } from "../../graphql";
+import { useGetAccountQuery, useChangePasswordMutation } from "../../../graphql";
 
-import i18n from "../../i18n";
+import i18n from "../../../i18n";
 import useFloatingHeaderHeight from "@react-navigation/stack/lib/typescript/src/utils/useHeaderHeight";
 
 const AccountEditForm: React.FC = () => {
@@ -138,7 +138,13 @@ const AccountEditForm: React.FC = () => {
       <Button
         size="large"
         onPress={() => changePassword({ variables: { currentPassword: password, newPassword } })}
-        disabled={passwordLoading || !password || newPassword.length < 8 || repeatNewPassword != newPassword}
+        disabled={
+          passwordLoading ||
+          !password ||
+          !repeatNewPassword ||
+          newPassword.length < 12 ||
+          repeatNewPassword != newPassword
+        }
         style={{ marginTop: 10 }}>
         {i18n.t("change_password")}
       </Button>
