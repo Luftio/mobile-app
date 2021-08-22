@@ -1,0 +1,19 @@
+query GetNotifications {
+  notifications {
+    ... on EventFromMeasure {
+      __typename
+      id
+      title
+      justification
+      place
+      date
+    }
+    ... on GenericNotification {
+      __typename
+      id
+      title
+      text
+      date
+    }
+  }
+}

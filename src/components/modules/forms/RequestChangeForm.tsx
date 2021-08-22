@@ -46,6 +46,7 @@ const RequestChangeForm: React.FC = () => {
           size="large"
           placeholder={i18n.t("email_input_placeholder")}
           value={email}
+          autoCapitalize="none"
           autoCompleteType="email"
           textContentType="emailAddress"
           keyboardType="email-address"

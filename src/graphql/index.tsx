@@ -22,6 +22,8 @@ export type Account = {
   first_name: Scalars['String'];
   id: Scalars['ID'];
   last_name: Scalars['String'];
+  pending_invitation: Scalars['Boolean'];
+  role: Scalars['String'];
 };
 
 export type Achievement = {
@@ -107,9 +109,21 @@ export type Feedback = {
   total_score: Scalars['Float'];
 };
 
+export type GenericNotification = {
+  __typename?: 'GenericNotification';
+  date: Scalars['DateTime'];
+  id: Scalars['ID'];
+  text: Scalars['String'];
+  title: Scalars['String'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
+  changeAccountDetails: Scalars['Boolean'];
   changePassword: Scalars['Boolean'];
+  changeRole: Scalars['Boolean'];
+  deleteUser: Scalars['Boolean'];
+  inviteUser: Scalars['Boolean'];
   renameDevice: Device;
   saveDeviceAttributes: DeviceAttributes;
   setBrightness: Brightness;
@@ -117,9 +131,33 @@ export type Mutation = {
 };
 
 
+export type MutationChangeAccountDetailsArgs = {
+  email: Scalars['String'];
+  firstName: Scalars['String'];
+  lastName: Scalars['String'];
+};
+
+
 export type MutationChangePasswordArgs = {
   currentPassword: Scalars['String'];
   newPassword: Scalars['String'];
+};
+
+
+export type MutationChangeRoleArgs = {
+  role: Scalars['String'];
+  userId: Scalars['String'];
+};
+
+
+export type MutationDeleteUserArgs = {
+  userId: Scalars['String'];
+};
+
+
+export type MutationInviteUserArgs = {
+  email: Scalars['String'];
+  role: Scalars['String'];
 };
 
 
@@ -143,9 +181,12 @@ export type MutationUpdateTokenArgs = {
   token: Scalars['String'];
 };
 
+export type NotificationsUnion = EventFromMeasure | GenericNotification;
+
 export type Query = {
   __typename?: 'Query';
   account: Account;
+  accounts: Array<Account>;
   achievements: Array<Achievement>;
   brightness: Brightness;
   device: Device;
@@ -163,6 +204,7 @@ export type Query = {
   feedback: Feedback;
   feedback_unread_count: Scalars['Int'];
   feedbacks: Array<Feedback>;
+  notifications: Array<NotificationsUnion>;
   suggestion: Suggestion;
   suggestions: Array<Suggestion>;
   suggestions_unread_count: Scalars['Int'];
@@ -302,6 +344,11 @@ export type SaveDeviceAttributesMutationVariables = Exact<{
 
 
 export type SaveDeviceAttributesMutation = { __typename?: 'Mutation', saveDeviceAttributes: { __typename?: 'DeviceAttributes', id: string, attributes: string } };
+
+export type GetNotificationsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetNotificationsQuery = { __typename?: 'Query', notifications: Array<{ __typename: 'EventFromMeasure', id: string, title: string, justification: string, place: string, date: any } | { __typename: 'GenericNotification', id: string, title: string, text: string, date: any }> };
 
 export type UpdateTokenMutationVariables = Exact<{
   token: Scalars['String'];
@@ -647,6 +694,54 @@ export function useSaveDeviceAttributesMutation(baseOptions?: Apollo.MutationHoo
 export type SaveDeviceAttributesMutationHookResult = ReturnType<typeof useSaveDeviceAttributesMutation>;
 export type SaveDeviceAttributesMutationResult = Apollo.MutationResult<SaveDeviceAttributesMutation>;
 export type SaveDeviceAttributesMutationOptions = Apollo.BaseMutationOptions<SaveDeviceAttributesMutation, SaveDeviceAttributesMutationVariables>;
+export const GetNotificationsDocument = gql`
+    query GetNotifications {
+  notifications {
+    ... on EventFromMeasure {
+      __typename
+      id
+      title
+      justification
+      place
+      date
+    }
+    ... on GenericNotification {
+      __typename
+      id
+      title
+      text
+      date
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetNotificationsQuery__
+ *
+ * To run a query within a React component, call `useGetNotificationsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetNotificationsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetNotificationsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetNotificationsQuery(baseOptions?: Apollo.QueryHookOptions<GetNotificationsQuery, GetNotificationsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetNotificationsQuery, GetNotificationsQueryVariables>(GetNotificationsDocument, options);
+      }
+export function useGetNotificationsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetNotificationsQuery, GetNotificationsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetNotificationsQuery, GetNotificationsQueryVariables>(GetNotificationsDocument, options);
+        }
+export type GetNotificationsQueryHookResult = ReturnType<typeof useGetNotificationsQuery>;
+export type GetNotificationsLazyQueryHookResult = ReturnType<typeof useGetNotificationsLazyQuery>;
+export type GetNotificationsQueryResult = Apollo.QueryResult<GetNotificationsQuery, GetNotificationsQueryVariables>;
 export const UpdateTokenDocument = gql`
     mutation UpdateToken($token: String!) {
   updateToken(token: $token)

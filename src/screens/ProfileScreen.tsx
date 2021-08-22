@@ -12,28 +12,19 @@ import ProfileRow from "../components/modules/ProfileRow";
 
 import i18n from "../i18n";
 import ThingsboardService from "../services/ThingsboardService";
+import { useGetAccountQuery } from "../graphql";
 
 type ProfileScreenProp = StackNavigationProp<RootStackParamList, "Profile">;
 
 const ProfileScreen: React.FC = () => {
   const navigation = useNavigation<ProfileScreenProp>();
-  const [email, setEmail] = useState<string | null>();
-  const [fullName, setFullName] = useState<string | null>();
-
-  async function loadData() {
-    const userData = await ThingsboardService.getInstance().getUserData();
-    setFullName(userData?.fullName);
-    setEmail(userData?.email);
-  }
 
   function logout() {
     ThingsboardService.getInstance().logout();
     navigation.navigate("SignIn");
   }
 
-  useEffect(() => {
-    loadData();
-  }, []);
+  const { data } = useGetAccountQuery();
 
   return (
     <>
@@ -48,10 +39,10 @@ const ProfileScreen: React.FC = () => {
             }}>
             <View>
               <Text category="h1" style={{ paddingBottom: 3 }}>
-                {fullName}
+                {data?.account.first_name || "" + " " + data?.account.last_name || ""}
               </Text>
               <Text category="p1" style={{ color: "#000", fontSize: 16 }}>
-                {email}
+                {data?.account.email}
               </Text>
             </View>
             <TouchableOpacity onPress={() => logout()}>

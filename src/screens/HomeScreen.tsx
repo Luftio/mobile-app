@@ -62,7 +62,8 @@ const HomeScreen: React.FC = () => {
       ]);
     },
   });
-  const [getDeviceData, { data: devicesData, loading: devicesDataLoading }] = useGetDeviceDataLazyQuery();
+  const [getDeviceData, { data: devicesData, loading: devicesDataLoading, refetch: dataRefetch }] =
+    useGetDeviceDataLazyQuery();
   const [getBrightness, { data: brightnessData }] = useGetBrightnessLazyQuery();
   const [setBrightness] = useSetBrightnessMutation();
 
@@ -130,6 +131,16 @@ const HomeScreen: React.FC = () => {
       );
     }
   }, [lamp, lampBrightness]);
+  useEffect(() => {
+    const refreshInterval = setInterval(() => {
+      if (dataRefetch) {
+        dataRefetch();
+      }
+    }, 60000);
+    return () => {
+      clearInterval(refreshInterval);
+    };
+  }, []);
   function getColorValue(color?: string) {
     if (color == "green") return "#23A454";
     if (color == "yellow") return "#FFB951";
@@ -260,12 +271,12 @@ const HomeScreen: React.FC = () => {
                 {i18n.t("lights_off")}
               </Button>
               <Button
-                onPress={() => setLamp("color")}
-                appearance={lamp === "color" ? "filled" : "outline"}
+                onPress={() => setLamp("standard")}
+                appearance={lamp === "standard" ? "filled" : "outline"}
                 status="basic"
                 size="large"
                 style={{
-                  borderBottomWidth: lamp === "color" ? 3 : 0,
+                  borderBottomWidth: lamp === "standard" ? 3 : 0,
                   borderBottomColor: theme["color-primary-500"],
                   marginRight: 20,
                   shadowOffset: {

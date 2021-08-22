@@ -1,26 +1,39 @@
 import React, { useState } from "react";
-import { View } from "react-native";
+import { View, RefreshControl } from "react-native";
 
 import LayoutSafeArea from "../components/layouts/LayoutSafeArea";
 import Notification from "../components/modules/Notification";
 import EmptyState from "../components/modules/EmptyState";
 
-import { Button, Spinner } from "@ui-kitten/components";
+import { Text, Spinner } from "@ui-kitten/components";
 
 import i18n from "../i18n";
 
-import { EventFromMeasure } from "../graphql";
+import { useGetNotificationsQuery } from "../graphql";
+import { ScrollView } from "react-native-gesture-handler";
 
 const NotificationsScreen: React.FC = () => {
-  const [active, setActive] = useState<string>("today");
+  //const [active, setActive] = useState<string>("today");
 
-  const notifications: EventFromMeasure[] = []; // TODO
+  const { data, loading, refetch } = useGetNotificationsQuery();
 
   return (
     <>
       <LayoutSafeArea main>
-        <View style={{ flex: 1, padding: 24, paddingTop: 40 }}>
-          <View
+        <ScrollView refreshControl={<RefreshControl refreshing={loading} onRefresh={() => refetch()} />}>
+          <View style={{ flex: 1, padding: 24, paddingTop: 40 }}>
+            <View style={{ alignItems: "center", marginBottom: 40 }}>
+              <Text
+                category="h1"
+                style={{
+                  textAlign: "center",
+                  paddingLeft: 15,
+                  paddingRight: 15,
+                }}>
+                {i18n.t("notifications")}
+              </Text>
+            </View>
+            {/* TODO filter <View
             style={{
               flexDirection: "row",
               marginBottom: 40,
@@ -59,19 +72,38 @@ const NotificationsScreen: React.FC = () => {
               }}>
               {i18n.t("yesterday")}
             </Button>
+            </View>*/}
+            {loading ? (
+              <View style={{ marginTop: 40, alignItems: "center" }}>
+                <Spinner size="large" />
+              </View>
+            ) : data?.notifications == null || data?.notifications.length == 0 ? (
+              <EmptyState text={i18n.t("notifications_screen_empty_state")} />
+            ) : (
+              data?.notifications.map((notification) => {
+                if (notification.__typename == "GenericNotification") {
+                  return (
+                    <Notification
+                      key={notification.id}
+                      name={notification.title}
+                      text={notification.text}
+                      date={new Date(notification.date).toLocaleString()}
+                    />
+                  );
+                } else if (notification.__typename == "EventFromMeasure") {
+                  return (
+                    <Notification
+                      key={notification.id}
+                      name={notification.title}
+                      text={notification.justification}
+                      date={new Date(notification.date).toLocaleString()}
+                    />
+                  );
+                }
+              })
+            )}
           </View>
-          {false ? (
-            <View style={{ marginTop: 40, alignItems: "center" }}>
-              <Spinner size="large" />
-            </View>
-          ) : notifications == null || notifications.length == 0 ? (
-            <EmptyState text={i18n.t("notifications_screen_empty_state")} />
-          ) : (
-            notifications?.map((notification) => (
-              <Notification key={notification.id} name={notification.title} time={notification.date} />
-            ))
-          )}
-        </View>
+        </ScrollView>
       </LayoutSafeArea>
     </>
   );
