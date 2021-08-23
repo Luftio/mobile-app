@@ -1,5 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import { View } from "react-native";
+import useComponentSize from "@rehooks/component-size";
+import { LinearGradient } from "expo-linear-gradient";
 
 import { Button, Icon, Text, TopNavigation, Modal, Calendar, Card } from "@ui-kitten/components";
 
@@ -19,6 +21,7 @@ import LayoutSafeArea from "../components/layouts/LayoutSafeArea";
 import i18n from "../i18n";
 
 import { DeviceData, useGetDeviceDataLazyQuery, useGetDeviceDataQuery } from "../graphql";
+import { LevelVizualizer } from "../components/modules/LevelVisualizer";
 
 type HomeScreenProp = StackNavigationProp<RootStackParamList, "MeasureDetail">;
 
@@ -49,6 +52,11 @@ const MeasureDetailScreen: React.FC<MeasureDetailScreenProps> = ({ route }) => {
     }
     return {};
   };
+  function getColorValue(color?: string) {
+    if (color == "green") return "#23A454";
+    if (color == "yellow") return "#FFB951";
+    if (color == "red") return "#ED3A49";
+  }
 
   const [devicesDataQuery, { data: devicesDataQueryData }] = useGetDeviceDataLazyQuery({ fetchPolicy: "no-cache" });
   const data =
@@ -76,7 +84,7 @@ const MeasureDetailScreen: React.FC<MeasureDetailScreenProps> = ({ route }) => {
   }, [chartScale, customRange]);
 
   return (
-    <LayoutSafeArea main>
+    <LayoutSafeArea main ignoreBottom>
       <TopNavigation
         title={() => <Text category="h4">{i18n.t(data.type)}</Text>}
         alignment="center"
@@ -85,226 +93,239 @@ const MeasureDetailScreen: React.FC<MeasureDetailScreenProps> = ({ route }) => {
         accessoryRight={renderCustomAction("info", () => navigation.navigate("Education", { data: data }))}
         style={{ backgroundColor: "#FAFAFA" }}
       />
-      <View style={{ flex: 1, padding: 24 }}>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "flex-end",
-            marginBottom: 25,
-          }}>
-          <Text category="h1" style={{ fontSize: 50, fontWeight: "800", marginRight: 10 }}>
-            {data.value}
-          </Text>
-          <Text style={{ fontSize: 22, fontWeight: "500", paddingBottom: 6 }}>{data.unit}</Text>
-        </View>
-        <Text style={{ marginBottom: 25, fontWeight: "500", fontSize: 18 }}>
-          {i18n.t("CO2_detail_screen")}
-          <Text
+      <Modal visible={customOpen} backdropStyle={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}>
+        <Card>
+          <Calendar
+            date={customRange}
+            onSelect={(date) => setCustomRange(date)}
+            max={new Date()}
             style={{
-              marginBottom: 25,
-              fontWeight: "500",
-              fontSize: 18,
-              color: "#23A454",
+              marginTop: -18,
+              marginLeft: -26,
+              marginRight: -26,
+              marginBottom: 10,
+            }}
+          />
+          <Button
+            size="large"
+            onPress={() => {
+              setCustomOpen(false);
+              setChartScale("custom");
             }}>
-            &nbsp;perfect
-          </Text>
-        </Text>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            marginBottom: 35,
-            justifyContent: "space-between",
-          }}>
+            OK
+          </Button>
+        </Card>
+      </Modal>
+      <ScrollView>
+        <View style={{ flex: 1, padding: 24 }}>
           <View
             style={{
               flexDirection: "row",
-              alignItems: "center",
-              marginRight: 25,
+              justifyContent: "center",
+              alignItems: "flex-end",
+              marginBottom: 10,
             }}>
-            <Icon
-              name="arrow-up"
-              style={{
-                color: "#838C97",
-                width: 16,
-                height: 16,
-                marginRight: 5,
-              }}
-            />
-            <Text category="s2">
-              {data.maxValue}
-              {data.unit}
+            <Text category="h1" style={{ fontSize: 50, fontWeight: "800", marginRight: 10 }}>
+              {data.value}
             </Text>
+            <Text style={{ fontSize: 22, fontWeight: "500", paddingBottom: 6 }}>{data.unit}</Text>
           </View>
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              marginRight: 25,
-            }}>
-            <Icon
-              name="arrow-down"
+          <Text style={{ marginBottom: 15, fontWeight: "500", fontSize: 18, textAlign: "center" }}>
+            {i18n.t("detail_screen_is") + " "}
+            <Text
               style={{
-                color: "#838C97",
-                width: 16,
-                height: 16,
-                marginRight: 5,
-              }}
-            />
-            <Text category="s2">
-              {data.minValue}
-              {data.unit}
-            </Text>
-          </View>
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-            }}>
-            <Icon
-              name="trending-up"
-              style={{
-                color: "#838C97",
-                width: 16,
-                height: 16,
-                marginRight: 5,
-              }}
-            />
-            <Text category="s2">
-              {data.change}
-              {data.unit}
-            </Text>
-          </View>
-        </View>
-        <Modal visible={customOpen} backdropStyle={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}>
-          <Card>
-            <Calendar
-              date={customRange}
-              onSelect={(date) => setCustomRange(date)}
-              max={new Date()}
-              style={{
-                marginTop: -18,
-                marginLeft: -26,
-                marginRight: -26,
-                marginBottom: 10,
-              }}
-            />
-            <Button
-              size="large"
-              onPress={() => {
-                setCustomOpen(false);
-                setChartScale("custom");
+                marginBottom: 25,
+                fontWeight: "500",
+                fontSize: 18,
+                color: getColorValue(data.color),
               }}>
-              OK
-            </Button>
-          </Card>
-        </Modal>
-        <ScrollView horizontal={true}>
+              {data.color == "green"
+                ? i18n.t("level_good")
+                : data.color
+                ? i18n.t("level_not_bad")
+                : i18n.t("level_bad")}
+            </Text>
+          </Text>
+          <LevelVizualizer
+            data={data}
+            style={{
+              marginTop: 10,
+              marginBottom: 30,
+            }}
+          />
           <View
             style={{
-              marginBottom: 40,
               flexDirection: "row",
+              alignItems: "center",
+              marginBottom: 35,
               justifyContent: "space-between",
             }}>
-            {["6h", "day", "yesterday", "week", "month"].map((it) => (
-              <Button
-                key={it}
-                status="basic"
-                size="large"
-                onPress={() => {
-                  setChartScale(it);
-                  setCustomRange(null);
-                }}
-                appearance={chartScale == it ? "filled" : "outline"}
-                style={{
-                  marginRight: 20,
-                  shadowOffset: {
-                    width: 0,
-                    height: 2,
-                  },
-                  shadowOpacity: 0.04,
-                  shadowRadius: 1.0,
-                  elevation: 1,
-                }}>
-                {i18n.t("time_" + it)}
-              </Button>
-            ))}
-            {customRange && (
-              <Button
-                status="basic"
-                size="large"
-                appearance={chartScale === "custom" ? "filled" : "outline"}
-                style={{
-                  marginRight: 20,
-                  shadowOffset: {
-                    width: 0,
-                    height: 2,
-                  },
-                  shadowOpacity: 0.04,
-                  shadowRadius: 1.0,
-                  elevation: 1,
-                }}
-                onPress={() => chartScale}>
-                {customRange.getDate() + "/" + (customRange.getMonth() + 1)}
-              </Button>
-            )}
-            <Button
-              status="basic"
-              size="large"
-              appearance={"outline"}
+            <View
               style={{
-                marginRight: 20,
-                shadowOffset: {
-                  width: 0,
-                  height: 2,
-                },
-                shadowOpacity: 0.04,
-                shadowRadius: 1.0,
-                elevation: 1,
-              }}
-              onPress={() => setCustomOpen(true)}>
-              {i18n.t("custom")}
-            </Button>
+                flexDirection: "row",
+                alignItems: "center",
+                marginRight: 25,
+              }}>
+              <Icon
+                name="arrow-up"
+                style={{
+                  color: "#838C97",
+                  width: 16,
+                  height: 16,
+                  marginRight: 5,
+                }}
+              />
+              <Text category="s2">
+                {data.maxValue}
+                {data.unit}
+              </Text>
+            </View>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                marginRight: 25,
+              }}>
+              <Icon
+                name="arrow-down"
+                style={{
+                  color: "#838C97",
+                  width: 16,
+                  height: 16,
+                  marginRight: 5,
+                }}
+              />
+              <Text category="s2">
+                {data.minValue}
+                {data.unit}
+              </Text>
+            </View>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+              }}>
+              <Icon
+                name="trending-up"
+                style={{
+                  color: "#838C97",
+                  width: 16,
+                  height: 16,
+                  marginRight: 5,
+                }}
+              />
+              <Text category="s2">
+                {data.change}
+                {data.unit}
+              </Text>
+            </View>
           </View>
-        </ScrollView>
-        <View
-          style={{
-            backgroundColor: "#fff",
-            borderRadius: 4,
-            shadowColor: "#666666",
-            shadowOffset: {
-              width: 0,
-              height: 1,
-            },
-            shadowOpacity: 0.18,
-            shadowRadius: 1.0,
-            elevation: 1,
-          }}>
-          <VictoryChart
-            theme={VictoryTheme.material}
-            height={320}
-            width={320}
-            padding={{ left: 45, top: 20, bottom: 50 }}>
-            <VictoryAxis dependentAxis fixLabelOverlap={true} scale={{ x: "time" }} />
-            <VictoryAxis fixLabelOverlap={true} scale={{ x: "time" }} />
-            <VictoryLine
-              {...getChartProps(data.type)}
+          <ScrollView horizontal={true}>
+            <View
               style={{
-                data: { stroke: "#031846" },
-              }}
-              data={data.values}
-              animate={{
-                duration: 500,
-                onLoad: { duration: 1000 },
-              }}
-              interpolation="step"
-              x={(it) => new Date(it.ts)}
-              y="value"
-            />
-          </VictoryChart>
+                marginBottom: 30,
+                flexDirection: "row",
+                justifyContent: "space-between",
+              }}>
+              {["6h", "day", "yesterday", "week", "month"].map((it) => (
+                <Button
+                  key={it}
+                  status="basic"
+                  size="large"
+                  onPress={() => {
+                    setChartScale(it);
+                    setCustomRange(null);
+                  }}
+                  appearance={chartScale == it ? "filled" : "outline"}
+                  style={{
+                    marginRight: 20,
+                    shadowOffset: {
+                      width: 0,
+                      height: 2,
+                    },
+                    shadowOpacity: 0.04,
+                    shadowRadius: 1.0,
+                    elevation: 1,
+                  }}>
+                  {i18n.t("time_" + it)}
+                </Button>
+              ))}
+              {customRange && (
+                <Button
+                  status="basic"
+                  size="large"
+                  appearance={chartScale === "custom" ? "filled" : "outline"}
+                  style={{
+                    marginRight: 20,
+                    shadowOffset: {
+                      width: 0,
+                      height: 2,
+                    },
+                    shadowOpacity: 0.04,
+                    shadowRadius: 1.0,
+                    elevation: 1,
+                  }}
+                  onPress={() => chartScale}>
+                  {customRange.getDate() + "/" + (customRange.getMonth() + 1)}
+                </Button>
+              )}
+              <Button
+                status="basic"
+                size="large"
+                appearance={"outline"}
+                style={{
+                  marginRight: 20,
+                  shadowOffset: {
+                    width: 0,
+                    height: 2,
+                  },
+                  shadowOpacity: 0.04,
+                  shadowRadius: 1.0,
+                  elevation: 1,
+                }}
+                onPress={() => setCustomOpen(true)}>
+                {i18n.t("custom")}
+              </Button>
+            </View>
+          </ScrollView>
+          <View
+            style={{
+              backgroundColor: "#fff",
+              borderRadius: 4,
+              shadowColor: "#666666",
+              shadowOffset: {
+                width: 0,
+                height: 1,
+              },
+              shadowOpacity: 0.18,
+              shadowRadius: 1.0,
+              elevation: 1,
+            }}>
+            <VictoryChart
+              theme={VictoryTheme.material}
+              height={320}
+              width={320}
+              padding={{ left: 45, top: 20, bottom: 50 }}>
+              <VictoryAxis dependentAxis fixLabelOverlap={true} scale={{ x: "time" }} />
+              <VictoryAxis fixLabelOverlap={true} scale={{ x: "time" }} />
+              <VictoryLine
+                {...getChartProps(data.type)}
+                style={{
+                  data: { stroke: "#031846" },
+                }}
+                data={data.values}
+                animate={{
+                  duration: 500,
+                  onLoad: { duration: 1000 },
+                }}
+                interpolation="step"
+                x={(it) => new Date(it.ts)}
+                y="value"
+              />
+            </VictoryChart>
+          </View>
         </View>
-      </View>
+      </ScrollView>
     </LayoutSafeArea>
   );
 };

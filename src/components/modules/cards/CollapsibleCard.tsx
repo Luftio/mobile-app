@@ -31,6 +31,7 @@ const CollapsibleCard: React.FC<CollapsibleCardProps> = ({ title, content, useBe
   }
 
   const onLayout = (e: any) => {
+    console.log(e.nativeEvent.layout.height);
     if (contentHeight == 0) setContentHeight(e.nativeEvent.layout.height + 15);
   };
 

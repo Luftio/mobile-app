@@ -25,11 +25,13 @@ export default class ThingsboardService implements IAuthService {
   }
 
   async loginEmail(email: string, password: string) {
+    console.log(email, password);
     const response = await axios.post(THINGSBOARD_SERVER + "api/auth/login", {
       username: email,
       password,
     });
-    AsyncStorage.setItem("token", response.data.token);
+    console.log(response.data.token);
+    await AsyncStorage.setItem("token", response.data.token);
   }
 
   async acceptInvite(token: string, firstName: string, lastName: string, password: string) {
@@ -39,7 +41,7 @@ export default class ThingsboardService implements IAuthService {
       lastName,
       password,
     });
-    AsyncStorage.setItem("token", response.data.token);
+    await AsyncStorage.setItem("token", response.data.token);
   }
 
   async forgetPasswordRequest(email: string) {

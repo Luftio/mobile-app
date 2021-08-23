@@ -39,7 +39,7 @@ const ProfileScreen: React.FC = () => {
             }}>
             <View>
               <Text category="h1" style={{ paddingBottom: 3 }}>
-                {data?.account.first_name || "" + " " + data?.account.last_name || ""}
+                {(data?.account.first_name || "") + " " + (data?.account.last_name || "")}
               </Text>
               <Text category="p1" style={{ color: "#000", fontSize: 16 }}>
                 {data?.account.email}

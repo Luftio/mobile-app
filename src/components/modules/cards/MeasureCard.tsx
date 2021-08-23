@@ -1,5 +1,5 @@
 import React from "react";
-import { TouchableOpacity, View } from "react-native";
+import { TouchableNativeFeedback, View } from "react-native";
 
 import { Icon, Text } from "@ui-kitten/components";
 
@@ -30,7 +30,7 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
   values,
 }) => {
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableNativeFeedback onPress={onPress}>
       <View
         style={{
           backgroundColor: "#fff",
@@ -131,7 +131,7 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
           </View>
         </View>
       </View>
-    </TouchableOpacity>
+    </TouchableNativeFeedback>
   );
 };
 

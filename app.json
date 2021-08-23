@@ -19,7 +19,7 @@
     "assetBundlePatterns": ["**/*"],
     "android": {
       "package": "com.luftio.app",
-      "versionCode": 10,
+      "versionCode": 12,
       "permissions": [],
       "adaptiveIcon": {
         "foregroundImage": "./assets/android-icon.png",
@@ -34,7 +34,7 @@
       "supportsTablet": false,
       "icon": "./assets/ios-icon.png",
       "bundleIdentifier": "com.luftio.app",
-      "buildNumber": "10"
+      "buildNumber": "12"
     },
     "web": {
       "barStyle": "default"
