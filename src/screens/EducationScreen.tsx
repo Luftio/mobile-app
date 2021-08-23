@@ -1,5 +1,5 @@
 import React from "react";
-import { View } from "react-native";
+import { View, ScrollView } from "react-native";
 
 import { Text, TopNavigation } from "@ui-kitten/components";
 import renderBackAction from "../utils/renderBackAction";
@@ -40,7 +40,7 @@ const EducationScreen: React.FC<EducationScreenProps> = ({ route }) => {
   ];
 
   return (
-    <LayoutSafeArea main>
+    <LayoutSafeArea main ignoreBottom>
       <TopNavigation
         title={() => <Text category="h4">{i18n.t("education")}</Text>}
         alignment="center"
@@ -48,23 +48,25 @@ const EducationScreen: React.FC<EducationScreenProps> = ({ route }) => {
         accessoryLeft={renderBackAction}
         style={{ backgroundColor: "#FAFAFA" }}
       />
-      <View style={{ flex: 1, padding: 24 }}>
-        {data.type === "CO2"
-          ? CO2.map((card: any) => (
-              <CollapsibleCard key={card.title} title={card.title} content={card.content} useBezier />
-            ))
-          : data.type === "pressure"
-          ? pressure.map((card: any) => (
-              <CollapsibleCard key={card.title} title={card.title} content={card.content} useBezier />
-            ))
-          : data.type === "humidity"
-          ? humidity.map((card: any) => (
-              <CollapsibleCard key={card.title} title={card.title} content={card.content} useBezier />
-            ))
-          : temperature.map((card: any) => (
-              <CollapsibleCard key={card.title} title={card.title} content={card.content} useBezier />
-            ))}
-      </View>
+      <ScrollView>
+        <View style={{ flex: 1, padding: 24 }}>
+          {data.type === "CO2"
+            ? CO2.map((card: any) => (
+                <CollapsibleCard key={card.title} title={card.title} content={card.content} useBezier />
+              ))
+            : data.type === "pressure"
+            ? pressure.map((card: any) => (
+                <CollapsibleCard key={card.title} title={card.title} content={card.content} useBezier />
+              ))
+            : data.type === "humidity"
+            ? humidity.map((card: any) => (
+                <CollapsibleCard key={card.title} title={card.title} content={card.content} useBezier />
+              ))
+            : temperature.map((card: any) => (
+                <CollapsibleCard key={card.title} title={card.title} content={card.content} useBezier />
+              ))}
+        </View>
+      </ScrollView>
     </LayoutSafeArea>
   );
 };
