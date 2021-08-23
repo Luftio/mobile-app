@@ -1,5 +1,5 @@
 import React from "react";
-import { TouchableNativeFeedback, View } from "react-native";
+import { TouchableNativeFeedback, View, Platform } from "react-native";
 
 import { Icon, Text } from "@ui-kitten/components";
 
@@ -71,8 +71,10 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
             />
           </View>
           <View>
-            <Text style={{ fontWeight: "600", fontSize: 18, marginBottom: 10 }}>{name}</Text>
-            <Text style={{ color: color, fontWeight: "600", fontSize: 18 }}>
+            <Text style={{ fontWeight: "600", fontFamily: "Montserrat_600SemiBold", fontSize: 18, marginBottom: 10 }}>
+              {name}
+            </Text>
+            <Text style={{ color: color, fontWeight: "600", fontFamily: "Montserrat_600SemiBold", fontSize: 18 }}>
               {value}
               {unit}
             </Text>
@@ -94,7 +96,7 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
                 marginRight: 5,
               }}
             />
-            <Text category="s2">
+            <Text category="s2" style={{ fontSize: 14 }}>
               {minValue}
               {unit}
             </Text>
@@ -109,7 +111,7 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
                 marginRight: 5,
               }}
             />
-            <Text category="s2">
+            <Text category="s2" style={{ fontSize: 14 }}>
               {maxValue}
               {unit}
             </Text>
@@ -124,7 +126,7 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
                 marginRight: 5,
               }}
             />
-            <Text category="s2">
+            <Text category="s2" style={{ fontSize: 14 }}>
               {procents}
               {unit}
             </Text>

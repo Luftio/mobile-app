@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
+import { Platform } from "react-native";
 import { NavigationContainer, useNavigationContainerRef } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { AppearanceProvider, useColorScheme } from "react-native-appearance";
@@ -32,9 +33,16 @@ import { TabNavigator } from "./src/utils/TabNavigator";
 import { RootStackParamList } from "./src/screens/RootStackParams";
 
 import { default as theme } from "./config/theme.json";
-import { default as mapping } from "./config/mapping.json";
+import { mapping } from "./config/mapping";
 import { client } from "./src/config/ApolloClient";
 import { GlobalLogout } from "./src/utils/GlobalLogout";
+import {
+  useFonts,
+  Montserrat_400Regular,
+  Montserrat_500Medium,
+  Montserrat_600SemiBold,
+  Montserrat_700Bold,
+} from "@expo-google-fonts/montserrat";
 
 import * as Sentry from "sentry-expo";
 
@@ -56,12 +64,18 @@ const App: React.FC = () => {
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
   const [isReady, setIsReady] = useState<boolean>(false);
 
+  const [fontsLoaded] = useFonts({
+    Montserrat_400Regular,
+    Montserrat_500Medium,
+    Montserrat_600SemiBold,
+    Montserrat_700Bold,
+  });
+
   const handleUrl = ({ url }: { url: string }) => {
     const parsed = Linking.parse(url);
     const pathParts = parsed.path?.split("/");
     if (pathParts && pathParts[pathParts?.length - 2] === "loginWithToken") {
       const token = pathParts[pathParts?.length - 1];
-      console.log("Logging in with token ", token);
       AsyncStorage.setItem("token", token);
       if (navigationRef.isReady()) {
         navigationRef.resetRoot({
@@ -119,9 +133,11 @@ const App: React.FC = () => {
     }
   };
 
-  if (!isReady) {
+  if (!fontsLoaded && !isReady) {
+    console.log("loading");
     return <AppLoading startAsync={loadApp} onFinish={() => setIsReady(true)} onError={console.error} />;
   }
+  console.log("loaded ", fontsLoaded);
 
   if (loggedIn) {
     firstScreen = "Home";

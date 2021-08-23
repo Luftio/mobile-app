@@ -27,7 +27,7 @@ const DeviceCard: React.FC<DeviceCardProps> = ({ name, code }) => {
         alignItems: "center",
       }}>
       <View style={{ flexDirection: "column", flex: 1 }}>
-        <Text style={{ marginBottom: 5, fontWeight: "500" }}>{name}</Text>
+        <Text style={{ marginBottom: 5, fontWeight: "500", fontFamily: "Montserrat_500Medium" }}>{name}</Text>
         <Text>{code}</Text>
       </View>
       <Icon name="chevron-right" style={{ color: "#838C97", width: 24, height: 24 }} />

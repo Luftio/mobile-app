@@ -31,7 +31,7 @@ const CollapsibleCard: React.FC<CollapsibleCardProps> = ({ title, content, useBe
   }
 
   const onLayout = (e: any) => {
-    console.log(e.nativeEvent.layout.height);
+    //console.log(e.nativeEvent.layout.height);
     if (contentHeight == 0) setContentHeight(e.nativeEvent.layout.height + 15);
   };
 
@@ -65,7 +65,7 @@ const CollapsibleCard: React.FC<CollapsibleCardProps> = ({ title, content, useBe
           justifyContent: "space-between",
           padding: 15,
         }}>
-        <Text style={{ fontWeight: "500" }}>{title}</Text>
+        <Text style={{ fontWeight: "500", fontFamily: "Montserrat_500Medium" }}>{title}</Text>
         <AnimatedView style={{ transform: [{ rotate: animation.rotation }] }}>
           <Icon name="chevron-down" style={{ width: 24, height: 24, color: "#000000" }} />
         </AnimatedView>

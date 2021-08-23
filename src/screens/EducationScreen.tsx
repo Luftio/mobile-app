@@ -50,12 +50,20 @@ const EducationScreen: React.FC<EducationScreenProps> = ({ route }) => {
       />
       <View style={{ flex: 1, padding: 24 }}>
         {data.type === "CO2"
-          ? CO2.map((card: any) => <CollapsibleCard title={card.title} content={card.content} useBezier />)
+          ? CO2.map((card: any) => (
+              <CollapsibleCard key={card.title} title={card.title} content={card.content} useBezier />
+            ))
           : data.type === "pressure"
-          ? pressure.map((card: any) => <CollapsibleCard title={card.title} content={card.content} useBezier />)
+          ? pressure.map((card: any) => (
+              <CollapsibleCard key={card.title} title={card.title} content={card.content} useBezier />
+            ))
           : data.type === "humidity"
-          ? humidity.map((card: any) => <CollapsibleCard title={card.title} content={card.content} useBezier />)
-          : temperature.map((card: any) => <CollapsibleCard title={card.title} content={card.content} useBezier />)}
+          ? humidity.map((card: any) => (
+              <CollapsibleCard key={card.title} title={card.title} content={card.content} useBezier />
+            ))
+          : temperature.map((card: any) => (
+              <CollapsibleCard key={card.title} title={card.title} content={card.content} useBezier />
+            ))}
       </View>
     </LayoutSafeArea>
   );

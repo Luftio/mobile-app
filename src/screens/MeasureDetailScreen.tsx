@@ -125,17 +125,29 @@ const MeasureDetailScreen: React.FC<MeasureDetailScreenProps> = ({ route }) => {
               alignItems: "flex-end",
               marginBottom: 10,
             }}>
-            <Text category="h1" style={{ fontSize: 50, fontWeight: "800", marginRight: 10 }}>
+            <Text
+              category="h1"
+              style={{ fontSize: 50, fontWeight: "800", fontFamily: "Montserrat_700Bold", marginRight: 10 }}>
               {data.value}
             </Text>
-            <Text style={{ fontSize: 22, fontWeight: "500", paddingBottom: 6 }}>{data.unit}</Text>
+            <Text style={{ fontSize: 22, fontWeight: "500", fontFamily: "Montserrat_500Medium", paddingBottom: 6 }}>
+              {data.unit}
+            </Text>
           </View>
-          <Text style={{ marginBottom: 15, fontWeight: "500", fontSize: 18, textAlign: "center" }}>
+          <Text
+            style={{
+              marginBottom: 15,
+              fontWeight: "500",
+              fontFamily: "Montserrat_500Medium",
+              fontSize: 18,
+              textAlign: "center",
+            }}>
             {i18n.t("detail_screen_is") + " "}
             <Text
               style={{
                 marginBottom: 25,
                 fontWeight: "500",
+                fontFamily: "Montserrat_500Medium",
                 fontSize: 18,
                 color: getColorValue(data.color),
               }}>
@@ -175,7 +187,7 @@ const MeasureDetailScreen: React.FC<MeasureDetailScreenProps> = ({ route }) => {
                   marginRight: 5,
                 }}
               />
-              <Text category="s2">
+              <Text category="s2" style={{ fontSize: 14 }}>
                 {data.maxValue}
                 {data.unit}
               </Text>
@@ -195,7 +207,7 @@ const MeasureDetailScreen: React.FC<MeasureDetailScreenProps> = ({ route }) => {
                   marginRight: 5,
                 }}
               />
-              <Text category="s2">
+              <Text category="s2" style={{ fontSize: 14 }}>
                 {data.minValue}
                 {data.unit}
               </Text>
@@ -214,7 +226,7 @@ const MeasureDetailScreen: React.FC<MeasureDetailScreenProps> = ({ route }) => {
                   marginRight: 5,
                 }}
               />
-              <Text category="s2">
+              <Text category="s2" style={{ fontSize: 14 }}>
                 {data.change}
                 {data.unit}
               </Text>

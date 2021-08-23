@@ -214,6 +214,7 @@ const HomeScreen: React.FC = () => {
                   style={{
                     transform: [{ translateY: -15 }],
                     fontWeight: "600",
+                    fontFamily: "Montserrat_600SemiBold",
                     color: "#AFB8BF",
                   }}>
                   {i18n.t("score")}
@@ -224,6 +225,7 @@ const HomeScreen: React.FC = () => {
                     transform: [{ translateY: -10 }],
                     fontSize: 50,
                     fontWeight: "800",
+                    fontFamily: "Montserrat_700Bold",
                   }}>
                   {score}
                 </Text>
@@ -231,6 +233,7 @@ const HomeScreen: React.FC = () => {
                   style={{
                     transform: [{ translateY: -5 }],
                     fontWeight: "600",
+                    fontFamily: "Montserrat_600SemiBold",
                     color: color,
                   }}>
                   {i18n.t(
@@ -248,25 +251,24 @@ const HomeScreen: React.FC = () => {
             <View
               style={{
                 flexDirection: "row",
-                marginBottom: 20,
+                paddingBottom: 20,
                 justifyContent: "space-between",
               }}>
               <Button
                 onPress={() => setLamp("off")}
                 appearance={lamp === "off" ? "filled" : "outline"}
                 status="basic"
-                size="large"
+                size="medium"
                 style={{
                   borderBottomWidth: lamp === "off" ? 3 : 0,
                   borderBottomColor: theme["color-primary-500"],
-                  marginRight: 20,
                   shadowOffset: {
                     width: 0,
                     height: 2,
                   },
                   shadowOpacity: 0.04,
                   shadowRadius: 1.0,
-                  elevation: 8,
+                  elevation: 1,
                 }}>
                 {i18n.t("lights_off")}
               </Button>
@@ -274,18 +276,17 @@ const HomeScreen: React.FC = () => {
                 onPress={() => setLamp("standard")}
                 appearance={lamp === "standard" ? "filled" : "outline"}
                 status="basic"
-                size="large"
+                size="medium"
                 style={{
                   borderBottomWidth: lamp === "standard" ? 3 : 0,
                   borderBottomColor: theme["color-primary-500"],
-                  marginRight: 20,
                   shadowOffset: {
                     width: 0,
                     height: 2,
                   },
                   shadowOpacity: 0.04,
                   shadowRadius: 1.0,
-                  elevation: 8,
+                  elevation: 1,
                 }}>
                 {i18n.t("lights_colors")}
               </Button>
@@ -293,7 +294,7 @@ const HomeScreen: React.FC = () => {
                 onPress={() => setLamp("lamp")}
                 appearance={lamp === "lamp" ? "filled" : "outline"}
                 status="basic"
-                size="large"
+                size="medium"
                 style={{
                   borderBottomWidth: lamp === "lamp" ? 3 : 0,
                   borderBottomColor: theme["color-primary-500"],
@@ -303,7 +304,7 @@ const HomeScreen: React.FC = () => {
                   },
                   shadowOpacity: 0.04,
                   shadowRadius: 1.0,
-                  elevation: 8,
+                  elevation: 1,
                 }}>
                 {i18n.t("lights_lamp")}
               </Button>

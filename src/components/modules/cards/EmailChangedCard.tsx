@@ -17,7 +17,9 @@ const EmailChangedCard: React.FC = () => {
         alignItems: "center",
       }}>
       <Icon name="alert-triangle" style={{ color: "#fff", width: 24, height: 24, marginRight: 10 }} />
-      <Text style={{ color: "#fff", fontWeight: "500" }}>{i18n.t("account_edit_email_changed")}</Text>
+      <Text style={{ color: "#fff", fontWeight: "500", fontFamily: "Montserrat_500Medium" }}>
+        {i18n.t("account_edit_email_changed")}
+      </Text>
     </View>
   );
 };

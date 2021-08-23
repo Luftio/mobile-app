@@ -50,6 +50,7 @@ const OnboardingScreen: React.FC = () => {
               textAlign: "center",
               fontSize: 22,
               fontWeight: "600",
+              fontFamily: "OpenSans_600SemiBold",
               marginBottom: 30,
             }}>
             {item.title}
@@ -67,6 +68,7 @@ const OnboardingScreen: React.FC = () => {
   };
 
   const viewedOnboarding = async () => {
+    console.log("viewedOnboarding");
     try {
       await AsyncStorage.setItem("@viewedOnboarding", "true");
       navigation.replace("SignIn");
@@ -82,6 +84,7 @@ const OnboardingScreen: React.FC = () => {
         renderItem={renderItem}
         dotStyle={{ backgroundColor: "#E4E4E4", marginBottom: 10 }}
         activeDotStyle={{ backgroundColor: "#C4C4C4", marginBottom: 10 }}
+        onSkip={() => viewedOnboarding()}
         renderSkipButton={() => (
           <View
             style={{
@@ -90,9 +93,7 @@ const OnboardingScreen: React.FC = () => {
               bottom: 15,
               marginRight: 15,
             }}>
-            <Text onPress={() => viewedOnboarding()} style={{ fontWeight: "500" }}>
-              {i18n.t("skip")}
-            </Text>
+            <Text style={{ fontWeight: "500", fontFamily: "OpenSans_500Medium" }}>{i18n.t("skip")}</Text>
           </View>
         )}
         renderNextButton={() => (
@@ -102,7 +103,7 @@ const OnboardingScreen: React.FC = () => {
               marginBottom: 15,
               marginTop: 35,
             }}>
-            <Text style={{ fontWeight: "500" }}>{i18n.t("next")}</Text>
+            <Text style={{ fontWeight: "500", fontFamily: "OpenSans_500Medium" }}>{i18n.t("next")}</Text>
           </View>
         )}
         renderDoneButton={() => (

@@ -16,14 +16,7 @@ interface AchievementProps {
   badgeUrl: string;
 }
 
-const Achievement: React.FC<AchievementProps> = ({
-  name,
-  description,
-  iconName,
-  color,
-  isUnlock,
-  badgeUrl,
-}) => {
+const Achievement: React.FC<AchievementProps> = ({ name, description, iconName, color, isUnlock, badgeUrl }) => {
   const [error, setError] = useState<null | string>(null);
   const [result, setResult] = useState<null | string>(null);
 
@@ -103,14 +96,11 @@ const Achievement: React.FC<AchievementProps> = ({
                 marginBottom: 8,
                 backgroundColor: backgroundColor,
               }}>
-              <Icon
-                name={isUnlock ? iconName : "lock"}
-                style={{ color: iconColor, width: 28, height: 28 }}
-              />
+              <Icon name={isUnlock ? iconName : "lock"} style={{ color: iconColor, width: 28, height: 28 }} />
             </View>
             <Text
               category="p2"
-              style={{ fontSize: 14, fontWeight: "400", textAlign: "center" }}>
+              style={{ fontSize: 14, fontFamily: "Montserrat_400Regular", fontWeight: "400", textAlign: "center" }}>
               {name}
             </Text>
           </View>
@@ -150,10 +140,7 @@ const Achievement: React.FC<AchievementProps> = ({
                 marginBottom: 8,
                 backgroundColor: backgroundColor,
               }}>
-              <Icon
-                name={isUnlock ? iconName : "lock"}
-                style={{ color: iconColor, width: 28, height: 28 }}
-              />
+              <Icon name={isUnlock ? iconName : "lock"} style={{ color: iconColor, width: 28, height: 28 }} />
             </View>
           </View>
           <View style={{ marginTop: 20, marginBottom: 30 }}>
@@ -169,10 +156,7 @@ const Achievement: React.FC<AchievementProps> = ({
               {i18n.t("achievements_share")}
             </Button>
           ) : (
-            <Button
-              size="large"
-              appearance="outline"
-              onPress={() => refRBSheet.current.close()}>
+            <Button size="large" appearance="outline" onPress={() => refRBSheet.current.close()}>
               {i18n.t("achievements_close")}
             </Button>
           )}
