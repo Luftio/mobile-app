@@ -96,8 +96,8 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
                 marginRight: 5,
               }}
             />
-            <Text category="s2" style={{ fontSize: 14 }}>
-              {minValue}
+            <Text category="s2">
+              {maxValue}
               {unit}
             </Text>
           </View>
@@ -111,8 +111,8 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
                 marginRight: 5,
               }}
             />
-            <Text category="s2" style={{ fontSize: 14 }}>
-              {maxValue}
+            <Text category="s2">
+              {minValue}
               {unit}
             </Text>
           </View>
