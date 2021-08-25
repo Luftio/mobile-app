@@ -8,12 +8,13 @@ import { useComponentSize } from "../../utils/useComponentSize";
 interface LevelVizualizerProps {
   style: any;
   data: any;
+  type: "CO2" | "temperature" | "humidity" | "pressure";
 }
 
-export const LevelVizualizer: React.FC<LevelVizualizerProps> = ({ style: styleProp, data }) => {
+export const LevelVizualizer: React.FC<LevelVizualizerProps> = ({ style: styleProp, data, type }) => {
   const { size, onLayout } = useComponentSize();
   const { currentPosition, gradientPoints, labels } = useMemo(() => {
-    const levels = LevelsService.levels["co2"];
+    const levels = LevelsService.levels[type];
     const currentPosition = Math.min(
       (data.value - levels.totalRange.from) / (levels.totalRange.to - levels.totalRange.from),
       1.03

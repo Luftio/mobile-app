@@ -1,7 +1,7 @@
 import colors from "../../config/colors";
 
 export const levels = {
-  co2: {
+  CO2: {
     totalRange: { from: 400, to: 3000 },
     ranges: [
       { type: "good", from: 400, to: 1100 },
@@ -10,7 +10,7 @@ export const levels = {
     ],
     labels: [1100, 2000],
   },
-  temp: {
+  temperature: {
     totalRange: { from: 14, to: 30 },
     ranges: [
       { type: "terrible", from: 14, to: 17 },

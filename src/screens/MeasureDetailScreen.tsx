@@ -164,6 +164,7 @@ const MeasureDetailScreen: React.FC<MeasureDetailScreenProps> = ({ route }) => {
               marginTop: 10,
               marginBottom: 30,
             }}
+            type={data.type}
           />
           <View
             style={{
