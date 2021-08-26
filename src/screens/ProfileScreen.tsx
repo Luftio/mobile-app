@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { View, TouchableOpacity } from "react-native";
 
+import { LinearGradient } from "expo-linear-gradient";
+
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "./RootStackParams";
@@ -11,8 +13,11 @@ import LayoutSafeArea from "../components/layouts/LayoutSafeArea";
 import ProfileRow from "../components/modules/ProfileRow";
 
 import i18n from "../i18n";
+
 import ThingsboardService from "../services/ThingsboardService";
 import { useGetAccountQuery } from "../graphql";
+
+import ShimmerPlaceholder from "react-native-shimmer-placeholder";
 
 type ProfileScreenProp = StackNavigationProp<RootStackParamList, "Profile">;
 
@@ -24,7 +29,7 @@ const ProfileScreen: React.FC = () => {
     navigation.navigate("SignIn");
   }
 
-  const { data } = useGetAccountQuery();
+  const { data, loading } = useGetAccountQuery();
 
   return (
     <>
@@ -38,12 +43,33 @@ const ProfileScreen: React.FC = () => {
               paddingBottom: 80,
             }}>
             <View>
-              <Text category="h1" style={{ paddingBottom: 3 }}>
-                {(data?.account.first_name || "") + " " + (data?.account.last_name || "")}
-              </Text>
-              <Text category="p1" style={{ color: "#000", fontSize: 16 }}>
-                {data?.account.email}
-              </Text>
+              {loading ? (
+                <>
+                  <ShimmerPlaceholder
+                    LinearGradient={LinearGradient}
+                    width={200}
+                    height={25}
+                    style={{ borderRadius: "4px", marginBottom: 10 }}
+                  />
+                  <ShimmerPlaceholder visible={true}></ShimmerPlaceholder>
+                  <ShimmerPlaceholder
+                    LinearGradient={LinearGradient}
+                    width={230}
+                    height={25}
+                    style={{ borderRadius: "4px" }}
+                  />
+                  <ShimmerPlaceholder visible={true}></ShimmerPlaceholder>
+                </>
+              ) : (
+                <>
+                  <Text category="h1" style={{ paddingBottom: 3 }}>
+                    {data?.account.first_name + " " + data?.account.last_name}
+                  </Text>
+                  <Text category="p1" style={{ color: "#000", fontSize: 16 }}>
+                    {data?.account.email}
+                  </Text>
+                </>
+              )}
             </View>
             <TouchableOpacity onPress={() => logout()}>
               <Icon name="log-out" style={{ color: "#F36A66", width: 26, height: 26 }} />

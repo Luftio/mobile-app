@@ -1,10 +1,10 @@
-import { gql } from "@apollo/client";
-import * as Apollo from "@apollo/client";
+import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-const defaultOptions = {};
+const defaultOptions =  {}
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -17,164 +17,174 @@ export type Scalars = {
 };
 
 export type Account = {
-  __typename?: "Account";
-  email: Scalars["String"];
-  first_name: Scalars["String"];
-  id: Scalars["ID"];
-  last_name: Scalars["String"];
-  pending_invitation: Scalars["Boolean"];
-  role: Scalars["String"];
+  __typename?: 'Account';
+  email: Scalars['String'];
+  first_name: Scalars['String'];
+  id: Scalars['ID'];
+  last_name: Scalars['String'];
+  pending_invitation: Scalars['Boolean'];
+  role: Scalars['String'];
 };
 
 export type Achievement = {
-  __typename?: "Achievement";
-  id: Scalars["ID"];
-  name: Scalars["String"];
+  __typename?: 'Achievement';
+  id: Scalars['ID'];
+  name: Scalars['String'];
 };
 
 export type Brightness = {
-  __typename?: "Brightness";
-  brightness: Scalars["Float"];
-  id: Scalars["ID"];
-  light: Scalars["String"];
+  __typename?: 'Brightness';
+  brightness: Scalars['Float'];
+  id: Scalars['ID'];
+  light: Scalars['String'];
 };
 
+
 export type Device = {
-  __typename?: "Device";
-  color: Scalars["String"];
+  __typename?: 'Device';
+  color: Scalars['String'];
   data?: Maybe<Array<DeviceData>>;
-  id: Scalars["ID"];
-  label: Scalars["String"];
-  title: Scalars["String"];
+  id: Scalars['ID'];
+  label: Scalars['String'];
+  title: Scalars['String'];
 };
 
 export type DeviceAttributes = {
-  __typename?: "DeviceAttributes";
-  attributes: Scalars["String"];
-  id: Scalars["ID"];
+  __typename?: 'DeviceAttributes';
+  attributes: Scalars['String'];
+  id: Scalars['ID'];
 };
 
 export type DeviceData = {
-  __typename?: "DeviceData";
-  change: Scalars["Float"];
-  color: Scalars["String"];
-  maxValue: Scalars["Float"];
-  minValue: Scalars["Float"];
-  type: Scalars["String"];
-  unit: Scalars["String"];
-  value: Scalars["Float"];
+  __typename?: 'DeviceData';
+  change: Scalars['Float'];
+  color: Scalars['String'];
+  maxValue: Scalars['Float'];
+  minValue: Scalars['Float'];
+  type: Scalars['String'];
+  unit: Scalars['String'];
+  value: Scalars['Float'];
   values: Array<DeviceDataValue>;
 };
 
 export type DeviceDataValue = {
-  __typename?: "DeviceDataValue";
-  ts: Scalars["DateTime"];
-  value: Scalars["Float"];
+  __typename?: 'DeviceDataValue';
+  ts: Scalars['DateTime'];
+  value: Scalars['Float'];
 };
 
 export type EventFromEmployee = {
-  __typename?: "EventFromEmployee";
-  breath: Scalars["Int"];
-  date: Scalars["DateTime"];
-  how_feel: Scalars["String"];
-  id: Scalars["ID"];
-  is_unread: Scalars["Boolean"];
-  name: Scalars["String"];
-  place: Scalars["String"];
-  temperature: Scalars["Int"];
-  threat: Scalars["Int"];
+  __typename?: 'EventFromEmployee';
+  breath: Scalars['Int'];
+  date: Scalars['DateTime'];
+  how_feel: Scalars['String'];
+  id: Scalars['ID'];
+  is_unread: Scalars['Boolean'];
+  name: Scalars['String'];
+  place: Scalars['String'];
+  temperature: Scalars['Int'];
+  threat: Scalars['Int'];
 };
 
 export type EventFromMeasure = {
-  __typename?: "EventFromMeasure";
-  date: Scalars["DateTime"];
-  id: Scalars["ID"];
-  is_unread: Scalars["Boolean"];
-  justification: Scalars["String"];
-  place: Scalars["String"];
-  threat: Scalars["Int"];
-  title: Scalars["String"];
+  __typename?: 'EventFromMeasure';
+  date: Scalars['DateTime'];
+  id: Scalars['ID'];
+  is_unread: Scalars['Boolean'];
+  justification: Scalars['String'];
+  place: Scalars['String'];
+  threat: Scalars['Int'];
+  title: Scalars['String'];
 };
 
 export type Feedback = {
-  __typename?: "Feedback";
-  breath: Scalars["Int"];
-  date: Scalars["DateTime"];
-  how_feel: Scalars["String"];
-  id: Scalars["ID"];
-  is_unread: Scalars["Boolean"];
-  name: Scalars["String"];
-  temperature: Scalars["Int"];
-  total_score: Scalars["Float"];
+  __typename?: 'Feedback';
+  breath: Scalars['Int'];
+  date: Scalars['DateTime'];
+  how_feel: Scalars['String'];
+  id: Scalars['ID'];
+  is_unread: Scalars['Boolean'];
+  name: Scalars['String'];
+  temperature: Scalars['Int'];
+  total_score: Scalars['Float'];
 };
 
 export type GenericNotification = {
-  __typename?: "GenericNotification";
-  date: Scalars["DateTime"];
-  id: Scalars["ID"];
-  text: Scalars["String"];
-  title: Scalars["String"];
+  __typename?: 'GenericNotification';
+  date: Scalars['DateTime'];
+  id: Scalars['ID'];
+  text: Scalars['String'];
+  title: Scalars['String'];
 };
 
 export type Mutation = {
-  __typename?: "Mutation";
-  changeAccountDetails: Scalars["Boolean"];
-  changePassword: Scalars["Boolean"];
-  changeRole: Scalars["Boolean"];
-  deleteUser: Scalars["Boolean"];
-  inviteUser: Scalars["Boolean"];
+  __typename?: 'Mutation';
+  changeAccountDetails: Scalars['Boolean'];
+  changePassword: Scalars['Boolean'];
+  changeRole: Scalars['Boolean'];
+  deleteUser: Scalars['Boolean'];
+  inviteUser: Scalars['Boolean'];
   renameDevice: Device;
   saveDeviceAttributes: DeviceAttributes;
   setBrightness: Brightness;
-  updateToken: Scalars["Boolean"];
+  updateToken: Scalars['Boolean'];
 };
+
 
 export type MutationChangeAccountDetailsArgs = {
-  email: Scalars["String"];
-  firstName: Scalars["String"];
-  lastName: Scalars["String"];
+  email: Scalars['String'];
+  firstName: Scalars['String'];
+  lastName: Scalars['String'];
 };
+
 
 export type MutationChangePasswordArgs = {
-  currentPassword: Scalars["String"];
-  newPassword: Scalars["String"];
+  currentPassword: Scalars['String'];
+  newPassword: Scalars['String'];
 };
+
 
 export type MutationChangeRoleArgs = {
-  role: Scalars["String"];
-  userId: Scalars["String"];
+  role: Scalars['String'];
+  userId: Scalars['String'];
 };
+
 
 export type MutationDeleteUserArgs = {
-  userId: Scalars["String"];
+  userId: Scalars['String'];
 };
 
+
 export type MutationInviteUserArgs = {
-  email: Scalars["String"];
-  role: Scalars["String"];
+  email: Scalars['String'];
+  role: Scalars['String'];
 };
+
 
 export type MutationRenameDeviceArgs = {
   input: RenameDeviceInput;
 };
 
+
 export type MutationSaveDeviceAttributesArgs = {
-  data: Scalars["String"];
-  id: Scalars["String"];
+  data: Scalars['String'];
+  id: Scalars['String'];
 };
+
 
 export type MutationSetBrightnessArgs = {
   input: SetBrightnessInput;
 };
 
+
 export type MutationUpdateTokenArgs = {
-  token: Scalars["String"];
+  token: Scalars['String'];
 };
 
 export type NotificationsUnion = EventFromMeasure | GenericNotification;
 
 export type Query = {
-  __typename?: "Query";
+  __typename?: 'Query';
   account: Account;
   accounts: Array<Account>;
   achievements: Array<Achievement>;
@@ -187,205 +197,178 @@ export type Query = {
   event_from_employee: EventFromEmployee;
   event_from_measure: EventFromMeasure;
   events_from_employee: Array<EventFromEmployee>;
-  events_from_employees_unread_count: Scalars["Int"];
+  events_from_employees_unread_count: Scalars['Int'];
   events_from_measure: Array<EventFromMeasure>;
-  events_from_measure_unread_count: Scalars["Int"];
-  events_unread_count: Scalars["Int"];
+  events_from_measure_unread_count: Scalars['Int'];
+  events_unread_count: Scalars['Int'];
   feedback: Feedback;
-  feedback_unread_count: Scalars["Int"];
+  feedback_unread_count: Scalars['Int'];
   feedbacks: Array<Feedback>;
   notifications: Array<NotificationsUnion>;
   suggestion: Suggestion;
   suggestions: Array<Suggestion>;
-  suggestions_unread_count: Scalars["Int"];
+  suggestions_unread_count: Scalars['Int'];
 };
+
 
 export type QueryBrightnessArgs = {
-  id: Scalars["String"];
+  id: Scalars['String'];
 };
+
 
 export type QueryDeviceArgs = {
-  id: Scalars["String"];
+  id: Scalars['String'];
 };
+
 
 export type QueryDeviceAttributesArgs = {
-  id: Scalars["String"];
+  id: Scalars['String'];
 };
+
 
 export type QueryDevice_DataArgs = {
-  endTs?: Maybe<Scalars["String"]>;
-  id: Scalars["String"];
-  interval?: Maybe<Scalars["Int"]>;
-  startTs?: Maybe<Scalars["String"]>;
+  endTs?: Maybe<Scalars['String']>;
+  id: Scalars['String'];
+  interval?: Maybe<Scalars['Int']>;
+  startTs?: Maybe<Scalars['String']>;
 };
+
 
 export type QueryDevices_DataArgs = {
-  endTs?: Maybe<Scalars["String"]>;
-  interval?: Maybe<Scalars["Int"]>;
-  startTs?: Maybe<Scalars["String"]>;
+  endTs?: Maybe<Scalars['String']>;
+  interval?: Maybe<Scalars['Int']>;
+  startTs?: Maybe<Scalars['String']>;
 };
+
 
 export type QueryEvent_From_EmployeeArgs = {
-  id: Scalars["ID"];
+  id: Scalars['ID'];
 };
+
 
 export type QueryEvent_From_MeasureArgs = {
-  id: Scalars["ID"];
+  id: Scalars['ID'];
 };
+
 
 export type QueryFeedbackArgs = {
-  id: Scalars["ID"];
+  id: Scalars['ID'];
 };
 
+
 export type QuerySuggestionArgs = {
-  id: Scalars["ID"];
+  id: Scalars['ID'];
 };
 
 export type RenameDeviceInput = {
-  id: Scalars["ID"];
-  title: Scalars["String"];
+  id: Scalars['ID'];
+  title: Scalars['String'];
 };
 
 export type SetBrightnessInput = {
-  brightness: Scalars["Float"];
-  id: Scalars["ID"];
-  light: Scalars["String"];
+  brightness: Scalars['Float'];
+  id: Scalars['ID'];
+  light: Scalars['String'];
 };
 
 export type Suggestion = {
-  __typename?: "Suggestion";
-  date: Scalars["DateTime"];
-  description: Scalars["String"];
-  how_solve: Scalars["String"];
-  id: Scalars["ID"];
-  importance: Scalars["Int"];
-  is_unread: Scalars["Boolean"];
-  title: Scalars["String"];
-  why_important: Scalars["String"];
+  __typename?: 'Suggestion';
+  date: Scalars['DateTime'];
+  description: Scalars['String'];
+  how_solve: Scalars['String'];
+  id: Scalars['ID'];
+  importance: Scalars['Int'];
+  is_unread: Scalars['Boolean'];
+  title: Scalars['String'];
+  why_important: Scalars['String'];
 };
 
-export type GetAccountQueryVariables = Exact<{ [key: string]: never }>;
+export type GetAccountQueryVariables = Exact<{ [key: string]: never; }>;
 
-export type GetAccountQuery = {
-  __typename?: "Query";
-  account: { __typename?: "Account"; id: string; first_name: string; last_name: string; email: string; role: string };
-};
+
+export type GetAccountQuery = { __typename?: 'Query', account: { __typename?: 'Account', id: string, first_name: string, last_name: string, email: string, role: string } };
 
 export type ChangePasswordMutationVariables = Exact<{
-  currentPassword: Scalars["String"];
-  newPassword: Scalars["String"];
+  currentPassword: Scalars['String'];
+  newPassword: Scalars['String'];
 }>;
 
-export type ChangePasswordMutation = { __typename?: "Mutation"; changePassword: boolean };
 
-export type GetAchievementsQueryVariables = Exact<{ [key: string]: never }>;
+export type ChangePasswordMutation = { __typename?: 'Mutation', changePassword: boolean };
 
-export type GetAchievementsQuery = {
-  __typename?: "Query";
-  achievements: Array<{ __typename?: "Achievement"; name: string }>;
-};
+export type GetAchievementsQueryVariables = Exact<{ [key: string]: never; }>;
 
-export type GetDevicesQueryVariables = Exact<{ [key: string]: never }>;
 
-export type GetDevicesQuery = {
-  __typename?: "Query";
-  devices: Array<{ __typename?: "Device"; id: string; title: string; label: string }>;
-};
+export type GetAchievementsQuery = { __typename?: 'Query', achievements: Array<{ __typename?: 'Achievement', name: string }> };
+
+export type GetDevicesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetDevicesQuery = { __typename?: 'Query', devices: Array<{ __typename?: 'Device', id: string, title: string, label: string }> };
 
 export type GetDeviceDataQueryVariables = Exact<{
-  id: Scalars["String"];
-  startTs?: Maybe<Scalars["String"]>;
-  endTs?: Maybe<Scalars["String"]>;
-  interval?: Maybe<Scalars["Int"]>;
+  id: Scalars['String'];
+  startTs?: Maybe<Scalars['String']>;
+  endTs?: Maybe<Scalars['String']>;
+  interval?: Maybe<Scalars['Int']>;
 }>;
 
-export type GetDeviceDataQuery = {
-  __typename?: "Query";
-  device_data: {
-    __typename?: "Device";
-    id: string;
-    title: string;
-    label: string;
-    color: string;
-    data?: Maybe<
-      Array<{
-        __typename?: "DeviceData";
-        type: string;
-        unit: string;
-        value: number;
-        change: number;
-        color: string;
-        maxValue: number;
-        minValue: number;
-        values: Array<{ __typename?: "DeviceDataValue"; ts: any; value: number }>;
-      }>
-    >;
-  };
-};
+
+export type GetDeviceDataQuery = { __typename?: 'Query', device_data: { __typename?: 'Device', id: string, title: string, label: string, color: string, data?: Maybe<Array<{ __typename?: 'DeviceData', type: string, unit: string, value: number, change: number, color: string, maxValue: number, minValue: number, values: Array<{ __typename?: 'DeviceDataValue', ts: any, value: number }> }>> } };
 
 export type GetDeviceAttributesQueryVariables = Exact<{
-  id: Scalars["String"];
+  id: Scalars['String'];
 }>;
 
-export type GetDeviceAttributesQuery = {
-  __typename?: "Query";
-  deviceAttributes: { __typename?: "DeviceAttributes"; id: string; attributes: string };
-};
+
+export type GetDeviceAttributesQuery = { __typename?: 'Query', deviceAttributes: { __typename?: 'DeviceAttributes', id: string, attributes: string } };
 
 export type GetBrightnessQueryVariables = Exact<{
-  id: Scalars["String"];
+  id: Scalars['String'];
 }>;
 
-export type GetBrightnessQuery = {
-  __typename?: "Query";
-  brightness: { __typename?: "Brightness"; id: string; brightness: number; light: string };
-};
+
+export type GetBrightnessQuery = { __typename?: 'Query', brightness: { __typename?: 'Brightness', id: string, brightness: number, light: string } };
 
 export type SetBrightnessMutationVariables = Exact<{
   input: SetBrightnessInput;
 }>;
 
-export type SetBrightnessMutation = {
-  __typename?: "Mutation";
-  setBrightness: { __typename?: "Brightness"; id: string; brightness: number; light: string };
-};
+
+export type SetBrightnessMutation = { __typename?: 'Mutation', setBrightness: { __typename?: 'Brightness', id: string, brightness: number, light: string } };
 
 export type SaveDeviceAttributesMutationVariables = Exact<{
-  id: Scalars["String"];
-  data: Scalars["String"];
+  id: Scalars['String'];
+  data: Scalars['String'];
 }>;
 
-export type SaveDeviceAttributesMutation = {
-  __typename?: "Mutation";
-  saveDeviceAttributes: { __typename?: "DeviceAttributes"; id: string; attributes: string };
-};
 
-export type GetNotificationsQueryVariables = Exact<{ [key: string]: never }>;
+export type SaveDeviceAttributesMutation = { __typename?: 'Mutation', saveDeviceAttributes: { __typename?: 'DeviceAttributes', id: string, attributes: string } };
 
-export type GetNotificationsQuery = {
-  __typename?: "Query";
-  notifications: Array<
-    | { __typename: "EventFromMeasure"; id: string; title: string; justification: string; place: string; date: any }
-    | { __typename: "GenericNotification"; id: string; title: string; text: string; date: any }
-  >;
-};
+export type GetNotificationsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetNotificationsQuery = { __typename?: 'Query', notifications: Array<{ __typename: 'EventFromMeasure', id: string, title: string, justification: string, place: string, date: any } | { __typename: 'GenericNotification', id: string, title: string, text: string, date: any }> };
 
 export type UpdateTokenMutationVariables = Exact<{
-  token: Scalars["String"];
+  token: Scalars['String'];
 }>;
 
-export type UpdateTokenMutation = { __typename?: "Mutation"; updateToken: boolean };
+
+export type UpdateTokenMutation = { __typename?: 'Mutation', updateToken: boolean };
+
 
 export const GetAccountDocument = gql`
-  query GetAccount {
-    account {
-      id
-      first_name
-      last_name
-      email
-    }
+    query GetAccount {
+  account {
+    id
+    first_name
+    last_name
+    email
+    role
   }
-`;
+}
+    `;
 
 /**
  * __useGetAccountQuery__
@@ -403,23 +386,21 @@ export const GetAccountDocument = gql`
  * });
  */
 export function useGetAccountQuery(baseOptions?: Apollo.QueryHookOptions<GetAccountQuery, GetAccountQueryVariables>) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetAccountQuery, GetAccountQueryVariables>(GetAccountDocument, options);
-}
-export function useGetAccountLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<GetAccountQuery, GetAccountQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetAccountQuery, GetAccountQueryVariables>(GetAccountDocument, options);
-}
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAccountQuery, GetAccountQueryVariables>(GetAccountDocument, options);
+      }
+export function useGetAccountLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAccountQuery, GetAccountQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAccountQuery, GetAccountQueryVariables>(GetAccountDocument, options);
+        }
 export type GetAccountQueryHookResult = ReturnType<typeof useGetAccountQuery>;
 export type GetAccountLazyQueryHookResult = ReturnType<typeof useGetAccountLazyQuery>;
 export type GetAccountQueryResult = Apollo.QueryResult<GetAccountQuery, GetAccountQueryVariables>;
 export const ChangePasswordDocument = gql`
-  mutation ChangePassword($currentPassword: String!, $newPassword: String!) {
-    changePassword(currentPassword: $currentPassword, newPassword: $newPassword)
-  }
-`;
+    mutation ChangePassword($currentPassword: String!, $newPassword: String!) {
+  changePassword(currentPassword: $currentPassword, newPassword: $newPassword)
+}
+    `;
 export type ChangePasswordMutationFn = Apollo.MutationFunction<ChangePasswordMutation, ChangePasswordMutationVariables>;
 
 /**
@@ -440,25 +421,20 @@ export type ChangePasswordMutationFn = Apollo.MutationFunction<ChangePasswordMut
  *   },
  * });
  */
-export function useChangePasswordMutation(
-  baseOptions?: Apollo.MutationHookOptions<ChangePasswordMutation, ChangePasswordMutationVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<ChangePasswordMutation, ChangePasswordMutationVariables>(ChangePasswordDocument, options);
-}
+export function useChangePasswordMutation(baseOptions?: Apollo.MutationHookOptions<ChangePasswordMutation, ChangePasswordMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<ChangePasswordMutation, ChangePasswordMutationVariables>(ChangePasswordDocument, options);
+      }
 export type ChangePasswordMutationHookResult = ReturnType<typeof useChangePasswordMutation>;
 export type ChangePasswordMutationResult = Apollo.MutationResult<ChangePasswordMutation>;
-export type ChangePasswordMutationOptions = Apollo.BaseMutationOptions<
-  ChangePasswordMutation,
-  ChangePasswordMutationVariables
->;
+export type ChangePasswordMutationOptions = Apollo.BaseMutationOptions<ChangePasswordMutation, ChangePasswordMutationVariables>;
 export const GetAchievementsDocument = gql`
-  query GetAchievements {
-    achievements {
-      name
-    }
+    query GetAchievements {
+  achievements {
+    name
   }
-`;
+}
+    `;
 
 /**
  * __useGetAchievementsQuery__
@@ -475,30 +451,26 @@ export const GetAchievementsDocument = gql`
  *   },
  * });
  */
-export function useGetAchievementsQuery(
-  baseOptions?: Apollo.QueryHookOptions<GetAchievementsQuery, GetAchievementsQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetAchievementsQuery, GetAchievementsQueryVariables>(GetAchievementsDocument, options);
-}
-export function useGetAchievementsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<GetAchievementsQuery, GetAchievementsQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetAchievementsQuery, GetAchievementsQueryVariables>(GetAchievementsDocument, options);
-}
+export function useGetAchievementsQuery(baseOptions?: Apollo.QueryHookOptions<GetAchievementsQuery, GetAchievementsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAchievementsQuery, GetAchievementsQueryVariables>(GetAchievementsDocument, options);
+      }
+export function useGetAchievementsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAchievementsQuery, GetAchievementsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAchievementsQuery, GetAchievementsQueryVariables>(GetAchievementsDocument, options);
+        }
 export type GetAchievementsQueryHookResult = ReturnType<typeof useGetAchievementsQuery>;
 export type GetAchievementsLazyQueryHookResult = ReturnType<typeof useGetAchievementsLazyQuery>;
 export type GetAchievementsQueryResult = Apollo.QueryResult<GetAchievementsQuery, GetAchievementsQueryVariables>;
 export const GetDevicesDocument = gql`
-  query GetDevices {
-    devices {
-      id
-      title
-      label
-    }
+    query GetDevices {
+  devices {
+    id
+    title
+    label
   }
-`;
+}
+    `;
 
 /**
  * __useGetDevicesQuery__
@@ -516,41 +488,39 @@ export const GetDevicesDocument = gql`
  * });
  */
 export function useGetDevicesQuery(baseOptions?: Apollo.QueryHookOptions<GetDevicesQuery, GetDevicesQueryVariables>) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetDevicesQuery, GetDevicesQueryVariables>(GetDevicesDocument, options);
-}
-export function useGetDevicesLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<GetDevicesQuery, GetDevicesQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetDevicesQuery, GetDevicesQueryVariables>(GetDevicesDocument, options);
-}
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetDevicesQuery, GetDevicesQueryVariables>(GetDevicesDocument, options);
+      }
+export function useGetDevicesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetDevicesQuery, GetDevicesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetDevicesQuery, GetDevicesQueryVariables>(GetDevicesDocument, options);
+        }
 export type GetDevicesQueryHookResult = ReturnType<typeof useGetDevicesQuery>;
 export type GetDevicesLazyQueryHookResult = ReturnType<typeof useGetDevicesLazyQuery>;
 export type GetDevicesQueryResult = Apollo.QueryResult<GetDevicesQuery, GetDevicesQueryVariables>;
 export const GetDeviceDataDocument = gql`
-  query GetDeviceData($id: String!, $startTs: String, $endTs: String, $interval: Int) {
-    device_data(id: $id, startTs: $startTs, endTs: $endTs, interval: $interval) {
-      id
-      title
-      label
+    query GetDeviceData($id: String!, $startTs: String, $endTs: String, $interval: Int) {
+  device_data(id: $id, startTs: $startTs, endTs: $endTs, interval: $interval) {
+    id
+    title
+    label
+    color
+    data {
+      type
+      unit
+      value
+      change
       color
-      data {
-        type
-        unit
+      maxValue
+      minValue
+      values {
+        ts
         value
-        change
-        color
-        maxValue
-        minValue
-        values {
-          ts
-          value
-        }
       }
     }
   }
-`;
+}
+    `;
 
 /**
  * __useGetDeviceDataQuery__
@@ -571,29 +541,25 @@ export const GetDeviceDataDocument = gql`
  *   },
  * });
  */
-export function useGetDeviceDataQuery(
-  baseOptions: Apollo.QueryHookOptions<GetDeviceDataQuery, GetDeviceDataQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetDeviceDataQuery, GetDeviceDataQueryVariables>(GetDeviceDataDocument, options);
-}
-export function useGetDeviceDataLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<GetDeviceDataQuery, GetDeviceDataQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetDeviceDataQuery, GetDeviceDataQueryVariables>(GetDeviceDataDocument, options);
-}
+export function useGetDeviceDataQuery(baseOptions: Apollo.QueryHookOptions<GetDeviceDataQuery, GetDeviceDataQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetDeviceDataQuery, GetDeviceDataQueryVariables>(GetDeviceDataDocument, options);
+      }
+export function useGetDeviceDataLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetDeviceDataQuery, GetDeviceDataQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetDeviceDataQuery, GetDeviceDataQueryVariables>(GetDeviceDataDocument, options);
+        }
 export type GetDeviceDataQueryHookResult = ReturnType<typeof useGetDeviceDataQuery>;
 export type GetDeviceDataLazyQueryHookResult = ReturnType<typeof useGetDeviceDataLazyQuery>;
 export type GetDeviceDataQueryResult = Apollo.QueryResult<GetDeviceDataQuery, GetDeviceDataQueryVariables>;
 export const GetDeviceAttributesDocument = gql`
-  query GetDeviceAttributes($id: String!) {
-    deviceAttributes(id: $id) {
-      id
-      attributes
-    }
+    query GetDeviceAttributes($id: String!) {
+  deviceAttributes(id: $id) {
+    id
+    attributes
   }
-`;
+}
+    `;
 
 /**
  * __useGetDeviceAttributesQuery__
@@ -611,39 +577,26 @@ export const GetDeviceAttributesDocument = gql`
  *   },
  * });
  */
-export function useGetDeviceAttributesQuery(
-  baseOptions: Apollo.QueryHookOptions<GetDeviceAttributesQuery, GetDeviceAttributesQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetDeviceAttributesQuery, GetDeviceAttributesQueryVariables>(
-    GetDeviceAttributesDocument,
-    options
-  );
-}
-export function useGetDeviceAttributesLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<GetDeviceAttributesQuery, GetDeviceAttributesQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetDeviceAttributesQuery, GetDeviceAttributesQueryVariables>(
-    GetDeviceAttributesDocument,
-    options
-  );
-}
+export function useGetDeviceAttributesQuery(baseOptions: Apollo.QueryHookOptions<GetDeviceAttributesQuery, GetDeviceAttributesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetDeviceAttributesQuery, GetDeviceAttributesQueryVariables>(GetDeviceAttributesDocument, options);
+      }
+export function useGetDeviceAttributesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetDeviceAttributesQuery, GetDeviceAttributesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetDeviceAttributesQuery, GetDeviceAttributesQueryVariables>(GetDeviceAttributesDocument, options);
+        }
 export type GetDeviceAttributesQueryHookResult = ReturnType<typeof useGetDeviceAttributesQuery>;
 export type GetDeviceAttributesLazyQueryHookResult = ReturnType<typeof useGetDeviceAttributesLazyQuery>;
-export type GetDeviceAttributesQueryResult = Apollo.QueryResult<
-  GetDeviceAttributesQuery,
-  GetDeviceAttributesQueryVariables
->;
+export type GetDeviceAttributesQueryResult = Apollo.QueryResult<GetDeviceAttributesQuery, GetDeviceAttributesQueryVariables>;
 export const GetBrightnessDocument = gql`
-  query GetBrightness($id: String!) {
-    brightness(id: $id) {
-      id
-      brightness
-      light
-    }
+    query GetBrightness($id: String!) {
+  brightness(id: $id) {
+    id
+    brightness
+    light
   }
-`;
+}
+    `;
 
 /**
  * __useGetBrightnessQuery__
@@ -661,30 +614,26 @@ export const GetBrightnessDocument = gql`
  *   },
  * });
  */
-export function useGetBrightnessQuery(
-  baseOptions: Apollo.QueryHookOptions<GetBrightnessQuery, GetBrightnessQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetBrightnessQuery, GetBrightnessQueryVariables>(GetBrightnessDocument, options);
-}
-export function useGetBrightnessLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<GetBrightnessQuery, GetBrightnessQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetBrightnessQuery, GetBrightnessQueryVariables>(GetBrightnessDocument, options);
-}
+export function useGetBrightnessQuery(baseOptions: Apollo.QueryHookOptions<GetBrightnessQuery, GetBrightnessQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetBrightnessQuery, GetBrightnessQueryVariables>(GetBrightnessDocument, options);
+      }
+export function useGetBrightnessLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetBrightnessQuery, GetBrightnessQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetBrightnessQuery, GetBrightnessQueryVariables>(GetBrightnessDocument, options);
+        }
 export type GetBrightnessQueryHookResult = ReturnType<typeof useGetBrightnessQuery>;
 export type GetBrightnessLazyQueryHookResult = ReturnType<typeof useGetBrightnessLazyQuery>;
 export type GetBrightnessQueryResult = Apollo.QueryResult<GetBrightnessQuery, GetBrightnessQueryVariables>;
 export const SetBrightnessDocument = gql`
-  mutation SetBrightness($input: SetBrightnessInput!) {
-    setBrightness(input: $input) {
-      id
-      brightness
-      light
-    }
+    mutation SetBrightness($input: SetBrightnessInput!) {
+  setBrightness(input: $input) {
+    id
+    brightness
+    light
   }
-`;
+}
+    `;
 export type SetBrightnessMutationFn = Apollo.MutationFunction<SetBrightnessMutation, SetBrightnessMutationVariables>;
 
 /**
@@ -704,30 +653,22 @@ export type SetBrightnessMutationFn = Apollo.MutationFunction<SetBrightnessMutat
  *   },
  * });
  */
-export function useSetBrightnessMutation(
-  baseOptions?: Apollo.MutationHookOptions<SetBrightnessMutation, SetBrightnessMutationVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<SetBrightnessMutation, SetBrightnessMutationVariables>(SetBrightnessDocument, options);
-}
+export function useSetBrightnessMutation(baseOptions?: Apollo.MutationHookOptions<SetBrightnessMutation, SetBrightnessMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<SetBrightnessMutation, SetBrightnessMutationVariables>(SetBrightnessDocument, options);
+      }
 export type SetBrightnessMutationHookResult = ReturnType<typeof useSetBrightnessMutation>;
 export type SetBrightnessMutationResult = Apollo.MutationResult<SetBrightnessMutation>;
-export type SetBrightnessMutationOptions = Apollo.BaseMutationOptions<
-  SetBrightnessMutation,
-  SetBrightnessMutationVariables
->;
+export type SetBrightnessMutationOptions = Apollo.BaseMutationOptions<SetBrightnessMutation, SetBrightnessMutationVariables>;
 export const SaveDeviceAttributesDocument = gql`
-  mutation SaveDeviceAttributes($id: String!, $data: String!) {
-    saveDeviceAttributes(id: $id, data: $data) {
-      id
-      attributes
-    }
+    mutation SaveDeviceAttributes($id: String!, $data: String!) {
+  saveDeviceAttributes(id: $id, data: $data) {
+    id
+    attributes
   }
-`;
-export type SaveDeviceAttributesMutationFn = Apollo.MutationFunction<
-  SaveDeviceAttributesMutation,
-  SaveDeviceAttributesMutationVariables
->;
+}
+    `;
+export type SaveDeviceAttributesMutationFn = Apollo.MutationFunction<SaveDeviceAttributesMutation, SaveDeviceAttributesMutationVariables>;
 
 /**
  * __useSaveDeviceAttributesMutation__
@@ -747,42 +688,34 @@ export type SaveDeviceAttributesMutationFn = Apollo.MutationFunction<
  *   },
  * });
  */
-export function useSaveDeviceAttributesMutation(
-  baseOptions?: Apollo.MutationHookOptions<SaveDeviceAttributesMutation, SaveDeviceAttributesMutationVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<SaveDeviceAttributesMutation, SaveDeviceAttributesMutationVariables>(
-    SaveDeviceAttributesDocument,
-    options
-  );
-}
+export function useSaveDeviceAttributesMutation(baseOptions?: Apollo.MutationHookOptions<SaveDeviceAttributesMutation, SaveDeviceAttributesMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<SaveDeviceAttributesMutation, SaveDeviceAttributesMutationVariables>(SaveDeviceAttributesDocument, options);
+      }
 export type SaveDeviceAttributesMutationHookResult = ReturnType<typeof useSaveDeviceAttributesMutation>;
 export type SaveDeviceAttributesMutationResult = Apollo.MutationResult<SaveDeviceAttributesMutation>;
-export type SaveDeviceAttributesMutationOptions = Apollo.BaseMutationOptions<
-  SaveDeviceAttributesMutation,
-  SaveDeviceAttributesMutationVariables
->;
+export type SaveDeviceAttributesMutationOptions = Apollo.BaseMutationOptions<SaveDeviceAttributesMutation, SaveDeviceAttributesMutationVariables>;
 export const GetNotificationsDocument = gql`
-  query GetNotifications {
-    notifications {
-      ... on EventFromMeasure {
-        __typename
-        id
-        title
-        justification
-        place
-        date
-      }
-      ... on GenericNotification {
-        __typename
-        id
-        title
-        text
-        date
-      }
+    query GetNotifications {
+  notifications {
+    ... on EventFromMeasure {
+      __typename
+      id
+      title
+      justification
+      place
+      date
+    }
+    ... on GenericNotification {
+      __typename
+      id
+      title
+      text
+      date
     }
   }
-`;
+}
+    `;
 
 /**
  * __useGetNotificationsQuery__
@@ -799,26 +732,22 @@ export const GetNotificationsDocument = gql`
  *   },
  * });
  */
-export function useGetNotificationsQuery(
-  baseOptions?: Apollo.QueryHookOptions<GetNotificationsQuery, GetNotificationsQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetNotificationsQuery, GetNotificationsQueryVariables>(GetNotificationsDocument, options);
-}
-export function useGetNotificationsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<GetNotificationsQuery, GetNotificationsQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetNotificationsQuery, GetNotificationsQueryVariables>(GetNotificationsDocument, options);
-}
+export function useGetNotificationsQuery(baseOptions?: Apollo.QueryHookOptions<GetNotificationsQuery, GetNotificationsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetNotificationsQuery, GetNotificationsQueryVariables>(GetNotificationsDocument, options);
+      }
+export function useGetNotificationsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetNotificationsQuery, GetNotificationsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetNotificationsQuery, GetNotificationsQueryVariables>(GetNotificationsDocument, options);
+        }
 export type GetNotificationsQueryHookResult = ReturnType<typeof useGetNotificationsQuery>;
 export type GetNotificationsLazyQueryHookResult = ReturnType<typeof useGetNotificationsLazyQuery>;
 export type GetNotificationsQueryResult = Apollo.QueryResult<GetNotificationsQuery, GetNotificationsQueryVariables>;
 export const UpdateTokenDocument = gql`
-  mutation UpdateToken($token: String!) {
-    updateToken(token: $token)
-  }
-`;
+    mutation UpdateToken($token: String!) {
+  updateToken(token: $token)
+}
+    `;
 export type UpdateTokenMutationFn = Apollo.MutationFunction<UpdateTokenMutation, UpdateTokenMutationVariables>;
 
 /**
@@ -838,12 +767,10 @@ export type UpdateTokenMutationFn = Apollo.MutationFunction<UpdateTokenMutation,
  *   },
  * });
  */
-export function useUpdateTokenMutation(
-  baseOptions?: Apollo.MutationHookOptions<UpdateTokenMutation, UpdateTokenMutationVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<UpdateTokenMutation, UpdateTokenMutationVariables>(UpdateTokenDocument, options);
-}
+export function useUpdateTokenMutation(baseOptions?: Apollo.MutationHookOptions<UpdateTokenMutation, UpdateTokenMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateTokenMutation, UpdateTokenMutationVariables>(UpdateTokenDocument, options);
+      }
 export type UpdateTokenMutationHookResult = ReturnType<typeof useUpdateTokenMutation>;
 export type UpdateTokenMutationResult = Apollo.MutationResult<UpdateTokenMutation>;
 export type UpdateTokenMutationOptions = Apollo.BaseMutationOptions<UpdateTokenMutation, UpdateTokenMutationVariables>;
