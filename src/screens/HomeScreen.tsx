@@ -237,7 +237,7 @@ const HomeScreen: React.FC = () => {
                     color: color,
                   }}>
                   {i18n.t(
-                    score > 70
+                    score > 75
                       ? "upper_level_good"
                       : score > 40
                       ? "upper_level_not_bad"

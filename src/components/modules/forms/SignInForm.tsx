@@ -41,7 +41,7 @@ const SignInForm: React.FC = () => {
       })
       .catch((error) => {
         setLoading(false);
-        setError("msg_password_invalid");
+        setError("msg_login_error");
       });
   }
 

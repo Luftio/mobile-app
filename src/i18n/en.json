@@ -48,6 +48,7 @@
   "msg_invalid_password": "Password must be at least 12 characters long and contain a lowercase and an uppercase letter",
   "msg_passwords_not_match": "The passwords do not match.",
   "msg_report_required": "Enter text",
+  "msg_login_error": "Username or password is incorrect",
   "profile_account": "Account",
   "profile_devices": "My devices",
   "profile_night_mode": "Night mode",

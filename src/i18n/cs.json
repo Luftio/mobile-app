@@ -48,6 +48,7 @@
   "msg_invalid_password": "Heslo musí obsahovat alespoň 12 znaků, malé a jedno velké písmeno",
   "msg_passwords_not_match": "Hesla se sobě nerovnají",
   "msg_report_required": "Pro poslání zadejte text",
+  "msg_login_error": "Uživatelské jméno nebo heslo je nesprávné",
   "profile_account": "Účet",
   "profile_devices": "Moje zařízení",
   "profile_night_mode": "Noční režim",
