@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { View, TouchableOpacity } from "react-native";
 
+import * as Analytics from "expo-firebase-analytics";
+
 import { LinearGradient } from "expo-linear-gradient";
 
 import { useNavigation } from "@react-navigation/native";
@@ -71,19 +73,38 @@ const ProfileScreen: React.FC = () => {
                 </>
               )}
             </View>
-            <TouchableOpacity onPress={() => logout()}>
+            <TouchableOpacity
+              onPress={() => {
+                logout();
+                Analytics.logEvent("Log out", {
+                  screen: "Profile",
+                  purpose: "User loged out from account",
+                });
+              }}>
               <Icon name="log-out" style={{ color: "#F36A66", width: 26, height: 26 }} />
             </TouchableOpacity>
           </View>
           <ProfileRow
             iconName="user-check"
             text={i18n.t("profile_account")}
-            onPress={() => navigation.navigate("AccountEdit")}
+            onPress={() => {
+              navigation.navigate("AccountEdit");
+              Analytics.logEvent("Visited account screen", {
+                screen: "Profile",
+                purpose: "User clicked on account row",
+              });
+            }}
           />
           <ProfileRow
             iconName="cpu"
             text={i18n.t("profile_devices")}
-            onPress={() => navigation.navigate("MyDevices")}
+            onPress={() => {
+              navigation.navigate("MyDevices");
+              Analytics.logEvent("Visited my devices screen", {
+                screen: "Profile",
+                purpose: "User clicked on devices row",
+              });
+            }}
           />
           {/*<ProfileRow
             iconName="settings"
@@ -93,12 +114,24 @@ const ProfileScreen: React.FC = () => {
           <ProfileRow
             iconName="info"
             text={i18n.t("profile_info")}
-            onPress={() => navigation.navigate("Informations")}
+            onPress={() => {
+              navigation.navigate("Informations");
+              Analytics.logEvent("Visited informations screen", {
+                screen: "Profile",
+                purpose: "User clicked on informations row",
+              });
+            }}
           />
           <ProfileRow
             iconName="alert-triangle"
             text={i18n.t("profile_problem")}
-            onPress={() => navigation.navigate("ReportProblem")}
+            onPress={() => {
+              navigation.navigate("ReportProblem");
+              Analytics.logEvent("Visited report problem", {
+                screen: "Profile",
+                purpose: "User clicked on report problem row",
+              });
+            }}
           />
         </View>
       </LayoutSafeArea>

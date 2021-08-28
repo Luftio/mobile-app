@@ -1,6 +1,8 @@
 import React, { useState, useRef } from "react";
 import { View, TouchableOpacity, Share } from "react-native";
 
+import * as Analytics from "expo-firebase-analytics";
+
 import { Icon, Text, Button } from "@ui-kitten/components";
 
 import RBSheet from "react-native-raw-bottom-sheet";
@@ -81,7 +83,14 @@ const Achievement: React.FC<AchievementProps> = ({ name, description, iconName, 
   return (
     <>
       <View style={{ width: "33%", marginBottom: 20 }}>
-        <TouchableOpacity onPress={() => refRBSheet.current.open()}>
+        <TouchableOpacity
+          onPress={() => {
+            refRBSheet.current.open();
+            Analytics.logEvent("Open badge detail", {
+              screen: "Achievements",
+              purpose: `User open ${isUnlock ? "unlocked" : "locked"} badge detail`,
+            });
+          }}>
           <View style={{ alignItems: "center" }}>
             <View
               style={{

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>358517716635-pndhhl2565f8kf162g3db1uf32mg958k.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.358517716635-pndhhl2565f8kf162g3db1uf32mg958k</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBOmCtX3TTuM0LWfUZtau7YgPdFXoO3BPM</string>
+	<key>GCM_SENDER_ID</key>
+	<string>358517716635</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.luftio.app</string>
+	<key>PROJECT_ID</key>
+	<string>luftio</string>
+	<key>STORAGE_BUCKET</key>
+	<string>luftio.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:358517716635:ios:03f680c051ab7a5ea2383e</string>
+</dict>
+</plist>

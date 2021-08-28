@@ -3,6 +3,8 @@ import { View } from "react-native";
 import useComponentSize from "@rehooks/component-size";
 import { LinearGradient } from "expo-linear-gradient";
 
+import * as Analytics from "expo-firebase-analytics";
+
 import { Button, Icon, Text, TopNavigation, Modal, Calendar, Card } from "@ui-kitten/components";
 
 import { useNavigation } from "@react-navigation/native";
@@ -90,7 +92,13 @@ const MeasureDetailScreen: React.FC<MeasureDetailScreenProps> = ({ route }) => {
         alignment="center"
         //@ts-ignore
         accessoryLeft={renderBackAction}
-        accessoryRight={renderCustomAction("info", () => navigation.navigate("Education", { data: data }))}
+        accessoryRight={renderCustomAction("info", () => {
+          navigation.navigate("Education", { data: data });
+          Analytics.logEvent("Visited education", {
+            screen: "MeasureDetail",
+            purpose: "User visited education screen",
+          });
+        })}
         style={{ backgroundColor: "#FAFAFA" }}
       />
       <Modal visible={customOpen} backdropStyle={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}>

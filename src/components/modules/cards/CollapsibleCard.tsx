@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { View, TouchableOpacity } from "react-native";
 
+import * as Analytics from "expo-firebase-analytics";
+
 import { Text, Icon } from "@ui-kitten/components";
 
 import { useSpring, animated } from "@react-spring/native";
@@ -61,7 +63,13 @@ const CollapsibleCard: React.FC<CollapsibleCardProps> = ({ title, content, useBe
       </Text>
       <TouchableOpacity
         activeOpacity={1}
-        onPress={() => setCollapsed((c: any) => !c)}
+        onPress={() => {
+          setCollapsed((c: any) => !c);
+          Analytics.logEvent("Open education card", {
+            screen: "Education",
+            purpose: "User collapsed education card",
+          });
+        }}
         style={{
           flexDirection: "row",
           alignItems: "center",

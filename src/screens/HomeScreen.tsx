@@ -3,6 +3,8 @@ import { View, ScrollView, Alert } from "react-native";
 import * as Notifications from "expo-notifications";
 import { Subscription } from "@unimodules/core";
 
+import * as Analytics from "expo-firebase-analytics";
+
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "./RootStackParams";
@@ -348,7 +350,16 @@ const HomeScreen: React.FC = () => {
                 <Text category="s2" style={{ textAlign: "center", marginTop: 20, marginBottom: 20 }}>
                   {i18n.t("no_data_desc")}
                 </Text>
-                <Button onPress={() => loadDevice()}>{i18n.t("retry")}</Button>
+                <Button
+                  onPress={() => {
+                    loadDevice();
+                    Analytics.logEvent(`Retry load data`, {
+                      screen: "Home",
+                      purpose: `User retried to load device data`,
+                    });
+                  }}>
+                  {i18n.t("retry")}
+                </Button>
               </View>
             ) : (
               <>
@@ -366,7 +377,13 @@ const HomeScreen: React.FC = () => {
                     minValue={card.minValue}
                     maxValue={card.maxValue}
                     procents={card.change}
-                    onPress={() => navigation.navigate("MeasureDetail", { data: card, deviceId: selectedDeviceId })}
+                    onPress={() => {
+                      navigation.navigate("MeasureDetail", { data: card, deviceId: selectedDeviceId });
+                      Analytics.logEvent(`Visited ${card.type} screen`, {
+                        screen: "Home",
+                        purpose: `User clicked on ${card.type} measure detail card`,
+                      });
+                    }}
                   />
                 ))}
               </>
