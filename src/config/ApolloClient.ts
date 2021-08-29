@@ -48,6 +48,7 @@ export const client = new ApolloClient({
     watchQuery: {
       errorPolicy: "all",
       notifyOnNetworkStatusChange: true,
+      fetchPolicy: "cache-and-network",
     },
     query: {
       errorPolicy: "all",
