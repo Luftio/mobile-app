@@ -12,10 +12,15 @@ import i18n from "../i18n";
 import { useGetNotificationsQuery } from "../graphql";
 import { ScrollView } from "react-native-gesture-handler";
 
-const NotificationsScreen: React.FC = () => {
-  //const [active, setActive] = useState<string>("today");
+import moment from "moment";
 
+const NotificationsScreen: React.FC = () => {
   const { data, loading, refetch } = useGetNotificationsQuery();
+
+  const formatDate = (date: any) => {
+    const dateJs = new Date(date);
+    return moment(dateJs).format("dd D. M.");
+  };
 
   return (
     <>
@@ -84,19 +89,21 @@ const NotificationsScreen: React.FC = () => {
                 if (notification.__typename == "GenericNotification") {
                   return (
                     <Notification
+                      isGeneral={true}
                       key={notification.id}
                       name={notification.title}
                       text={notification.text}
-                      date={new Date(notification.date).toLocaleString()}
+                      date={formatDate(notification.date)}
                     />
                   );
                 } else if (notification.__typename == "EventFromMeasure") {
                   return (
                     <Notification
+                      isGeneral={false}
                       key={notification.id}
                       name={notification.title}
                       text={notification.justification}
-                      date={new Date(notification.date).toLocaleString()}
+                      date={formatDate(notification.date)}
                     />
                   );
                 }

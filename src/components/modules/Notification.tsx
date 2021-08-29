@@ -1,31 +1,90 @@
-import { Text } from "@ui-kitten/components";
 import React from "react";
 import { View } from "react-native";
+import { Text, Icon } from "@ui-kitten/components";
 
 interface NotificationProps {
   name: string;
   text: string;
   date: string;
+  isGeneral?: boolean;
 }
 
-const Notification: React.FC<NotificationProps> = ({ name, text, date }) => {
+const Notification: React.FC<NotificationProps> = ({ name, text, date, isGeneral }) => {
   return (
-    <View
-      style={{
-        borderBottomColor: "#E1E6EA",
-        marginBottom: 15,
-        borderBottomWidth: 1,
-      }}>
-      <Text style={{ marginBottom: 5 }} category="h3">
-        {name}
-      </Text>
-      <Text style={{ marginBottom: 5, fontSize: 16 }} category="p1">
-        {text}
-      </Text>
+    <>
       <Text style={{ marginBottom: 12, fontSize: 16 }} category="s2">
         {date}
       </Text>
-    </View>
+      <View
+        style={{
+          backgroundColor: "#fff",
+          marginBottom: 20,
+          padding: 15,
+          borderRadius: 4,
+          shadowOffset: {
+            width: 0,
+            height: 2,
+          },
+          shadowOpacity: 0.04,
+          shadowRadius: 1.0,
+          elevation: 1,
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
+        }}>
+        {isGeneral ? (
+          <View
+            style={{
+              width: 40,
+              height: 40,
+              borderRadius: 50,
+              backgroundColor: "#3F74F9",
+              marginRight: 12,
+              marginLeft: 30,
+              alignItems: "center",
+              justifyContent: "center",
+            }}>
+            <Icon
+              style={{
+                width: 22,
+                height: 22,
+                color: "#fff",
+              }}
+              name="message-circle"
+            />
+          </View>
+        ) : (
+          <View
+            style={{
+              width: 40,
+              height: 40,
+              borderRadius: 50,
+              backgroundColor: "#F65656",
+              marginRight: 12,
+              marginLeft: 30,
+              alignItems: "center",
+              justifyContent: "center",
+            }}>
+            <Icon
+              style={{
+                width: 22,
+                height: 22,
+                color: "#fff",
+              }}
+              name="alert-triangle"
+            />
+          </View>
+        )}
+        <View>
+          <Text style={{ marginBottom: 5, fontSize: 16 }} category="h3">
+            {name}
+          </Text>
+          <Text style={{ marginBottom: 5, fontSize: 14, paddingRight: 30 }} category="p1">
+            {text}
+          </Text>
+        </View>
+      </View>
+    </>
   );
 };
 
