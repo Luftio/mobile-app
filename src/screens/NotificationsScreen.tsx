@@ -117,7 +117,7 @@ const NotificationsScreen: React.FC = () => {
                       text={notification.justification}
                       showDate={shouldShowDate(data?.notifications, i)}
                       date={formatDate(notification.date)}
-                      sub={formatTime(notification.date) + "\t" + notification.place}
+                      sub={formatTime(notification.date) + "  " + notification.place}
                     />
                   );
                 }

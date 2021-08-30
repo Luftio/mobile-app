@@ -80,14 +80,14 @@ const Notification: React.FC<NotificationProps> = ({ name, text, sub, date, isGe
           </View>
         )}
         <View>
-          <Text style={{ marginBottom: 5, fontSize: 16 }} category="h3">
+          <Text style={{ marginBottom: 5, fontSize: 16, paddingRight: 30 }} category="h3">
             {name}
           </Text>
           <Text style={{ marginBottom: 5, fontSize: 14, paddingRight: 30 }} category="p1">
             {text}
           </Text>
           {sub && (
-            <Text style={{ marginBottom: 5, fontSize: 14, paddingRight: 30 }} category="s2">
+            <Text style={{ fontSize: 14, paddingRight: 30 }} category="s2">
               {sub}
             </Text>
           )}
