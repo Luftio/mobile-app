@@ -5,20 +5,24 @@ import { Text, Icon } from "@ui-kitten/components";
 interface NotificationProps {
   name: string;
   text: string;
+  sub?: string;
   date: string;
   isGeneral?: boolean;
+  showDate: boolean;
 }
 
-const Notification: React.FC<NotificationProps> = ({ name, text, date, isGeneral }) => {
+const Notification: React.FC<NotificationProps> = ({ name, text, sub, date, isGeneral, showDate }) => {
   return (
     <>
-      <Text style={{ marginBottom: 12, fontSize: 16 }} category="s2">
-        {date}
-      </Text>
+      {showDate && (
+        <Text style={{ marginTop: 15, marginBottom: 12, fontSize: 16 }} category="s2">
+          {date}
+        </Text>
+      )}
       <View
         style={{
           backgroundColor: "#fff",
-          marginBottom: 20,
+          marginBottom: 5,
           padding: 15,
           borderRadius: 4,
           shadowOffset: {
@@ -82,6 +86,11 @@ const Notification: React.FC<NotificationProps> = ({ name, text, date, isGeneral
           <Text style={{ marginBottom: 5, fontSize: 14, paddingRight: 30 }} category="p1">
             {text}
           </Text>
+          {sub && (
+            <Text style={{ marginBottom: 5, fontSize: 14, paddingRight: 30 }} category="s2">
+              {sub}
+            </Text>
+          )}
         </View>
       </View>
     </>

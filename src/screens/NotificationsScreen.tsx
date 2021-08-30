@@ -22,6 +22,16 @@ const NotificationsScreen: React.FC = () => {
     return moment(dateJs).format("dd D. M.");
   };
 
+  const formatTime = (date: any) => {
+    const dateJs = new Date(date);
+    return moment(dateJs).format("HH:mm");
+  };
+
+  const shouldShowDate = (notifications: any, i: number) => {
+    if (i == 0) return true;
+    return formatDate(notifications[i - 1].date) != formatDate(notifications[i].date);
+  };
+
   return (
     <>
       <LayoutSafeArea main>
@@ -85,7 +95,7 @@ const NotificationsScreen: React.FC = () => {
             ) : data?.notifications == null || data?.notifications.length == 0 ? (
               <EmptyState text={i18n.t("notifications_screen_empty_state")} />
             ) : (
-              data?.notifications.map((notification) => {
+              data?.notifications.map((notification, i) => {
                 if (notification.__typename == "GenericNotification") {
                   return (
                     <Notification
@@ -93,7 +103,9 @@ const NotificationsScreen: React.FC = () => {
                       key={notification.id}
                       name={notification.title}
                       text={notification.text}
+                      showDate={shouldShowDate(data?.notifications, i)}
                       date={formatDate(notification.date)}
+                      sub={formatTime(notification.date)}
                     />
                   );
                 } else if (notification.__typename == "EventFromMeasure") {
@@ -103,7 +115,9 @@ const NotificationsScreen: React.FC = () => {
                       key={notification.id}
                       name={notification.title}
                       text={notification.justification}
+                      showDate={shouldShowDate(data?.notifications, i)}
                       date={formatDate(notification.date)}
+                      sub={formatTime(notification.date) + "\t" + notification.place}
                     />
                   );
                 }
