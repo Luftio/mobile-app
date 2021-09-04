@@ -126,7 +126,7 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
                 marginRight: 5,
               }}
             />
-            <Text category="s2" style={{ fontSize: 14 }}>
+            <Text category="s2">
               {procents}
               {unit}
             </Text>

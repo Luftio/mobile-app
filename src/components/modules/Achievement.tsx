@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { View, TouchableOpacity, Share } from "react-native";
 
 import * as Analytics from "expo-firebase-analytics";
+import * as Haptics from "expo-haptics";
 
 import { Icon, Text, Button } from "@ui-kitten/components";
 
@@ -90,6 +91,7 @@ const Achievement: React.FC<AchievementProps> = ({ name, description, iconName, 
               screen: "Achievements",
               purpose: `User open ${isUnlock ? "unlocked" : "locked"} badge detail`,
             });
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
           }}>
           <View style={{ alignItems: "center" }}>
             <View
