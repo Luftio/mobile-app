@@ -5,8 +5,8 @@ import { setContext } from "@apollo/client/link/context";
 import ThingsboardService from "../services/ThingsboardService";
 import { GlobalLogout } from "../utils/GlobalLogout";
 
-const LUFTIO_GRAPHQL_ENDPOINT = "https://app.luftio.com/backend/graphql";
-//const LUFTIO_GRAPHQL_ENDPOINT = "http://localhost:3000/graphql";
+//const LUFTIO_GRAPHQL_ENDPOINT = "https://app.luftio.com/backend/graphql";
+const LUFTIO_GRAPHQL_ENDPOINT = "http://localhost:3000/graphql";
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (networkError) {

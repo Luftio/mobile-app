@@ -96,7 +96,7 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
                 marginRight: 5,
               }}
             />
-            <Text category="s2">
+            <Text category="s2" style={{ fontSize: 15 }}>
               {maxValue}
               {unit}
             </Text>
@@ -111,7 +111,7 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
                 marginRight: 5,
               }}
             />
-            <Text category="s2">
+            <Text category="s2" style={{ fontSize: 15 }}>
               {minValue}
               {unit}
             </Text>
@@ -126,7 +126,7 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
                 marginRight: 5,
               }}
             />
-            <Text category="s2">
+            <Text category="s2" style={{ fontSize: 15 }}>
               {procents}
               {unit}
             </Text>

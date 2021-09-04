@@ -192,5 +192,8 @@
   "error_network_desc": "An error occured. Make sure you're connected to mobile data or WiFi.",
   "save": "Save",
   "done": "Done",
-  "password_change_complete": "Pasword change was completed successfuly."
+  "password_change_complete": "Pasword change was completed successfuly.",
+  "iaq": "VOC index",
+  "siaq": "VOC index",
+  "tvoc": "tVOC"
 }

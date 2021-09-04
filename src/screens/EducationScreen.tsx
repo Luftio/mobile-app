@@ -38,6 +38,24 @@ const EducationScreen: React.FC<EducationScreenProps> = ({ route }) => {
     { title: i18n.t("pressure_eduaction_card_title_2"), content: i18n.t("pressure_eduaction_card_text_2") },
     { title: i18n.t("pressure_eduaction_card_title_3"), content: i18n.t("pressure_eduaction_card_text_3") },
   ];
+  const voc = [
+    { title: i18n.t("voc_eduaction_card_title_1"), content: i18n.t("voc_eduaction_card_text_1") },
+    { title: i18n.t("voc_eduaction_card_title_2"), content: i18n.t("voc_eduaction_card_text_2") },
+    { title: i18n.t("voc_eduaction_card_title_3"), content: i18n.t("voc_eduaction_card_text_3") },
+  ];
+
+  let cards: { title: string; content: string }[] = [];
+  if (data.type === "CO2") {
+    cards = CO2;
+  } else if (data.type === "temperature") {
+    cards = temperature;
+  } else if (data.type === "pressure") {
+    cards = pressure;
+  } else if (data.type === "humidity") {
+    cards = humidity;
+  } else if (data.type === "siaq" || data.type === "iaq" || data.type === "tvoc") {
+    cards = voc;
+  }
 
   return (
     <LayoutSafeArea main ignoreBottom>
@@ -50,21 +68,9 @@ const EducationScreen: React.FC<EducationScreenProps> = ({ route }) => {
       />
       <ScrollView>
         <View style={{ flex: 1, padding: 24 }}>
-          {data.type === "CO2"
-            ? CO2.map((card: any) => (
-                <CollapsibleCard key={card.title} title={card.title} content={card.content} useBezier />
-              ))
-            : data.type === "pressure"
-            ? pressure.map((card: any) => (
-                <CollapsibleCard key={card.title} title={card.title} content={card.content} useBezier />
-              ))
-            : data.type === "humidity"
-            ? humidity.map((card: any) => (
-                <CollapsibleCard key={card.title} title={card.title} content={card.content} useBezier />
-              ))
-            : temperature.map((card: any) => (
-                <CollapsibleCard key={card.title} title={card.title} content={card.content} useBezier />
-              ))}
+          {cards.map((card: any) => (
+            <CollapsibleCard key={card.title} title={card.title} content={card.content} useBezier />
+          ))}
         </View>
       </ScrollView>
     </LayoutSafeArea>

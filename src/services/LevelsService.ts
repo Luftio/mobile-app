@@ -41,6 +41,33 @@ export const levels = {
     ],
     labels: [950, 970, 1020, 1050],
   },
+  tvoc: {
+    totalRange: { from: 0, to: 2 },
+    ranges: [
+      { type: "good", from: 0, to: 0.5 },
+      { type: "bad", from: 0.5, to: 1 },
+      { type: "terrible", from: 1, to: 2 },
+    ],
+    labels: [0.5, 1],
+  },
+  iaq: {
+    totalRange: { from: 0, to: 400 },
+    ranges: [
+      { type: "good", from: 0, to: 100 },
+      { type: "bad", from: 100, to: 200 },
+      { type: "terrible", from: 200, to: 400 },
+    ],
+    labels: [100, 200],
+  },
+  siaq: {
+    totalRange: { from: 0, to: 400 },
+    ranges: [
+      { type: "good", from: 0, to: 100 },
+      { type: "bad", from: 100, to: 200 },
+      { type: "terrible", from: 200, to: 400 },
+    ],
+    labels: [100, 200],
+  },
 };
 
 export const getRange = (type: keyof typeof levels, value: number) => {

@@ -188,5 +188,8 @@
   "no_data_desc": "Zkontrolujte zda je Luftio zapnuté a připojené k WiFi",
   "save": "Uložit",
   "done": "Hotovo",
-  "password_change_complete": "Změna hesla byla úspěšně dokončena."
+  "password_change_complete": "Změna hesla byla úspěšně dokončena.",
+  "iaq": "VOC index",
+  "siaq": "VOC index",
+  "tvoc": "tVOC"
 }
