@@ -24,13 +24,13 @@ export const levels = {
   humidity: {
     totalRange: { from: 0, to: 100 },
     ranges: [
-      { type: "terrible", from: 0, to: 25 },
-      { type: "bad", from: 25, to: 30 },
+      { type: "terrible", from: 0, to: 20 },
+      { type: "bad", from: 20, to: 30 },
       { type: "good", from: 30, to: 60 },
       { type: "bad", from: 60, to: 70 },
       { type: "terrible", from: 70, to: 100 },
     ],
-    labels: [0, 25, 30, 60, 70, 100],
+    labels: [0, 20, 30, 60, 70, 100],
   },
   pressure: {
     totalRange: { from: 950, to: 1050 },

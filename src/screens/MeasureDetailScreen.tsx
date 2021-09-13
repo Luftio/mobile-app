@@ -169,10 +169,10 @@ const MeasureDetailScreen: React.FC<MeasureDetailScreenProps> = ({ route }) => {
             <Text
               category="h1"
               style={{ fontSize: 50, fontWeight: "800", fontFamily: "Montserrat_700Bold", marginRight: 10 }}>
-              {data.value}
+              {originalData.value}
             </Text>
             <Text style={{ fontSize: 22, fontWeight: "500", fontFamily: "Montserrat_500Medium", paddingBottom: 6 }}>
-              {data.unit}
+              {originalData.unit}
             </Text>
           </View>
           <Text
@@ -190,22 +190,22 @@ const MeasureDetailScreen: React.FC<MeasureDetailScreenProps> = ({ route }) => {
                 fontWeight: "500",
                 fontFamily: "Montserrat_500Medium",
                 fontSize: 18,
-                color: getColorValue(data.color),
+                color: getColorValue(originalData.color),
               }}>
-              {data.color == "green"
+              {originalData.color == "green"
                 ? i18n.t("level_good")
-                : data.color
+                : originalData.color == "yellow"
                 ? i18n.t("level_not_bad")
                 : i18n.t("level_bad")}
             </Text>
           </Text>
           <LevelVizualizer
-            data={data}
+            data={originalData}
             style={{
               marginTop: 10,
               marginBottom: 30,
             }}
-            type={data.type}
+            type={originalData.type}
           />
           <View
             style={{
