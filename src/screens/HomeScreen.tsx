@@ -22,9 +22,7 @@ import i18n from "../i18n";
 import PushService from "../services/PushService";
 
 import {
-  Device,
   DeviceData,
-  SetBrightnessInput,
   useGetBrightnessLazyQuery,
   useGetDeviceDataLazyQuery,
   useGetDevicesQuery,

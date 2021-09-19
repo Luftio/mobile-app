@@ -1,7 +1,6 @@
 import { Platform } from "react-native";
 import Constants from "expo-constants";
 import * as Notifications from "expo-notifications";
-import ThingsboardService from "./ThingsboardService";
 import { client } from "../config/ApolloClient";
 import { UpdateTokenDocument, UpdateTokenMutation, UpdateTokenMutationVariables } from "../graphql";
 

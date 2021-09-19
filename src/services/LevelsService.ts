@@ -5,10 +5,10 @@ export const levels = {
     totalRange: { from: 400, to: 3000 },
     ranges: [
       { type: "good", from: 400, to: 1100 },
-      { type: "bad", from: 1100, to: 2000 },
-      { type: "terrible", from: 2000, to: 3000 },
+      { type: "bad", from: 1100, to: 1500 },
+      { type: "terrible", from: 1500, to: 3000 },
     ],
-    labels: [1100, 2000],
+    labels: [1100, 1500],
   },
   temperature: {
     totalRange: { from: 14, to: 30 },

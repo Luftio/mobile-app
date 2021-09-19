@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { View, TouchableOpacity } from "react-native";
 
 import * as Analytics from "expo-firebase-analytics";
@@ -9,7 +9,7 @@ import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "./RootStackParams";
 
-import { Text, Icon, Button } from "@ui-kitten/components";
+import { Text, Icon } from "@ui-kitten/components";
 
 import LayoutSafeArea from "../components/layouts/LayoutSafeArea";
 import ProfileRow from "../components/modules/ProfileRow";

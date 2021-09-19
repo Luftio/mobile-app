@@ -4,12 +4,9 @@ import { Alert } from "react-native";
 
 import { Text, Input, Button, Spinner } from "@ui-kitten/components";
 
-import EmailChangedCard from "../cards/EmailChangedCard";
-
 import { useGetAccountQuery, useChangePasswordMutation } from "../../../graphql";
 
 import i18n from "../../../i18n";
-import useFloatingHeaderHeight from "@react-navigation/stack/lib/typescript/src/utils/useHeaderHeight";
 
 const AccountEditForm: React.FC = () => {
   const [firstName, setFirstName] = useState<string>("");

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
-import { Platform } from "react-native";
 import { NavigationContainer, useNavigationContainerRef } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { AppearanceProvider, useColorScheme } from "react-native-appearance";
@@ -9,7 +8,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import AppLoading from "expo-app-loading";
 import * as Linking from "expo-linking";
 
-import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
+import { ApolloProvider } from "@apollo/client";
 
 import * as eva from "@eva-design/eva";
 import { ApplicationProvider, IconRegistry } from "@ui-kitten/components";
@@ -18,7 +17,6 @@ import FeatherIconsPack from "./src/ui/FeatherIconsPack";
 import { EvaIconsPack } from "@ui-kitten/eva-icons";
 
 import OnboardingScreen from "./src/screens/OnboardingScreen";
-import SignpostScreen from "./src/screens/SignpostScreen";
 import SignInScreen from "./src/screens/SignInScreen";
 import SignUpScreen from "./src/screens/SignUpScreen";
 import RequestChangeScreen from "./src/screens/RequestChangeScreen";

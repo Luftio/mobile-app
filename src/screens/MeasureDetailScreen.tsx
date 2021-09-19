@@ -1,22 +1,15 @@
-import React, { useState, useEffect, useRef, useMemo } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { View } from "react-native";
-import useComponentSize from "@rehooks/component-size";
-import { LinearGradient } from "expo-linear-gradient";
-
-import * as Analytics from "expo-firebase-analytics";
 
 import { Button, Icon, Text, TopNavigation, Modal, Calendar, Card } from "@ui-kitten/components";
 
 import { useNavigation } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "./RootStackParams";
 
 import { VictoryChart, VictoryTheme, VictoryLine, VictoryAxis } from "victory-native";
 
 import { ScrollView } from "react-native-gesture-handler";
 
 import renderBackAction from "../utils/renderBackAction";
-import renderCustomAction from "../utils/renderCustomAction";
 
 import LayoutSafeArea from "../components/layouts/LayoutSafeArea";
 import CollapsibleCard from "../components/modules/cards/CollapsibleCard";
@@ -24,9 +17,7 @@ import { LevelVizualizer } from "../components/modules/LevelVisualizer";
 
 import i18n from "../i18n";
 
-import { DeviceData, useGetDeviceDataLazyQuery, useGetDeviceDataQuery } from "../graphql";
-
-type HomeScreenProp = StackNavigationProp<RootStackParamList, "MeasureDetail">;
+import { DeviceData, useGetDeviceDataLazyQuery } from "../graphql";
 
 interface MeasureDetailScreenProps {
   route: any;
@@ -34,7 +25,6 @@ interface MeasureDetailScreenProps {
 
 const MeasureDetailScreen: React.FC<MeasureDetailScreenProps> = ({ route }) => {
   const { data: originalData }: { data: DeviceData } = route.params;
-  const navigation = useNavigation();
 
   const [chartScale, setChartScale] = useState<string>("day");
   const [customOpen, setCustomOpen] = useState<boolean>(false);
@@ -45,7 +35,7 @@ const MeasureDetailScreen: React.FC<MeasureDetailScreenProps> = ({ route }) => {
     if (type === "score") {
       return { minDomain: { y: 0 }, maxDomain: { y: 100 } };
     } else if (type === "CO2") {
-      return { minDomain: { y: 0 }, maxDomain: { y: 2000 } };
+      return { minDomain: { y: 0 }, maxDomain: { y: 2500 } };
     } else if (type === "temperature") {
       return { minDomain: { y: 5 }, maxDomain: { y: 35 } };
     } else if (type === "pressure") {
@@ -169,10 +159,10 @@ const MeasureDetailScreen: React.FC<MeasureDetailScreenProps> = ({ route }) => {
             <Text
               category="h1"
               style={{ fontSize: 50, fontWeight: "800", fontFamily: "Montserrat_700Bold", marginRight: 10 }}>
-              {data.value}
+              {originalData.value}
             </Text>
             <Text style={{ fontSize: 22, fontWeight: "500", fontFamily: "Montserrat_500Medium", paddingBottom: 6 }}>
-              {data.unit}
+              {originalData.unit}
             </Text>
           </View>
           <Text
@@ -190,7 +180,7 @@ const MeasureDetailScreen: React.FC<MeasureDetailScreenProps> = ({ route }) => {
                 fontWeight: "500",
                 fontFamily: "Montserrat_500Medium",
                 fontSize: 18,
-                color: getColorValue(data.color),
+                color: getColorValue(originalData.color),
               }}>
               {data.color == "green"
                 ? i18n.t("level_good")
@@ -200,12 +190,12 @@ const MeasureDetailScreen: React.FC<MeasureDetailScreenProps> = ({ route }) => {
             </Text>
           </Text>
           <LevelVizualizer
-            data={data}
+            data={originalData}
             style={{
               marginTop: 10,
               marginBottom: 30,
             }}
-            type={data.type}
+            type={originalData.type}
           />
           <View
             style={{
@@ -230,8 +220,8 @@ const MeasureDetailScreen: React.FC<MeasureDetailScreenProps> = ({ route }) => {
                 }}
               />
               <Text category="s2" style={{ fontSize: 14 }}>
-                {data.maxValue}
-                {data.unit}
+                {originalData.maxValue}
+                {originalData.unit}
               </Text>
             </View>
             <View
@@ -250,8 +240,8 @@ const MeasureDetailScreen: React.FC<MeasureDetailScreenProps> = ({ route }) => {
                 }}
               />
               <Text category="s2" style={{ fontSize: 14 }}>
-                {data.minValue}
-                {data.unit}
+                {originalData.minValue}
+                {originalData.unit}
               </Text>
             </View>
             <View
@@ -269,8 +259,8 @@ const MeasureDetailScreen: React.FC<MeasureDetailScreenProps> = ({ route }) => {
                 }}
               />
               <Text category="s2" style={{ fontSize: 14 }}>
-                {data.change}
-                {data.unit}
+                {originalData.change}
+                {originalData.unit}
               </Text>
             </View>
           </View>
