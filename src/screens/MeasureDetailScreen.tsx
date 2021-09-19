@@ -182,9 +182,9 @@ const MeasureDetailScreen: React.FC<MeasureDetailScreenProps> = ({ route }) => {
                 fontSize: 18,
                 color: getColorValue(originalData.color),
               }}>
-              {data.color == "green"
+              {originalData.color == "green"
                 ? i18n.t("level_good")
-                : data.color
+                : originalData.color == "yellow"
                 ? i18n.t("level_not_bad")
                 : i18n.t("level_bad")}
             </Text>
