@@ -5,6 +5,9 @@ import * as Analytics from "expo-firebase-analytics";
 
 import { LinearGradient } from "expo-linear-gradient";
 
+// @ts-ignore
+import UserAvatar from "react-native-user-avatar";
+
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "./RootStackParams";
@@ -46,31 +49,49 @@ const ProfileScreen: React.FC = () => {
             }}>
             <View>
               {loading ? (
-                <>
+                <View style={{ display: "flex", flexDirection: "row" }}>
                   <ShimmerPlaceholder
                     LinearGradient={LinearGradient}
-                    width={200}
-                    height={25}
-                    style={{ borderRadius: "4px", marginBottom: 10 }}
+                    width={50}
+                    height={50}
+                    style={{ borderRadius: "100", marginRight: 15 }}
                   />
                   <ShimmerPlaceholder visible={true}></ShimmerPlaceholder>
-                  <ShimmerPlaceholder
-                    LinearGradient={LinearGradient}
-                    width={230}
-                    height={25}
-                    style={{ borderRadius: "4px" }}
-                  />
-                  <ShimmerPlaceholder visible={true}></ShimmerPlaceholder>
-                </>
+                  <View>
+                    <ShimmerPlaceholder
+                      LinearGradient={LinearGradient}
+                      width={150}
+                      height={23}
+                      style={{ borderRadius: "4px", marginBottom: 8 }}
+                    />
+                    <ShimmerPlaceholder visible={true}></ShimmerPlaceholder>
+                    <ShimmerPlaceholder
+                      LinearGradient={LinearGradient}
+                      width={190}
+                      height={18}
+                      style={{ borderRadius: "4px" }}
+                    />
+                    <ShimmerPlaceholder visible={true}></ShimmerPlaceholder>
+                  </View>
+                </View>
               ) : (
-                <>
-                  <Text category="h1" style={{ paddingBottom: 3 }}>
-                    {data?.account.first_name + " " + data?.account.last_name}
-                  </Text>
-                  <Text category="p1" style={{ color: "#000", fontSize: 16 }}>
-                    {data?.account.email}
-                  </Text>
-                </>
+                <View style={{ display: "flex", flexDirection: "row" }}>
+                  <UserAvatar
+                    size={50}
+                    name={data?.account.first_name + " " + data?.account.last_name}
+                    bgColor="#AFB8BF"
+                    style={{ marginRight: 15, fontWeight: 800 }}
+                    borderRadius={100}
+                  />
+                  <View>
+                    <Text category="h1" style={{ paddingBottom: 3 }}>
+                      {data?.account.first_name + " " + data?.account.last_name}
+                    </Text>
+                    <Text category="p1" style={{ color: "#000", fontSize: 16 }}>
+                      {data?.account.email}
+                    </Text>
+                  </View>
+                </View>
               )}
             </View>
             <TouchableOpacity
