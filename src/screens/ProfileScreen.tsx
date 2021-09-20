@@ -80,7 +80,7 @@ const ProfileScreen: React.FC = () => {
                     size={50}
                     name={data?.account.first_name + " " + data?.account.last_name}
                     bgColor="#AFB8BF"
-                    style={{ marginRight: 15, fontWeight: 800 }}
+                    style={{ marginRight: 15 }}
                     borderRadius={100}
                   />
                   <View>
