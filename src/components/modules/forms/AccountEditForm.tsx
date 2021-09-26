@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 
-import { Alert } from "react-native";
+import { Text, Input, Button, Spinner, Icon } from "@ui-kitten/components";
 
-import { Text, Input, Button, Spinner } from "@ui-kitten/components";
+import { showMessage } from "react-native-flash-message";
 
 import { useGetAccountQuery, useChangePasswordMutation } from "../../../graphql";
 
@@ -20,10 +20,21 @@ const AccountEditForm: React.FC = () => {
   const query = useGetAccountQuery();
   const [changePassword, { loading: passwordLoading }] = useChangePasswordMutation({
     onCompleted: (result) => {
-      if (result) Alert.alert(i18n.t("done"), i18n.t("password_change_complete"));
+      if (result)
+        showMessage({
+          message: i18n.t("done"),
+          description: i18n.t("password_change_complete"),
+          type: "success",
+          icon: { icon: "success", position: "left" },
+          duration: 2500,
+          renderFlashMessageIcon: () => (
+            <Icon name="check-circle" style={{ color: "#fff", width: 24, height: 24, marginRight: 8 }} />
+          ),
+          style: { paddingBottom: 20 },
+        });
       else setPasswordError(i18n.t("msg_password_invalid"));
     },
-    onError: (error) => {
+    onError: () => {
       setPasswordError(i18n.t("error_network_desc"));
     },
   });

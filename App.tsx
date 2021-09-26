@@ -25,6 +25,8 @@ import VerifyEmailScreen from "./src/screens/VerifyEmailScreen";
 import SendInstructionsScreen from "./src/screens/SendInstructionsScreen";
 import FeedbackSuccessScreen from "./src/screens/FeedbackSuccessScreen";
 
+import FlashMessage from "react-native-flash-message";
+
 import ThingsboardService from "./src/services/ThingsboardService";
 import { TabNavigator } from "./src/utils/TabNavigator";
 
@@ -53,7 +55,7 @@ Sentry.init({
 const Stack = createStackNavigator<RootStackParamList>();
 
 const App: React.FC = () => {
-  let colorScheme = useColorScheme();
+  const colorScheme = useColorScheme();
   let firstScreen: string;
 
   const navigationRef = useNavigationContainerRef();
@@ -186,6 +188,7 @@ const App: React.FC = () => {
                 ))}
             </Stack.Navigator>
           </NavigationContainer>
+          <FlashMessage position="top" />
         </ApolloProvider>
       </ApplicationProvider>
     </>

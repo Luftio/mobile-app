@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import * as Sentry from "sentry-expo";
 
-import { Alert, View } from "react-native";
-import { Button, Input, Text } from "@ui-kitten/components";
+import { View } from "react-native";
+import { Button, Input, Text, Icon } from "@ui-kitten/components";
 
 import i18n from "../../../i18n";
 import ThingsboardService from "../../../services/ThingsboardService";
 import { useNavigation } from "@react-navigation/native";
+
+import { showMessage } from "react-native-flash-message";
 
 const ReportProblemForm: React.FC = () => {
   const [message, setMessage] = useState<string>("");
@@ -22,16 +24,22 @@ const ReportProblemForm: React.FC = () => {
 
     setError(null);
 
-    Alert.alert(i18n.t("report_success_heading"), i18n.t("report_success_subheading"), [
-      {
-        text: "OK",
-        onPress: () => {
-          navigation.goBack();
-        },
-      },
-    ]);
     const userData = await ThingsboardService.getInstance().getUserData();
     Sentry.Browser.captureMessage("User report " + userData?.email + " - " + message);
+
+    navigation.goBack();
+
+    showMessage({
+      message: i18n.t("report_success_heading"),
+      description: i18n.t("report_success_subheading"),
+      type: "success",
+      icon: { icon: "success", position: "left" },
+      duration: 2500,
+      renderFlashMessageIcon: () => (
+        <Icon name="check-circle" style={{ color: "#fff", width: 24, height: 24, marginRight: 8 }} />
+      ),
+      style: { paddingBottom: 20 },
+    });
   }
 
   return (
