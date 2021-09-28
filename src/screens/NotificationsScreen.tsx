@@ -101,8 +101,8 @@ const NotificationsScreen: React.FC = () => {
                     <Notification
                       isGeneral={true}
                       key={notification.id}
-                      name={notification.title}
-                      text={notification.text}
+                      name={i18n.t(notification.title)}
+                      text={i18n.t(notification.text)}
                       showDate={shouldShowDate(data?.notifications, i)}
                       date={formatDate(notification.date)}
                       sub={formatTime(notification.date)}

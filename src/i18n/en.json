@@ -196,5 +196,7 @@
   "iaq": "VOC index",
   "siaq": "VOC index",
   "tvoc": "tVOC",
-  "find_out_more": "Find out more"
+  "find_out_more": "Find out more",
+  "generic_notification_title": "Welcome to Luftio!",
+  "generic_notification_text": "Thank you for your support and we wish you many healthy days with our sensor"
 }

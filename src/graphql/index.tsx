@@ -286,7 +286,7 @@ export type Suggestion = {
 export type GetAccountQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAccountQuery = { __typename?: 'Query', account: { __typename?: 'Account', id: string, first_name: string, last_name: string, email: string, role: string } };
+export type GetAccountQuery = { __typename?: 'Query', account: { __typename?: 'Account', id: string, first_name: string, last_name: string, email: string } };
 
 export type ChangePasswordMutationVariables = Exact<{
   currentPassword: Scalars['String'];
@@ -365,7 +365,6 @@ export const GetAccountDocument = gql`
     first_name
     last_name
     email
-    role
   }
 }
     `;
