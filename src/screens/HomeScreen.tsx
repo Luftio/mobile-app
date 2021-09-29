@@ -63,7 +63,7 @@ const HomeScreen: React.FC = () => {
     },
   });
   const [getDeviceData, { data: devicesData, loading: devicesDataLoading, refetch: dataRefetch }] =
-    useGetDeviceDataLazyQuery();
+    useGetDeviceDataLazyQuery({ fetchPolicy: "cache-and-network" });
   const [getBrightness, { data: brightnessData }] = useGetBrightnessLazyQuery();
   const [setBrightness] = useSetBrightnessMutation();
 
@@ -134,13 +134,13 @@ const HomeScreen: React.FC = () => {
   useEffect(() => {
     const refreshInterval = setInterval(() => {
       if (dataRefetch) {
-        dataRefetch();
+        dataRefetch({});
       }
     }, 60000);
     return () => {
       clearInterval(refreshInterval);
     };
-  }, []);
+  }, [dataRefetch]);
   function getColorValue(color?: string) {
     if (color == "green") return "#23A454";
     if (color == "yellow") return "#FFB951";
