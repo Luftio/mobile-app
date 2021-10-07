@@ -3,7 +3,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Layout } from "@ui-kitten/components";
 
 export default function LayoutSafeArea(props: any) {
-  var insets = useSafeAreaInsets();
+  const insets = useSafeAreaInsets();
 
   return (
     <Layout

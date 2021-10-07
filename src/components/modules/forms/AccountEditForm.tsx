@@ -150,7 +150,7 @@ const AccountEditForm: React.FC = () => {
           passwordLoading ||
           !password ||
           !repeatNewPassword ||
-          newPassword.length < 12 ||
+          newPassword.length < 8 ||
           repeatNewPassword != newPassword
         }
         style={{ marginTop: 10 }}>
