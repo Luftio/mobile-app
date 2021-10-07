@@ -34,7 +34,7 @@
       "supportsTablet": false,
       "icon": "./assets/ios-icon.png",
       "bundleIdentifier": "com.luftio.app",
-      "buildNumber": "15",
+      "buildNumber": "16",
       "googleServicesFile": "./GoogleService-Info.plist"
     },
     "web": {
