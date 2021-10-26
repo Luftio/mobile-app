@@ -80,16 +80,21 @@ const MeasureDetailScreen: React.FC<MeasureDetailScreenProps> = ({ route }) => {
     { title: i18n.t("co2_eduaction_card_title_1"), content: i18n.t("co2_eduaction_card_text_1") },
     { title: i18n.t("co2_eduaction_card_title_2"), content: i18n.t("co2_eduaction_card_text_2") },
     { title: i18n.t("co2_eduaction_card_title_3"), content: i18n.t("co2_eduaction_card_text_3") },
+    { title: i18n.t("co2_eduaction_card_title_4"), content: i18n.t("co2_eduaction_card_text_4") },
+    { title: i18n.t("co2_eduaction_card_title_5"), content: i18n.t("co2_eduaction_card_text_5") },
   ];
   const temperature = [
     { title: i18n.t("temp_eduaction_card_title_1"), content: i18n.t("temp_eduaction_card_text_1") },
     { title: i18n.t("temp_eduaction_card_title_2"), content: i18n.t("temp_eduaction_card_text_2") },
     { title: i18n.t("temp_eduaction_card_title_3"), content: i18n.t("temp_eduaction_card_text_3") },
+    { title: i18n.t("temp_eduaction_card_title_4"), content: i18n.t("temp_eduaction_card_text_4") },
   ];
   const humidity = [
     { title: i18n.t("humidity_eduaction_card_title_1"), content: i18n.t("humidity_eduaction_card_text_1") },
     { title: i18n.t("humidity_eduaction_card_title_2"), content: i18n.t("humidity_eduaction_card_text_2") },
     { title: i18n.t("humidity_eduaction_card_title_3"), content: i18n.t("humidity_eduaction_card_text_3") },
+    { title: i18n.t("humidity_eduaction_card_title_4"), content: i18n.t("humidity_eduaction_card_text_4") },
+    { title: i18n.t("humidity_eduaction_card_title_5"), content: i18n.t("humidity_eduaction_card_text_5") },
   ];
   const pressure = [
     { title: i18n.t("pressure_eduaction_card_title_1"), content: i18n.t("pressure_eduaction_card_text_1") },
@@ -100,6 +105,8 @@ const MeasureDetailScreen: React.FC<MeasureDetailScreenProps> = ({ route }) => {
     { title: i18n.t("voc_eduaction_card_title_1"), content: i18n.t("voc_eduaction_card_text_1") },
     { title: i18n.t("voc_eduaction_card_title_2"), content: i18n.t("voc_eduaction_card_text_2") },
     { title: i18n.t("voc_eduaction_card_title_3"), content: i18n.t("voc_eduaction_card_text_3") },
+    { title: i18n.t("voc_eduaction_card_title_4"), content: i18n.t("voc_eduaction_card_text_4") },
+    { title: i18n.t("voc_eduaction_card_title_5"), content: i18n.t("voc_eduaction_card_text_5") },
   ];
 
   let cards: { title: string; content: string }[] = [];
