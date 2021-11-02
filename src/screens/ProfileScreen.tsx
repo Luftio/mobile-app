@@ -54,7 +54,7 @@ const ProfileScreen: React.FC = () => {
                     LinearGradient={LinearGradient}
                     width={50}
                     height={50}
-                    style={{ borderRadius: "100", marginRight: 15 }}
+                    style={{ borderRadius: 100, marginRight: 15 }}
                   />
                   <ShimmerPlaceholder visible={true}></ShimmerPlaceholder>
                   <View>
@@ -62,14 +62,14 @@ const ProfileScreen: React.FC = () => {
                       LinearGradient={LinearGradient}
                       width={150}
                       height={23}
-                      style={{ borderRadius: "4px", marginBottom: 8 }}
+                      style={{ borderRadius: 4, marginBottom: 8 }}
                     />
                     <ShimmerPlaceholder visible={true}></ShimmerPlaceholder>
                     <ShimmerPlaceholder
                       LinearGradient={LinearGradient}
                       width={190}
                       height={18}
-                      style={{ borderRadius: "4px" }}
+                      style={{ borderRadius: 4 }}
                     />
                     <ShimmerPlaceholder visible={true}></ShimmerPlaceholder>
                   </View>
