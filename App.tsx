@@ -56,13 +56,10 @@ const Stack = createStackNavigator<RootStackParamList>();
 
 const App: React.FC = () => {
   const colorScheme = useColorScheme();
-  let firstScreen: string;
 
   const navigationRef = useNavigationContainerRef();
 
-  const [viewedOnboarding, setViewedOnboarding] = useState<boolean>(false);
-  const [loggedIn, setLoggedIn] = useState<boolean>(false);
-  const [isReady, setIsReady] = useState<boolean>(false);
+  const [firstScreen, setFirstScreen] = useState<string>();
 
   const [fontsLoaded] = useFonts({
     Montserrat_400Regular,
@@ -117,34 +114,25 @@ const App: React.FC = () => {
     // Check login
     try {
       const _loggedIn = await ThingsboardService.getInstance().isLoggedIn();
-      setLoggedIn(_loggedIn);
+      setFirstScreen("Home");
+      return;
     } catch (error) {
       console.log(error);
-      setLoggedIn(false);
-      return;
     }
     try {
       const value = await AsyncStorage.getItem("@viewedOnboarding");
       if (value !== null) {
-        setViewedOnboarding(true);
+        setFirstScreen("SignIn");
+        return;
       }
     } catch (err) {
       console.log("Error @checkOnboarding: ", err);
     }
+    setFirstScreen("Onboarding");
   };
 
-  if (!fontsLoaded && !isReady) {
-    console.log("loading");
-    return <AppLoading startAsync={loadApp} onFinish={() => setIsReady(true)} onError={console.error} />;
-  }
-  console.log("loaded ", fontsLoaded);
-
-  if (loggedIn) {
-    firstScreen = "Home";
-  } else if (viewedOnboarding) {
-    firstScreen = "SignIn";
-  } else {
-    firstScreen = "Onboarding";
+  if (!fontsLoaded || firstScreen === undefined) {
+    return <AppLoading startAsync={loadApp} onFinish={() => {}} onError={console.error} />;
   }
 
   const screens: {
