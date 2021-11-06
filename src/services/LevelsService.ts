@@ -4,11 +4,11 @@ export const levels = {
   CO2: {
     totalRange: { from: 400, to: 3000 },
     ranges: [
-      { type: "good", from: 400, to: 1100 },
-      { type: "bad", from: 1100, to: 1500 },
-      { type: "terrible", from: 1500, to: 3000 },
+      { type: "good", from: 400, to: 1000 },
+      { type: "bad", from: 1000, to: 1400 },
+      { type: "terrible", from: 1400, to: 3000 },
     ],
-    labels: [1100, 1500],
+    labels: [1000, 1400],
   },
   temperature: {
     totalRange: { from: 14, to: 30 },

@@ -19,18 +19,12 @@ const ProfileRow: React.FC<ProfileRowProps> = ({ iconName, text, onPress }) => {
           marginBottom: 25,
         }}>
         <View style={{ flex: 0.2 }}>
-          <Icon
-            name={iconName}
-            style={{ color: "#000", width: 24, height: 24 }}
-          />
+          <Icon name={iconName} style={{ color: "#000", width: 24, height: 24 }} />
         </View>
         <Text category="p1" style={{ flex: 0.8, fontSize: 18 }}>
           {text}
         </Text>
-        <Icon
-          name="chevron-right"
-          style={{ color: "#838C97", width: 22, height: 22 }}
-        />
+        <Icon name="chevron-right" style={{ color: "#838C97", width: 22, height: 22 }} />
       </View>
     </TouchableOpacity>
   );

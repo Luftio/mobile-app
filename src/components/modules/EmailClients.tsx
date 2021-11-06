@@ -12,12 +12,7 @@ const EmailClients: React.FC = () => {
         size="large"
         appearance="outline"
         style={{ marginBottom: 15 }}
-        accessoryLeft={() => (
-          <Image
-            style={{ width: 24, height: 19 }}
-            source={require("../../../assets/gmail.png")}
-          />
-        )}
+        accessoryLeft={() => <Image style={{ width: 24, height: 19 }} source={require("../../../assets/gmail.png")} />}
         onPress={() => Linking.openURL("https://mail.google.com/")}>
         {i18n.t("open_gmail")}
       </Button>
@@ -26,10 +21,7 @@ const EmailClients: React.FC = () => {
         appearance="outline"
         style={{ marginBottom: 15 }}
         accessoryLeft={() => (
-          <Image
-            style={{ width: 22, height: 24 }}
-            source={require("../../../assets/outlook.png")}
-          />
+          <Image style={{ width: 22, height: 24 }} source={require("../../../assets/outlook.png")} />
         )}
         onPress={() => Linking.openURL("https://outlook.live.com/mail")}>
         {i18n.t("open_outlook")}
@@ -37,12 +29,7 @@ const EmailClients: React.FC = () => {
       <Button
         size="large"
         appearance="outline"
-        accessoryLeft={() => (
-          <Image
-            style={{ width: 23, height: 13 }}
-            source={require("../../../assets/seznam.png")}
-          />
-        )}
+        accessoryLeft={() => <Image style={{ width: 23, height: 13 }} source={require("../../../assets/seznam.png")} />}
         onPress={() => Linking.openURL("https://email.seznam.cz/")}>
         {i18n.t("open_seznam")}
       </Button>
