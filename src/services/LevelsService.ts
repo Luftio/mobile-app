@@ -1,6 +1,15 @@
 import colors from "../../config/colors";
 
 export const levels = {
+  score: {
+    totalRange: { from: 0, to: 100 },
+    ranges: [
+      { type: "terrible", from: 0, to: 50 },
+      { type: "bad", from: 50, to: 75 },
+      { type: "good", from: 75, to: 100 },
+    ],
+    labels: [75, 50],
+  },
   CO2: {
     totalRange: { from: 400, to: 3000 },
     ranges: [

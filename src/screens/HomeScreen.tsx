@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { View, ScrollView, Alert } from "react-native";
+import { View, ScrollView, Alert, TouchableNativeFeedback } from "react-native";
 import * as Notifications from "expo-notifications";
 import { Subscription } from "@unimodules/core";
 
@@ -184,69 +184,77 @@ const HomeScreen: React.FC = () => {
             )}
 
             <View style={{ alignItems: "center", paddingTop: 40 }}>
-              <View
-                style={{
-                  position: "relative",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  width: 100,
-                  height: 200,
-                }}>
-                <ReanimatedArcBase
-                  color="#E1E6EA"
-                  diameter={200}
-                  width={10}
-                  arcSweepAngle={240}
-                  lineCap="round"
-                  rotation={240}
-                  style={{ position: "absolute" }}
-                />
-                <ReanimatedArcBase
-                  color={score > 70 ? "#23A454" : score > 40 ? "#FFB951" : "#E55B5B"}
-                  diameter={200}
-                  width={10}
-                  arcSweepAngle={arcSweepAngle}
-                  lineCap="round"
-                  rotation={240}
-                  style={{ position: "absolute" }}
-                />
-                <Text
+              <TouchableNativeFeedback
+                onPress={() =>
+                  navigation.navigate("MeasureDetail", {
+                    data: devicesData?.device_data?.data[0],
+                    deviceId: selectedDeviceId,
+                  })
+                }>
+                <View
                   style={{
-                    transform: [{ translateY: -15 }],
-                    fontWeight: "600",
-                    fontFamily: "Montserrat_600SemiBold",
-                    color: "#AFB8BF",
+                    position: "relative",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    width: 100,
+                    height: 200,
                   }}>
-                  {i18n.t("score")}
-                </Text>
-                <Text
-                  category="h1"
-                  style={{
-                    transform: [{ translateY: -10 }],
-                    fontSize: 50,
-                    fontWeight: "800",
-                    fontFamily: "Montserrat_700Bold",
-                  }}>
-                  {score}
-                </Text>
-                <Text
-                  style={{
-                    transform: [{ translateY: -5 }],
-                    fontWeight: "600",
-                    fontFamily: "Montserrat_600SemiBold",
-                    color: color,
-                  }}>
-                  {i18n.t(
-                    score > 75
-                      ? "upper_level_good"
-                      : score > 40
-                      ? "upper_level_not_bad"
-                      : devicesData?.device_data?.data
-                      ? "upper_level_bad"
-                      : "no_data"
-                  )}
-                </Text>
-              </View>
+                  <ReanimatedArcBase
+                    color="#E1E6EA"
+                    diameter={200}
+                    width={10}
+                    arcSweepAngle={240}
+                    lineCap="round"
+                    rotation={240}
+                    style={{ position: "absolute" }}
+                  />
+                  <ReanimatedArcBase
+                    color={score > 70 ? "#23A454" : score > 40 ? "#FFB951" : "#E55B5B"}
+                    diameter={200}
+                    width={10}
+                    arcSweepAngle={arcSweepAngle}
+                    lineCap="round"
+                    rotation={240}
+                    style={{ position: "absolute" }}
+                  />
+                  <Text
+                    style={{
+                      transform: [{ translateY: -15 }],
+                      fontWeight: "600",
+                      fontFamily: "Montserrat_600SemiBold",
+                      color: "#AFB8BF",
+                    }}>
+                    {i18n.t("score")}
+                  </Text>
+                  <Text
+                    category="h1"
+                    style={{
+                      transform: [{ translateY: -10 }],
+                      fontSize: 50,
+                      fontWeight: "800",
+                      fontFamily: "Montserrat_700Bold",
+                    }}>
+                    {score}
+                  </Text>
+                  <Text
+                    style={{
+                      transform: [{ translateY: -5 }],
+                      fontWeight: "600",
+                      fontFamily: "Montserrat_600SemiBold",
+                      color: color,
+                    }}>
+                    {i18n.t(
+                      score > 75
+                        ? "upper_level_good"
+                        : score > 40
+                        ? "upper_level_not_bad"
+                        : devicesData?.device_data?.data
+                        ? "upper_level_bad"
+                        : "no_data"
+                    )}
+                  </Text>
+                </View>
+              </TouchableNativeFeedback>
             </View>
             <View
               style={{

@@ -21,22 +21,12 @@ const InformationsScreen: React.FC = () => {
         style={{ backgroundColor: "#FAFAFA" }}
       />
       <View style={{ flex: 1, padding: 24 }}>
-        <ProfileRow
-          iconName="file-text"
-          text="GDPR"
-          onPress={() => Linking.openURL(i18n.t("term_url"))}
-        />
-        <ProfileRow
-          iconName="globe"
-          text="Web"
-          onPress={() => Linking.openURL(i18n.t("informations_item_web_url"))}
-        />
+        <ProfileRow iconName="file-text" text="GDPR" onPress={() => Linking.openURL(i18n.t("term_url"))} />
+        <ProfileRow iconName="globe" text="Web" onPress={() => Linking.openURL(i18n.t("informations_item_web_url"))} />
         <ProfileRow
           iconName="activity"
           text="Status"
-          onPress={() =>
-            Linking.openURL("https://stats.uptimerobot.com/4V7YjUJ4q3")
-          }
+          onPress={() => Linking.openURL("https://stats.uptimerobot.com/4V7YjUJ4q3")}
         />
       </View>
     </LayoutSafeArea>
