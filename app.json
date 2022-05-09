@@ -4,7 +4,7 @@
     "slug": "luftio-app",
     "owner": "luftio",
     "platforms": ["ios", "android", "web"],
-    "version": "1.1.4",
+    "version": "1.1.6",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "primaryColor": "#031846",
@@ -19,7 +19,7 @@
     "assetBundlePatterns": ["**/*"],
     "android": {
       "package": "com.luftio.app",
-      "versionCode": 17,
+      "versionCode": 19,
       "permissions": [],
       "adaptiveIcon": {
         "foregroundImage": "./assets/android-icon.png",
@@ -34,7 +34,7 @@
       "supportsTablet": false,
       "icon": "./assets/ios-icon.png",
       "bundleIdentifier": "com.luftio.app",
-      "buildNumber": "17",
+      "buildNumber": "19",
       "googleServicesFile": "./GoogleService-Info.plist"
     },
     "web": {

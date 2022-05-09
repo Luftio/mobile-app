@@ -114,8 +114,10 @@ const App: React.FC = () => {
     // Check login
     try {
       const _loggedIn = await ThingsboardService.getInstance().isLoggedIn();
-      setFirstScreen("Home");
-      return;
+      if (_loggedIn) {
+        setFirstScreen("Home");
+        return;
+      }
     } catch (error) {
       console.log(error);
     }
