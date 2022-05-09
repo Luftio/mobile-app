@@ -54,9 +54,7 @@ const HomeScreen: React.FC = () => {
         {
           text: i18n.t("retry"),
           onPress: () => {
-            if (ThingsboardService.getInstance().isLoggedIn()) {
-              devicesRefetch();
-            }
+            devicesRefetch();
           },
         },
       ]);
@@ -146,7 +144,9 @@ const HomeScreen: React.FC = () => {
     if (color == "yellow") return "#FFB951";
     if (color == "red") return "#ED3A49";
   }
-  let color = getColorValue(devicesData?.device_data?.data ? devicesData?.device_data.color : "");
+  const color = getColorValue(devicesData?.device_data?.data ? devicesData?.device_data.color : "");
+  const recentlyActive =
+    devicesData?.device_data != null && +new Date(devicesData.device_data.lastActivityTime) > Date.now() - 180000;
 
   return (
     <>
@@ -349,24 +349,35 @@ const HomeScreen: React.FC = () => {
                 <Spinner size="large" />
               </View>
             ) : !devicesData?.device_data?.data || devicesData?.device_data?.data?.length <= 0 ? (
-              <View style={{ justifyContent: "space-evenly", alignItems: "center", marginLeft: 20, marginRight: 20 }}>
-                <Text category="h1" style={{ textAlign: "center" }}>
-                  {i18n.t("no_data")}
-                </Text>
-                <Text category="s2" style={{ textAlign: "center", marginTop: 20, marginBottom: 20 }}>
-                  {i18n.t("no_data_desc")}
-                </Text>
-                <Button
-                  onPress={() => {
-                    loadDevice();
-                    Analytics.logEvent(`Retry load data`, {
-                      screen: "Home",
-                      purpose: `User retried to load device data`,
-                    });
-                  }}>
-                  {i18n.t("retry")}
-                </Button>
-              </View>
+              recentlyActive ? (
+                <View style={{ justifyContent: "space-evenly", alignItems: "center", marginLeft: 20, marginRight: 20 }}>
+                  <Text category="h1" style={{ textAlign: "center" }}>
+                    {i18n.t("data_loading")}
+                  </Text>
+                  <Text category="s2" style={{ textAlign: "center", marginTop: 20, marginBottom: 20 }}>
+                    {i18n.t("data_loading_desc")}
+                  </Text>
+                </View>
+              ) : (
+                <View style={{ justifyContent: "space-evenly", alignItems: "center", marginLeft: 20, marginRight: 20 }}>
+                  <Text category="h1" style={{ textAlign: "center" }}>
+                    {i18n.t("no_data")}
+                  </Text>
+                  <Text category="s2" style={{ textAlign: "center", marginTop: 20, marginBottom: 20 }}>
+                    {i18n.t("no_data_desc")}
+                  </Text>
+                  <Button
+                    onPress={() => {
+                      loadDevice();
+                      Analytics.logEvent(`Retry load data`, {
+                        screen: "Home",
+                        purpose: `User retried to load device data`,
+                      });
+                    }}>
+                    {i18n.t("retry")}
+                  </Button>
+                </View>
+              )
             ) : (
               <>
                 <Text category="h3" style={{ marginBottom: 25 }}>

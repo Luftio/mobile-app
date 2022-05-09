@@ -8,7 +8,7 @@ import { GlobalLogout } from "../utils/GlobalLogout";
 const LUFTIO_GRAPHQL_ENDPOINT = "https://app.luftio.com/backend/graphql";
 //const LUFTIO_GRAPHQL_ENDPOINT = "http://localhost:3000/graphql";
 
-const errorLink = onError(({ graphQLErrors, networkError }) => {
+const errorLink = onError(({ graphQLErrors, networkError, response }) => {
   if (networkError) {
     console.log(LUFTIO_GRAPHQL_ENDPOINT);
     console.log(networkError);
@@ -16,10 +16,12 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors) {
     for (const err of graphQLErrors) {
       console.log(err);
-      if (err?.extensions?.code === "invalid-jwt") {
+      if (err?.extensions?.code === "invalid-jwt" || err?.extensions?.exception?.status === 403) {
         console.log("Invalid JWT");
         ThingsboardService.getInstance().logout();
         GlobalLogout.dispatch();
+        if (response) response.errors = [];
+        return;
       }
     }
   }

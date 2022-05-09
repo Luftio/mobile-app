@@ -46,6 +46,9 @@ export type Device = {
   data?: Maybe<Array<DeviceData>>;
   id: Scalars['ID'];
   label: Scalars['String'];
+  lastActivityTime: Scalars['DateTime'];
+  lastConnectTime: Scalars['DateTime'];
+  lastDisconnectTime: Scalars['DateTime'];
   title: Scalars['String'];
 };
 
@@ -89,6 +92,7 @@ export type EventFromEmployee = {
 export type EventFromMeasure = {
   __typename?: 'EventFromMeasure';
   date: Scalars['DateTime'];
+  icon_name: Scalars['String'];
   id: Scalars['ID'];
   is_unread: Scalars['Boolean'];
   justification: Scalars['String'];
@@ -276,6 +280,7 @@ export type Suggestion = {
   date: Scalars['DateTime'];
   description: Scalars['String'];
   how_solve: Scalars['String'];
+  icon_name: Scalars['String'];
   id: Scalars['ID'];
   importance: Scalars['Int'];
   is_unread: Scalars['Boolean'];
@@ -314,7 +319,7 @@ export type GetDeviceDataQueryVariables = Exact<{
 }>;
 
 
-export type GetDeviceDataQuery = { __typename?: 'Query', device_data: { __typename?: 'Device', id: string, title: string, label: string, color: string, data?: Maybe<Array<{ __typename?: 'DeviceData', type: string, unit: string, value: number, change: number, color: string, maxValue: number, minValue: number, values: Array<{ __typename?: 'DeviceDataValue', ts: any, value: number }> }>> } };
+export type GetDeviceDataQuery = { __typename?: 'Query', device_data: { __typename?: 'Device', id: string, title: string, label: string, lastActivityTime: any, lastConnectTime: any, lastDisconnectTime: any, color: string, data?: Maybe<Array<{ __typename?: 'DeviceData', type: string, unit: string, value: number, change: number, color: string, maxValue: number, minValue: number, values: Array<{ __typename?: 'DeviceDataValue', ts: any, value: number }> }>> } };
 
 export type GetDeviceAttributesQueryVariables = Exact<{
   id: Scalars['String'];
@@ -503,6 +508,9 @@ export const GetDeviceDataDocument = gql`
     id
     title
     label
+    lastActivityTime
+    lastConnectTime
+    lastDisconnectTime
     color
     data {
       type

@@ -212,5 +212,7 @@
   "tvoc": "tVOC",
   "find_out_more": "Find out more",
   "generic_notification_title": "Welcome to Luftio!",
-  "generic_notification_text": "Thank you for your support and we wish you many healthy days with our sensor"
+  "generic_notification_text": "Thank you for your support and we wish you many healthy days with our sensor",
+  "data_loading": "Data loading",
+  "data_loading_desc": "After start up, it takes a few minutes for Luftio sensors to initialize."
 }

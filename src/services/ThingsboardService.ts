@@ -12,6 +12,7 @@ export default class ThingsboardService implements IAuthService {
     const token = await AsyncStorage.getItem("token");
     if (token == null) return null;
     const decoded = jwt_decode(token) as Record<string, any>;
+    if (decoded.exp < Date.now() / 1000) return null;
     return {
       email: decoded.sub,
       fullName: decoded.firstName + " " + decoded.lastName,
@@ -25,7 +26,6 @@ export default class ThingsboardService implements IAuthService {
   }
 
   async loginEmail(email: string, password: string) {
-    console.log(email, password);
     const response = await axios.post(THINGSBOARD_SERVER + "api/auth/login", {
       username: email,
       password,

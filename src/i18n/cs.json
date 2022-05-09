@@ -211,5 +211,7 @@
   "tvoc": "tVOC",
   "find_out_more": "Zjistit více",
   "generic_notification_title": "Vítejte v Luftio!",
-  "generic_notification_text": "Děkujeme za Vaši podporu a přejeme Vám mnoho zdravých dnů s naším senzorem"
+  "generic_notification_text": "Děkujeme za Vaši podporu a přejeme Vám mnoho zdravých dnů s naším senzorem",
+  "data_loading": "Probíhá načítání",
+  "data_loading_desc": "Po spuštění Luftio se senzory nejdříve inicializují. Naměřená data se objeví za několik minut."
 }

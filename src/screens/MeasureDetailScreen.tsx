@@ -374,19 +374,19 @@ const MeasureDetailScreen: React.FC<MeasureDetailScreenProps> = ({ route }) => {
                 y="value"
               />
             </VictoryChart>
-            {data.type !== "score" && (
-              <>
-                <Text category="h3" style={{ marginBottom: 25, marginTop: 40 }}>
-                  {i18n.t("education")}
-                </Text>
-                <View style={{ flex: 1 }}>
-                  {cards.map((card: any) => (
-                    <CollapsibleCard key={card.title} title={card.title} content={card.content} useBezier />
-                  ))}
-                </View>
-              </>
-            )}
           </View>
+          {data.type !== "score" && (
+            <>
+              <Text category="h3" style={{ marginBottom: 25, marginTop: 40 }}>
+                {i18n.t("education")}
+              </Text>
+              <View style={{ flex: 1 }}>
+                {cards.map((card: any) => (
+                  <CollapsibleCard key={card.title} title={card.title} content={card.content} useBezier />
+                ))}
+              </View>
+            </>
+          )}
         </View>
       </ScrollView>
     </LayoutSafeArea>

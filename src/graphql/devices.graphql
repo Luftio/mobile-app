@@ -11,6 +11,9 @@ query GetDeviceData($id: String!, $startTs: String, $endTs: String, $interval: I
     id
     title
     label
+    lastActivityTime
+    lastConnectTime
+    lastDisconnectTime
     color
     data {
       type
